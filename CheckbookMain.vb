@@ -21,6 +21,8 @@ Public Class CheckbookMain
     End Structure
 
 
+    Shared Coso As New Random
+
 
     Private Sub CheckbookMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         ID = VibeLogin.LogonID.Text
@@ -37,7 +39,7 @@ Public Class CheckbookMain
         Tips(9) = "You still haven't WOKEN UP"
 
         Try
-            TipLBL.Text = Tips(CInt(Math.Ceiling(Rnd() * 10)))
+            TipLBL.Text = Tips(Coso.Next(0, 9))
         Catch ex As Exception
             TipLBL.Text = "Bonjour Bitch the tip failed to load" & vbNewLine & vbNewLine & ex.ToString
         End Try
