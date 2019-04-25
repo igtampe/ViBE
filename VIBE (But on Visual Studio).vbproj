@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6C52AFFC-EED3-4693-B7CB-5407C9C3AD53}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>VIBE__But_on_Visual_Studio_.My.MyApplication</StartupObject>
+    <RootNamespace>VIBE__But_on_Visual_Studio_</RootNamespace>
+    <AssemblyName>VIBE</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>A:\Marsh\VIBE\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>0.0.0.1</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>VIBE.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>VIBE.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DocumentationFile>VIBE.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DocumentationFile>VIBE.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>CFCC217B37703212C6889B00BE86A55B95CEE741</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>VIBE %28But on Visual Studio%29_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>VIBE.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.Designer.vb">
+      <DependentUpon>About.vb</DependentUpon>
+    </Compile>
+    <Compile Include="About.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include=".Designer.vb">
+      <DependentUpon>VibeChangePin.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BankWindow.Designer.vb">
+      <DependentUpon>BankWindow.vb</DependentUpon>
+    </Compile>
+    <Compile Include="BankWindow.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CertificationWindow.Designer.vb">
+      <DependentUpon>CertificationWindow.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CertificationWindow.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckbookInbox.Designer.vb">
+      <DependentUpon>CheckbookInbox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CheckbookInbox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckbookMain.Designer.vb">
+      <DependentUpon>CheckbookMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CheckbookMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckbookOutbox.Designer.vb">
+      <DependentUpon>CheckbookOutbox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CheckbookOutbox.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckbookSplash.Designer.vb">
+      <DependentUpon>CheckbookSplash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CheckbookSplash.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConAdd.Designer.vb">
+      <DependentUpon>ConAdd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConAdd.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConBid.Designer.vb">
+      <DependentUpon>ConBid.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConBid.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConDetails.Designer.vb">
+      <DependentUpon>ConDetails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConMain.Designer.vb">
+      <DependentUpon>ConMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConSplash.Designer.vb">
+      <DependentUpon>ConSplash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConSplash.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DownloadForm.Designer.vb">
+      <DependentUpon>DownloadForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EzTaxAbout.Designer.vb">
+      <DependentUpon>EzTaxAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EzTaxAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EzTaxCertify.Designer.vb">
+      <DependentUpon>EzTaxCertify.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EzTaxCertify.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EZTaxMain.Designer.vb">
+      <DependentUpon>EZTaxMain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EZTaxMain.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EZTaxSplash.Designer.vb">
+      <DependentUpon>EZTaxSplash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EZTaxSplash.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EZTaxWizard.Designer.vb">
+      <DependentUpon>EzTaxWizard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EzTaxWizard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LandView.Designer.vb">
+      <DependentUpon>LandView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="LandView.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LandViewDownload.Designer.vb">
+      <DependentUpon>LandViewDownload.vb</DependentUpon>
+    </Compile>
+    <Compile Include="LandViewDownload.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListViewItemComparer.vb" />
+    <Compile Include="My Project\Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\TransferMonet.Designer.vb">
+      <DependentUpon>TransferMonet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\TransferMonet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NotificationsForm.Designer.vb">
+      <DependentUpon>NotificationsForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationsForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuickNotif.Designer.vb">
+      <DependentUpon>QuickNotif.vb</DependentUpon>
+    </Compile>
+    <Compile Include="QuickNotif.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Readme.Designer.vb">
+      <DependentUpon>Readme.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Readme.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RefreshNotice.Designer.vb">
+      <DependentUpon>RefreshNotice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RefreshNotice.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ServerCommandLine.Designer.vb">
+      <DependentUpon>ServerCommandLine.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ServerCommandLine.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VibeChangePin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SendMonet.Designer.vb">
+      <DependentUpon>SendMonet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SendMonet.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VibeMainScreen.Designer.vb">
+      <DependentUpon>VibeMainScreen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VibeMainScreen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VibeLogin.Designer.vb">
+      <DependentUpon>VibeLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VibeLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen1.Designer.vb">
+      <DependentUpon>SplashScreen1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreen1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="VibeRegister.Designer.vb">
+      <DependentUpon>VibeRegister.vb</DependentUpon>
+    </Compile>
+    <Compile Include="VibeRegister.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WhatsNew.Designer.vb">
+      <DependentUpon>WhatsNew.vb</DependentUpon>
+    </Compile>
+    <Compile Include="WhatsNew.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BankWindow.resx">
+      <DependentUpon>BankWindow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CertificationWindow.resx">
+      <DependentUpon>CertificationWindow.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckbookInbox.resx">
+      <DependentUpon>CheckbookInbox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckbookMain.resx">
+      <DependentUpon>CheckbookMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckbookOutbox.resx">
+      <DependentUpon>CheckbookOutbox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckbookSplash.resx">
+      <DependentUpon>CheckbookSplash.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConAdd.resx">
+      <DependentUpon>ConAdd.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConBid.resx">
+      <DependentUpon>ConBid.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConDetails.resx">
+      <DependentUpon>ConDetails.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConMain.resx">
+      <DependentUpon>ConMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConSplash.resx">
+      <DependentUpon>ConSplash.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownloadForm.resx">
+      <DependentUpon>DownloadForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EzTaxAbout.resx">
+      <DependentUpon>EzTaxAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EzTaxCertify.resx">
+      <DependentUpon>EzTaxCertify.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EZTaxMain.resx">
+      <DependentUpon>EZTaxMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EZTaxSplash.resx">
+      <DependentUpon>EZTaxSplash.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EZTaxWizard.resx">
+      <DependentUpon>EzTaxWizard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LandView.resx">
+      <DependentUpon>LandView.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LandViewDownload.resx">
+      <DependentUpon>LandViewDownload.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Form1.resx">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\TransferMonet.resx">
+      <DependentUpon>TransferMonet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotificationsForm.resx">
+      <DependentUpon>NotificationsForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuickNotif.resx">
+      <DependentUpon>QuickNotif.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Readme.resx">
+      <DependentUpon>Readme.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RefreshNotice.resx">
+      <DependentUpon>RefreshNotice.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServerCommandLine.resx">
+      <DependentUpon>ServerCommandLine.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VibeChangePin.resx">
+      <DependentUpon>VibeChangePin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SendMonet.resx">
+      <DependentUpon>SendMonet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VibeMainScreen.resx">
+      <DependentUpon>VibeMainScreen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VibeLogin.resx">
+      <DependentUpon>VibeLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreen1.resx">
+      <DependentUpon>SplashScreen1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VibeRegister.resx">
+      <DependentUpon>VibeRegister.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WhatsNew.resx">
+      <DependentUpon>WhatsNew.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+    <None Include="Resources\readme.rtf" />
+    <None Include="Resources\WhatsNew.rtf" />
+    <None Include="VIBE %28But on Visual Studio%29_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VIBE.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VIBE1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VIBESplash.png" />
+    <None Include="Resources\UMS NewFlag.png" />
+    <None Include="Resources\VibeLoad.gif" />
+    <None Include="Resources\EZTaxSplash.png" />
+    <None Include="Resources\EzTax.png" />
+    <None Include="Resources\EzTaxButton.png" />
+    <None Include="Resources\EzTaxLogo.png" />
+    <None Include="Resources\LemonInvest.png" />
+    <None Include="Resources\GBANK.png" />
+    <None Include="Resources\Riverside.png" />
+    <None Include="Resources\UMSNB.png" />
+    <None Include="Resources\p.png" />
+    <None Include="Resources\Landview.png" />
+    <None Include="Resources\2000.png" />
+    <None Include="Resources\Iconsmind-Outline-Inbox-Into.png" />
+    <None Include="Resources\Iconsmind-Outline-Outbox-Into.png" />
+    <None Include="Resources\door-opened.png" />
+    <None Include="Resources\DidYouKnowBG.png" />
+    <None Include="Resources\Check.png" />
+    <None Include="Resources\Bill.png" />
+    <None Include="Resources\UMSWEB.png" />
+    <None Include="Resources\CheckGray.png" />
+    <None Include="Resources\CheckGreen.png" />
+    <None Include="Resources\CheckPurple.png" />
+    <None Include="Resources\CheckRed.png" />
+    <None Include="Resources\CheckYellow.png" />
+    <None Include="Resources\Black.png" />
+    <None Include="Resources\Corporate.png" />
+    <None Include="Resources\Government.png" />
+    <None Include="Resources\welcome.WAV" />
+    <None Include="Resources\Contractus Splash.png" />
+    <None Include="Resources\Contractus.png" />
+    <None Include="Resources\giphy.gif" />
+    <None Include="Resources\Hourglass.gif" />
+    <None Include="Resources\EzTaxApproved.png" />
+    <Content Include="VIBE.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>
