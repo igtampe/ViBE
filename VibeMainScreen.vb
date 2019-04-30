@@ -338,4 +338,12 @@ Public Class VibeMainScreen
         Coso.Dispose()
         ClipboardNotice.Show()
     End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        'StockMaster
+    End Sub
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        'FastBid
+    End Sub
 End Class
