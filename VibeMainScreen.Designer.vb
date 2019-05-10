@@ -400,7 +400,7 @@ Partial Class VibeMainScreen
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(401, 140)
+        Me.Button7.Location = New System.Drawing.Point(481, 111)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(75, 23)
         Me.Button7.TabIndex = 15
@@ -410,7 +410,7 @@ Partial Class VibeMainScreen
         '
         'Button8
         '
-        Me.Button8.Location = New System.Drawing.Point(482, 111)
+        Me.Button8.Location = New System.Drawing.Point(481, 140)
         Me.Button8.Name = "Button8"
         Me.Button8.Size = New System.Drawing.Size(75, 23)
         Me.Button8.TabIndex = 91
@@ -420,11 +420,11 @@ Partial Class VibeMainScreen
         '
         'Button9
         '
-        Me.Button9.Location = New System.Drawing.Point(482, 140)
+        Me.Button9.Location = New System.Drawing.Point(401, 140)
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(75, 23)
         Me.Button9.TabIndex = 92
-        Me.Button9.Text = "FastBid"
+        Me.Button9.Text = "BillingPRO"
         Me.RefreshTooltip.SetToolTip(Me.Button9, "Launch FastBid")
         Me.Button9.UseVisualStyleBackColor = True
         '

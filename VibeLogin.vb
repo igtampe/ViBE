@@ -32,7 +32,7 @@ Public Class VibeLogin
     ' ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝    ╚═╝     ╚═╝╚══════╝                       '
     '================================================================================================'
 
-    Public Shared VVer As Integer = 400
+    Public Shared VVer As Integer = 310
 
 
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles IDLabel.Click, PinLabel.Click, Label1.Click

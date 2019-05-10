@@ -574,62 +574,28 @@ LabelNoDownload:
             Case 0
                 'Personal User
                 Select Case Total
-                    Case > 5000000000
-                        Taxb = 0.3
-                        TaxBracketCalc = "Highest (30%)"
-                        Exit Select
-                    Case > 1000000000
-                        Taxb = 0.25
-                        TaxBracketCalc = "Ultra High (25%)"
-                        Exit Select
-                    Case > 500000000
-                        Taxb = 0.2
-                        TaxBracketCalc = "Super High (20%)"
-                        Exit Select
-                    Case > 100000000
-                        Taxb = 0.15
-                        TaxBracketCalc = "Mas Higher (15%)"
-                        Exit Select
-                    Case > 10000000
-                        Taxb = 0.1
-                        TaxBracketCalc = "Higher (10%)"
-                        Exit Select
                     Case > 1000000
-                        Taxb = 0.05
-                        TaxBracketCalc = "High (5%)"
-                        Exit Select
-                    Case > 100000
-                        TaxBracketCalc = "Medium (3%)"
-                        Taxb = 0.03
+                        Taxb = 0.07
+                        TaxBracketCalc = "Personal Taxed (7%)"
                         Exit Select
                     Case Else
-                        TaxBracketCalc = "Low (1%)"
-                        Taxb = 0.01
+                        TaxBracketCalc = "Untaxed (0%)"
+                        Taxb = 0.00
                         Exit Select
                 End Select
             Case 1
 
-                If Total < 15000000 Then
-                    Taxb = 0
-                    TaxBracketCalc = "Corporate Exempt (0%)"
-                    Tax = 0
-                Else
-                    Select Case Total
+                Select Case Total
 
-                        Case > 500000000
-                            Taxb = 0.15
-                            TaxBracketCalc = "Corporate High (15%)"
-                            Exit Select
-                        Case > 100000000
-                            TaxBracketCalc = "Corporate Medium (10%)"
-                            Taxb = 0.1
-                            Exit Select
-                        Case Else
-                            TaxBracketCalc = "Corporate Low (5%)"
-                            Taxb = 0.05
-                            Exit Select
-                    End Select
-                End If
+                    Case > 5000000
+                        Taxb = 0.03
+                        TaxBracketCalc = "Corporate Taxed (3%)"
+                        Exit Select
+                    Case Else
+                        TaxBracketCalc = "Untaxed (0%)"
+                        Taxb = 0.05
+                        Exit Select
+                End Select
 
         End Select
 
@@ -641,65 +607,25 @@ LabelNoDownload:
             Case 0
                 'Personal User
                 Select Case Total
-                    Case > 5000000000
-                        Taxb = 0.3
-                        Exit Select
-                    Case > 1000000000
-                        Taxb = 0.25
-                        Exit Select
-                    Case > 500000000
-                        Taxb = 0.2
-                        Exit Select
-                    Case > 100000000
-                        Taxb = 0.15
-                        Exit Select
-                    Case > 10000000
-                        Taxb = 0.1
-                        Exit Select
                     Case > 1000000
-                        Taxb = 0.05
-                        Exit Select
-                    Case > 100000
-                        Taxb = 0.03
+                        Taxb = 0.07
                         Exit Select
                     Case Else
-                        Taxb = 0.01
+                        Taxb = 0.00
                         Exit Select
                 End Select
                 TaxCalc = Total * Taxb
             Case 1
                 'Corporate User
-                If Total < 15000000 Then
-                    TaxCalc = 0
-                Else
-                    Select Case Total
-
-                    Case > 500000000
-                        Taxb = 0.15
-                        Exit Select
-                    Case > 100000000
-                        Taxb = 0.1
+                Select Case Total
+                    Case > 5000000
+                        Taxb = 0.03
                         Exit Select
                     Case Else
-                        Taxb = 0.05
+                        Taxb = 0
                         Exit Select
                 End Select
-                TaxCalc = (Total - 15000000) * Taxb
-                End If
-
-                'OleDb stuff
-                'Select Case Total
-                'Case > 1000000
-                '   Taxb = 0.05
-                '  Exit Select
-                'Case > 100000
-                '   Taxb = 0.03
-                '  Exit Select
-                'Case Else
-                '   Taxb = 0.01
-                '  Exit Select
-                'End Select
-                TaxCalc = Total * Taxb
+                TaxCalc = (Total) * Taxb
         End Select
     End Function
 
