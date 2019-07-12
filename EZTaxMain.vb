@@ -574,9 +574,9 @@ LabelNoDownload:
             Case 0
                 'Personal User
                 Select Case Total
-                    Case > 1000000
-                        Taxb = 0.07
-                        TaxBracketCalc = "Personal Taxed (7%)"
+                    Case > 5000000
+                        Taxb = 0.05
+                        TaxBracketCalc = "Personal Taxed (5%)"
                         Exit Select
                     Case Else
                         TaxBracketCalc = "Untaxed (0%)"
@@ -607,8 +607,8 @@ LabelNoDownload:
             Case 0
                 'Personal User
                 Select Case Total
-                    Case > 1000000
-                        Taxb = 0.07
+                    Case > 5000000
+                        Taxb = 0.05
                         Exit Select
                     Case Else
                         Taxb = 0.00

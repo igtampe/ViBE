@@ -313,8 +313,6 @@ Public Class VibeMainScreen
         UMSNBLink.Enabled = Value
         GBANKLink.Enabled = Value
         Button7.Enabled = Value
-        Button8.Enabled = Value
-        Button9.Enabled = Value
 
     End Sub
 
@@ -341,13 +339,5 @@ Public Class VibeMainScreen
         ClipboardNotice.Show()
     End Sub
 
-    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
-        'StockMaster
-        MsgBox("Coming Soon!", MsgBoxStyle.Information, "StockMaster")
-    End Sub
 
-    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-        'FastBid
-        MsgBox("Coming Soon!", MsgBoxStyle.Information, "BillingPRO")
-    End Sub
 End Class

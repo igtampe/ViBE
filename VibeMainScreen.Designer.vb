@@ -55,8 +55,6 @@ Partial Class VibeMainScreen
         Me.LNDViewBTN = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
-        Me.Button8 = New System.Windows.Forms.Button()
-        Me.Button9 = New System.Windows.Forms.Button()
         Me.BANKTXB = New System.Windows.Forms.TextBox()
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -124,7 +122,7 @@ Partial Class VibeMainScreen
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(12, 43)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(554, 43)
+        Me.GroupBox1.Size = New System.Drawing.Size(475, 43)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Registered Banks"
@@ -146,7 +144,7 @@ Partial Class VibeMainScreen
         'Button3
         '
         Me.HelpProvider1.SetHelpKeyword(Me.Button3, "This button gives you 1,000p. Just kidding, it changes your PIN.")
-        Me.Button3.Location = New System.Drawing.Point(497, 13)
+        Me.Button3.Location = New System.Drawing.Point(413, 13)
         Me.Button3.Name = "Button3"
         Me.HelpProvider1.SetShowHelp(Me.Button3, True)
         Me.Button3.Size = New System.Drawing.Size(23, 22)
@@ -187,7 +185,7 @@ Partial Class VibeMainScreen
         Me.Button4.Font = New System.Drawing.Font("Wingdings 2", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
         Me.HelpProvider1.SetHelpString(Me.Button4, "This button logs you out of ViBE. If you had ViBE set to remember you, this will " &
         "stop it from remembering you.")
-        Me.Button4.Location = New System.Drawing.Point(525, 13)
+        Me.Button4.Location = New System.Drawing.Point(441, 13)
         Me.Button4.Name = "Button4"
         Me.HelpProvider1.SetShowHelp(Me.Button4, True)
         Me.Button4.Size = New System.Drawing.Size(23, 22)
@@ -201,7 +199,7 @@ Partial Class VibeMainScreen
         Me.NotifButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.HelpProvider1.SetHelpString(Me.NotifButton, "This button will bring up your notifications. A number will appear if you have an" &
         "y pending notifications")
-        Me.NotifButton.Location = New System.Drawing.Point(413, 13)
+        Me.NotifButton.Location = New System.Drawing.Point(329, 13)
         Me.NotifButton.Name = "NotifButton"
         Me.HelpProvider1.SetShowHelp(Me.NotifButton, True)
         Me.NotifButton.Size = New System.Drawing.Size(23, 22)
@@ -214,7 +212,7 @@ Partial Class VibeMainScreen
         '
         Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.HelpProvider1.SetHelpString(Me.Button5, "This will bring up the about page, from which you can open the Readme")
-        Me.Button5.Location = New System.Drawing.Point(441, 13)
+        Me.Button5.Location = New System.Drawing.Point(357, 13)
         Me.Button5.Name = "Button5"
         Me.HelpProvider1.SetShowHelp(Me.Button5, True)
         Me.Button5.Size = New System.Drawing.Size(23, 22)
@@ -228,7 +226,7 @@ Partial Class VibeMainScreen
         Me.RefreshButton.Font = New System.Drawing.Font("Wingdings 3", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
         Me.HelpProvider1.SetHelpString(Me.RefreshButton, "This is the refresh button. It'll contact the server and ask for the most recent " &
         "information.")
-        Me.RefreshButton.Location = New System.Drawing.Point(469, 13)
+        Me.RefreshButton.Location = New System.Drawing.Point(385, 13)
         Me.RefreshButton.Name = "RefreshButton"
         Me.HelpProvider1.SetShowHelp(Me.RefreshButton, True)
         Me.RefreshButton.Size = New System.Drawing.Size(23, 22)
@@ -400,33 +398,13 @@ Partial Class VibeMainScreen
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(481, 111)
+        Me.Button7.Location = New System.Drawing.Point(401, 140)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(75, 23)
         Me.Button7.TabIndex = 15
         Me.Button7.Text = "Contractus"
         Me.RefreshTooltip.SetToolTip(Me.Button7, "Launch Contractus Contract Manager")
         Me.Button7.UseVisualStyleBackColor = True
-        '
-        'Button8
-        '
-        Me.Button8.Location = New System.Drawing.Point(481, 140)
-        Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(75, 23)
-        Me.Button8.TabIndex = 91
-        Me.Button8.Text = "StockMaster"
-        Me.RefreshTooltip.SetToolTip(Me.Button8, "Launch StockMaster")
-        Me.Button8.UseVisualStyleBackColor = True
-        '
-        'Button9
-        '
-        Me.Button9.Location = New System.Drawing.Point(401, 140)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(75, 23)
-        Me.Button9.TabIndex = 92
-        Me.Button9.Text = "BillingPRO"
-        Me.RefreshTooltip.SetToolTip(Me.Button9, "Launch FastBid")
-        Me.Button9.UseVisualStyleBackColor = True
         '
         'BANKTXB
         '
@@ -464,9 +442,7 @@ Partial Class VibeMainScreen
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.Corporate
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.ClientSize = New System.Drawing.Size(578, 192)
-        Me.Controls.Add(Me.Button9)
-        Me.Controls.Add(Me.Button8)
+        Me.ClientSize = New System.Drawing.Size(504, 192)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.Button2)
@@ -481,7 +457,7 @@ Partial Class VibeMainScreen
         Me.HelpButton = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
-        Me.MaximumSize = New System.Drawing.Size(620, 304)
+        Me.MaximumSize = New System.Drawing.Size(520, 304)
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(520, 230)
         Me.Name = "VibeMainScreen"
@@ -533,6 +509,4 @@ Partial Class VibeMainScreen
     Friend WithEvents Button6 As Button
     Friend WithEvents Button7 As Button
     Friend WithEvents CaptureScreenshot As Button
-    Friend WithEvents Button8 As Button
-    Friend WithEvents Button9 As Button
 End Class
