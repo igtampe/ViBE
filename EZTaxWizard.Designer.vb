@@ -32,6 +32,7 @@ Partial Class EZTaxWizard
         Me.EzTaxTopLabel = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Label24 = New System.Windows.Forms.Label()
         Me.PHUnits = New System.Windows.Forms.NumericUpDown()
         Me.ThreeBRUnits = New System.Windows.Forms.NumericUpDown()
         Me.TwoBRUnits = New System.Windows.Forms.NumericUpDown()
@@ -74,6 +75,25 @@ Partial Class EZTaxWizard
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.FlightsPerDay = New System.Windows.Forms.NumericUpDown()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.TabControl2 = New System.Windows.Forms.TabControl()
+        Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.EconTicket = New System.Windows.Forms.NumericUpDown()
+        Me.EconSeats = New System.Windows.Forms.NumericUpDown()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.TabPage6 = New System.Windows.Forms.TabPage()
+        Me.BusinessTicket = New System.Windows.Forms.NumericUpDown()
+        Me.BusinessSeats = New System.Windows.Forms.NumericUpDown()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.TabPage7 = New System.Windows.Forms.TabPage()
+        Me.FirstClassTicket = New System.Windows.Forms.NumericUpDown()
+        Me.FirstClassSeats = New System.Windows.Forms.NumericUpDown()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label33 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TotalIncome = New System.Windows.Forms.Label()
         Me.ItemNameTXB = New System.Windows.Forms.TextBox()
@@ -81,7 +101,6 @@ Partial Class EZTaxWizard
         Me.DetailsTXB = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.PHUnits, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -105,6 +124,18 @@ Partial Class EZTaxWizard
         CType(Me.StoreCustomersPerHour, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StoreAvgSpending, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StoreChairs, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage4.SuspendLayout()
+        CType(Me.FlightsPerDay, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabControl2.SuspendLayout()
+        Me.TabPage5.SuspendLayout()
+        CType(Me.EconTicket, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.EconSeats, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage6.SuspendLayout()
+        CType(Me.BusinessTicket, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BusinessSeats, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage7.SuspendLayout()
+        CType(Me.FirstClassTicket, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.FirstClassSeats, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'InitialBW
@@ -168,6 +199,7 @@ Partial Class EZTaxWizard
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
+        Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Location = New System.Drawing.Point(3, 73)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -205,6 +237,14 @@ Partial Class EZTaxWizard
         Me.TabPage1.Size = New System.Drawing.Size(222, 169)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Apartment"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(70, 318)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(0, 13)
+        Me.Label24.TabIndex = 20
         '
         'PHUnits
         '
@@ -595,6 +635,192 @@ Partial Class EZTaxWizard
         Me.Label20.TabIndex = 20
         Me.Label20.Text = "Type"
         '
+        'TabPage4
+        '
+        Me.TabPage4.BackColor = System.Drawing.Color.Silver
+        Me.TabPage4.Controls.Add(Me.FlightsPerDay)
+        Me.TabPage4.Controls.Add(Me.Label25)
+        Me.TabPage4.Controls.Add(Me.TabControl2)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage4.Size = New System.Drawing.Size(222, 169)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "Plane"
+        '
+        'FlightsPerDay
+        '
+        Me.FlightsPerDay.Location = New System.Drawing.Point(113, 115)
+        Me.FlightsPerDay.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
+        Me.FlightsPerDay.Name = "FlightsPerDay"
+        Me.FlightsPerDay.Size = New System.Drawing.Size(75, 20)
+        Me.FlightsPerDay.TabIndex = 41
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(40, 117)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(61, 13)
+        Me.Label25.TabIndex = 40
+        Me.Label25.Text = "Flights/Day"
+        '
+        'TabControl2
+        '
+        Me.TabControl2.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
+        Me.TabControl2.Controls.Add(Me.TabPage5)
+        Me.TabControl2.Controls.Add(Me.TabPage6)
+        Me.TabControl2.Controls.Add(Me.TabPage7)
+        Me.TabControl2.Location = New System.Drawing.Point(5, 6)
+        Me.TabControl2.Name = "TabControl2"
+        Me.TabControl2.SelectedIndex = 0
+        Me.TabControl2.Size = New System.Drawing.Size(210, 103)
+        Me.TabControl2.TabIndex = 28
+        '
+        'TabPage5
+        '
+        Me.TabPage5.BackColor = System.Drawing.Color.Silver
+        Me.TabPage5.Controls.Add(Me.EconTicket)
+        Me.TabPage5.Controls.Add(Me.EconSeats)
+        Me.TabPage5.Controls.Add(Me.Label28)
+        Me.TabPage5.Controls.Add(Me.Label29)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage5.Size = New System.Drawing.Size(202, 74)
+        Me.TabPage5.TabIndex = 0
+        Me.TabPage5.Text = "Economy"
+        '
+        'EconTicket
+        '
+        Me.EconTicket.Location = New System.Drawing.Point(104, 40)
+        Me.EconTicket.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
+        Me.EconTicket.Name = "EconTicket"
+        Me.EconTicket.Size = New System.Drawing.Size(75, 20)
+        Me.EconTicket.TabIndex = 32
+        '
+        'EconSeats
+        '
+        Me.EconSeats.Location = New System.Drawing.Point(104, 14)
+        Me.EconSeats.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
+        Me.EconSeats.Name = "EconSeats"
+        Me.EconSeats.Size = New System.Drawing.Size(75, 20)
+        Me.EconSeats.TabIndex = 31
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(28, 42)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(64, 13)
+        Me.Label28.TabIndex = 29
+        Me.Label28.Text = "Ticket Price"
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(58, 16)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(34, 13)
+        Me.Label29.TabIndex = 28
+        Me.Label29.Text = "Seats"
+        '
+        'TabPage6
+        '
+        Me.TabPage6.BackColor = System.Drawing.Color.Silver
+        Me.TabPage6.Controls.Add(Me.BusinessTicket)
+        Me.TabPage6.Controls.Add(Me.BusinessSeats)
+        Me.TabPage6.Controls.Add(Me.Label26)
+        Me.TabPage6.Controls.Add(Me.Label30)
+        Me.TabPage6.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage6.Size = New System.Drawing.Size(202, 74)
+        Me.TabPage6.TabIndex = 1
+        Me.TabPage6.Text = "Business"
+        '
+        'BusinessTicket
+        '
+        Me.BusinessTicket.Location = New System.Drawing.Point(104, 40)
+        Me.BusinessTicket.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
+        Me.BusinessTicket.Name = "BusinessTicket"
+        Me.BusinessTicket.Size = New System.Drawing.Size(75, 20)
+        Me.BusinessTicket.TabIndex = 38
+        '
+        'BusinessSeats
+        '
+        Me.BusinessSeats.Location = New System.Drawing.Point(104, 14)
+        Me.BusinessSeats.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
+        Me.BusinessSeats.Name = "BusinessSeats"
+        Me.BusinessSeats.Size = New System.Drawing.Size(75, 20)
+        Me.BusinessSeats.TabIndex = 37
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(28, 42)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(64, 13)
+        Me.Label26.TabIndex = 35
+        Me.Label26.Text = "Ticket Price"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(58, 16)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(34, 13)
+        Me.Label30.TabIndex = 34
+        Me.Label30.Text = "Seats"
+        '
+        'TabPage7
+        '
+        Me.TabPage7.BackColor = System.Drawing.Color.Silver
+        Me.TabPage7.Controls.Add(Me.FirstClassTicket)
+        Me.TabPage7.Controls.Add(Me.FirstClassSeats)
+        Me.TabPage7.Controls.Add(Me.Label32)
+        Me.TabPage7.Controls.Add(Me.Label33)
+        Me.TabPage7.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage7.Name = "TabPage7"
+        Me.TabPage7.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage7.Size = New System.Drawing.Size(202, 74)
+        Me.TabPage7.TabIndex = 2
+        Me.TabPage7.Text = "First Class"
+        '
+        'FirstClassTicket
+        '
+        Me.FirstClassTicket.Location = New System.Drawing.Point(104, 40)
+        Me.FirstClassTicket.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
+        Me.FirstClassTicket.Name = "FirstClassTicket"
+        Me.FirstClassTicket.Size = New System.Drawing.Size(75, 20)
+        Me.FirstClassTicket.TabIndex = 38
+        '
+        'FirstClassSeats
+        '
+        Me.FirstClassSeats.Location = New System.Drawing.Point(104, 14)
+        Me.FirstClassSeats.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
+        Me.FirstClassSeats.Name = "FirstClassSeats"
+        Me.FirstClassSeats.Size = New System.Drawing.Size(75, 20)
+        Me.FirstClassSeats.TabIndex = 37
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(28, 42)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(64, 13)
+        Me.Label32.TabIndex = 35
+        Me.Label32.Text = "Ticket Price"
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(58, 16)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(34, 13)
+        Me.Label33.TabIndex = 34
+        Me.Label33.Text = "Seats"
+        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -666,14 +892,6 @@ Partial Class EZTaxWizard
         Me.Label8.TabIndex = 22
         Me.Label8.Text = "Summary:"
         '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(70, 318)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(0, 13)
-        Me.Label24.TabIndex = 20
-        '
         'EZTaxWizard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -725,6 +943,22 @@ Partial Class EZTaxWizard
         CType(Me.StoreCustomersPerHour, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StoreAvgSpending, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StoreChairs, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage4.ResumeLayout(False)
+        Me.TabPage4.PerformLayout()
+        CType(Me.FlightsPerDay, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabControl2.ResumeLayout(False)
+        Me.TabPage5.ResumeLayout(False)
+        Me.TabPage5.PerformLayout()
+        CType(Me.EconTicket, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.EconSeats, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage6.ResumeLayout(False)
+        Me.TabPage6.PerformLayout()
+        CType(Me.BusinessTicket, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BusinessSeats, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage7.ResumeLayout(False)
+        Me.TabPage7.PerformLayout()
+        CType(Me.FirstClassTicket, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.FirstClassSeats, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -787,4 +1021,23 @@ Partial Class EZTaxWizard
     Friend WithEvents Label15 As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents Label24 As Label
+    Friend WithEvents TabPage4 As TabPage
+    Friend WithEvents FlightsPerDay As NumericUpDown
+    Friend WithEvents Label25 As Label
+    Friend WithEvents TabControl2 As TabControl
+    Friend WithEvents TabPage5 As TabPage
+    Friend WithEvents EconTicket As NumericUpDown
+    Friend WithEvents EconSeats As NumericUpDown
+    Friend WithEvents Label28 As Label
+    Friend WithEvents Label29 As Label
+    Friend WithEvents TabPage6 As TabPage
+    Friend WithEvents BusinessTicket As NumericUpDown
+    Friend WithEvents BusinessSeats As NumericUpDown
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Label30 As Label
+    Friend WithEvents TabPage7 As TabPage
+    Friend WithEvents FirstClassTicket As NumericUpDown
+    Friend WithEvents FirstClassSeats As NumericUpDown
+    Friend WithEvents Label32 As Label
+    Friend WithEvents Label33 As Label
 End Class
