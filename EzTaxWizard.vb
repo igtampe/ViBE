@@ -91,7 +91,7 @@ Public Class EZTaxWizard
 
         StoreIncome = ((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value
 
-        PlaneIncome = FlightsPerDay.Value * ((EconSeats.Value * EconTicket.Value * 0.125) + (BusinessTicket.Value * BusinessSeats.Value * 0.125) + (FirstClassTicket.Value * FirstClassSeats.Value * 0.125))
+        PlaneIncome = 30 * FlightsPerDay.Value * ((EconSeats.Value * EconTicket.Value * 0.125) + (BusinessTicket.Value * BusinessSeats.Value * 0.125) + (FirstClassTicket.Value * FirstClassSeats.Value * 0.125))
 
         ItemIncome = ApartmentIncome + HotelIncome + StoreIncome + PlaneIncome
         TotalIncome.Text = ItemIncome.ToString("N0") & "p"
@@ -205,7 +205,8 @@ Public Class EZTaxWizard
 
         If (StudioRent.Value * StudioUnits.Value) + (OneBRRent.Value * OneBRUnits.Value) + (TwoBRRent.Value * TwoBRUnits.Value) + (ThreeBRRent.Value * ThreeBRUnits.Value) + (PHRent.Value * PHUnits.Value) = 0 And
             ((MonthlyHotelRoomIncome * HotelRooms.Value) + (MonthlyHotelSuiteIncome * HotelSuites.Value) + HotelMiscIncome.Value) = 0 And
-            (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value) = 0 Then
+            (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value) = 0 And
+            30 * FlightsPerDay.Value * ((EconSeats.Value * EconTicket.Value * 0.125) + (BusinessTicket.Value * BusinessSeats.Value * 0.125) + (FirstClassTicket.Value * FirstClassSeats.Value * 0.125)) = 0 Then
             'do nothing
         Else
             ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "-[Totals]-------------"
@@ -220,6 +221,11 @@ Public Class EZTaxWizard
             If Not (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value) = 0 Then
                 ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Business Total      : " & (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value).ToString("N0") & "p"
             End If
+
+            If Not 30 * FlightsPerDay.Value * ((EconSeats.Value * EconTicket.Value * 0.125) + (BusinessTicket.Value * BusinessSeats.Value * 0.125) + (FirstClassTicket.Value * FirstClassSeats.Value * 0.125)) = 0 Then
+                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Plane Total         : " & (30 * FlightsPerDay.Value * ((EconSeats.Value * EconTicket.Value * 0.125) + (BusinessTicket.Value * BusinessSeats.Value * 0.125) + (FirstClassTicket.Value * FirstClassSeats.Value * 0.125))).ToString("N0") & "p"
+            End If
+
 
         End If
 
