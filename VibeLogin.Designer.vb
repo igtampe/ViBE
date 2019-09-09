@@ -35,10 +35,11 @@ Partial Class VibeLogin
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.RememberMeCheckbox = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
+        Me.KeyringButton = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -89,7 +90,7 @@ Partial Class VibeLogin
         Me.DirectoryButton.Location = New System.Drawing.Point(263, 12)
         Me.DirectoryButton.Name = "DirectoryButton"
         Me.HelpProvider1.SetShowHelp(Me.DirectoryButton, True)
-        Me.DirectoryButton.Size = New System.Drawing.Size(29, 81)
+        Me.DirectoryButton.Size = New System.Drawing.Size(29, 38)
         Me.DirectoryButton.TabIndex = 3
         Me.DirectoryButton.Text = ","
         Me.ToolTip1.SetToolTip(Me.DirectoryButton, "Open the UMSWEB Directory")
@@ -130,17 +131,17 @@ Partial Class VibeLogin
         'BackgroundWorker2
         '
         '
-        'CheckBox1
+        'RememberMeCheckbox
         '
-        Me.CheckBox1.AutoSize = True
-        Me.HelpProvider1.SetHelpKeyword(Me.CheckBox1, "REMEMBER ME will remember you and automatically sign you in to ViBE. To stop reme" &
+        Me.RememberMeCheckbox.AutoSize = True
+        Me.HelpProvider1.SetHelpKeyword(Me.RememberMeCheckbox, "REMEMBER ME will remember you and automatically sign you in to ViBE. To stop reme" &
         "mbering, simply logout.")
-        Me.CheckBox1.Location = New System.Drawing.Point(156, 75)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.HelpProvider1.SetShowHelp(Me.CheckBox1, True)
-        Me.CheckBox1.Size = New System.Drawing.Size(15, 14)
-        Me.CheckBox1.TabIndex = 5
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.RememberMeCheckbox.Location = New System.Drawing.Point(156, 75)
+        Me.RememberMeCheckbox.Name = "RememberMeCheckbox"
+        Me.HelpProvider1.SetShowHelp(Me.RememberMeCheckbox, True)
+        Me.RememberMeCheckbox.Size = New System.Drawing.Size(15, 14)
+        Me.RememberMeCheckbox.TabIndex = 5
+        Me.RememberMeCheckbox.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -163,15 +164,26 @@ Partial Class VibeLogin
         Me.Button3.Text = "Quit"
         Me.Button3.UseVisualStyleBackColor = True
         '
+        'KeyringButton
+        '
+        Me.KeyringButton.Font = New System.Drawing.Font("Wingdings", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
+        Me.KeyringButton.Location = New System.Drawing.Point(263, 55)
+        Me.KeyringButton.Name = "KeyringButton"
+        Me.KeyringButton.Size = New System.Drawing.Size(29, 38)
+        Me.KeyringButton.TabIndex = 3
+        Me.KeyringButton.Text = ""
+        Me.KeyringButton.UseVisualStyleBackColor = True
+        '
         'VibeLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(388, 101)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.RememberMeCheckbox)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.KeyringButton)
         Me.Controls.Add(Me.DirectoryButton)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PinLabel)
@@ -205,8 +217,9 @@ Partial Class VibeLogin
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents RememberMeCheckbox As CheckBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Button3 As Button
     Friend WithEvents HelpProvider1 As HelpProvider
+    Friend WithEvents KeyringButton As Button
 End Class

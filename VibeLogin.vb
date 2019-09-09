@@ -32,7 +32,7 @@ Public Class VibeLogin
     ' ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝    ╚═╝     ╚═╝╚══════╝                       '
     '================================================================================================'
 
-    Public Shared VVer As Integer = 313
+    Public Shared VVer As Integer = 314
 
 
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles IDLabel.Click, PinLabel.Click, Label1.Click
@@ -81,7 +81,7 @@ Public Class VibeLogin
             LogonID.Text = login(0)
             LogonPIN.Text = login(1)
             AutoLogin = True
-            CheckBox1.Checked = True
+            RememberMeCheckbox.Checked = True
             Call Button1_Click()
             Exit Sub
 
@@ -114,6 +114,7 @@ Public Class VibeLogin
         DirectoryButton.Enabled = False
         Button2.Enabled = False
         Me.UseWaitCursor = True
+        KeyringButton.Enabled = False
 
 
 
@@ -129,6 +130,7 @@ Public Class VibeLogin
             DirectoryButton.Enabled = True
             Button2.Enabled = True
             Me.UseWaitCursor = False
+            KeyringButton.Enabled = True
 
             Exit Sub
 
@@ -144,6 +146,7 @@ Public Class VibeLogin
             DirectoryButton.Enabled = True
             Button2.Enabled = True
             Me.UseWaitCursor = False
+            KeyringButton.Enabled = True
 
 
             Exit Sub
@@ -160,6 +163,7 @@ Public Class VibeLogin
             DirectoryButton.Enabled = True
             Button2.Enabled = True
             Me.UseWaitCursor = False
+            KeyringButton.Enabled = True
 
 
             Exit Sub
@@ -176,6 +180,7 @@ Public Class VibeLogin
             DirectoryButton.Enabled = True
             Button2.Enabled = True
             Me.UseWaitCursor = False
+            KeyringButton.Enabled = True
 
 
             Exit Sub
@@ -245,19 +250,14 @@ Public Class VibeLogin
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-
-
         servermsg = ServerCommand("CU" & LogonID.Text & LogonPIN.Text)
-
-
-
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
 
 
 
-        Select Case ServerMSG
+        Select Case servermsg
             Case 1
                 RefreshNotice.Close()
                 MsgBox("User not found", vbCritical, "ViBE Login error")
@@ -271,7 +271,7 @@ Public Class VibeLogin
 
 
 
-                If CheckBox1.Checked = True Then
+                If RememberMeCheckbox.Checked = True Then
 
                     If Not Directory.Exists(System.Windows.Forms.Application.UserAppDataPath & "\ViBE") Then
                         Directory.CreateDirectory(System.Windows.Forms.Application.UserAppDataPath & "\ViBE")
@@ -303,6 +303,7 @@ Public Class VibeLogin
         PinLabel.Enabled = True
         LogonID.Enabled = True
         LogonPIN.Enabled = True
+        KeyringButton.Enabled = True
         DirectoryButton.Enabled = True
         Button2.Enabled = True
         Me.UseWaitCursor = False
@@ -394,6 +395,30 @@ Public Class VibeLogin
     Private Sub LogonPIN_KeyPress(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles LogonPIN.KeyDown
         If e.KeyCode = Keys.Enter Then
             Button1_Click()
+        End If
+    End Sub
+
+    Private Sub KeyringButton_Click(sender As Object, e As EventArgs) Handles KeyringButton.Click
+        Me.Hide()
+        Dim LogonKeyRingForm As New KeyringForm() With {
+        .CurrentFormMode = 0
+        }
+
+
+        LogonKeyRingForm.ShowDialog()
+        Me.Show()
+        If LogonKeyRingForm.ReturnValue.CommitAction = True Then
+
+            'Retrieve the data
+            LogonID.Text = LogonKeyRingForm.ReturnValue.ID
+            LogonPIN.Text = LogonKeyRingForm.ReturnValue.Pin
+            RememberMeCheckbox.Checked = LogonKeyRingForm.ReturnValue.Remember
+
+            LogonKeyRingForm.Dispose()
+            Button1_Click()
+
+        Else
+            'do nothing really nose porque puse else
         End If
     End Sub
 End Class

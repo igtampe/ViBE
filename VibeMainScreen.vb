@@ -14,14 +14,27 @@ Public Class VibeMainScreen
     Public Category As Integer
     Public Username As String
 
+    Public SwitchID As String
+    Public SwitchPIN As String
+
+
     Private Sub LoadValuesFromTemp() Handles Me.Shown
         Me.BackgroundImage = Nothing
         NameLabel.Text = ""
+        UMSNBBLabel.Text = ""
+        GBANKBLabel.Text = ""
+        RIVERBLabel.Text = ""
+        TotalBLabel.Text = ""
+        UMSNBCheck.Checked = False
+        GBANKCheck.Checked = False
+        RIVERCheck.Checked = False
+
+
         AllButtonsEnabled(False)
         ID = VibeLogin.LogonID.Text
         Me.Text = "Visual Basic Economy (Build ID:" & VibeLogin.VVer & ")"
         RefreshNotice.Show()
-        Call BackgroundWorker1.RunWorkerAsync()
+        Call RefreshBW.RunWorkerAsync()
 
     End Sub
 
@@ -78,7 +91,7 @@ Public Class VibeMainScreen
 
         AllButtonsEnabled(False)
         RefreshNotice.Show()
-        Call BackgroundWorker1.RunWorkerAsync()
+        Call RefreshBW.RunWorkerAsync()
 
 
 
@@ -144,13 +157,13 @@ Public Class VibeMainScreen
 
     End Function
 
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles RefreshBW.DoWork
 
         ServerMSG = ServerCommand("INFO" & ID)
 
     End Sub
 
-    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles RefreshBW.RunWorkerCompleted
 
 
         Dim TotalBalance As Long
@@ -313,6 +326,7 @@ Public Class VibeMainScreen
         UMSNBLink.Enabled = Value
         GBANKLink.Enabled = Value
         Button7.Enabled = Value
+        KeyringButton.Enabled = Value
 
     End Sub
 
@@ -339,5 +353,54 @@ Public Class VibeMainScreen
         ClipboardNotice.Show()
     End Sub
 
+    Private Sub SwitchUserKeyRing() Handles KeyringButton.Click
+        Dim SwitchUserForm As New KeyringForm() With {
+        .CurrentFormMode = 1
+        }
+        Me.Hide()
+        SwitchUserForm.ShowDialog()
+
+        If SwitchUserForm.ReturnValue.CommitAction = True Then
+            'Retrieve the data
+            SwitchID = SwitchUserForm.ReturnValue.ID
+            SwitchPIN = SwitchUserForm.ReturnValue.Pin
+            SwitchUserForm.Dispose()
+
+            'Test the coso
+            RefreshNotice.Show()
+            SwitchUserBW.RunWorkerAsync()
+        Else
+            Me.Show()
+        End If
+
+    End Sub
+
+    Private Sub SwitchUserBW_DoWork(sender As Object, e As DoWorkEventArgs) Handles SwitchUserBW.DoWork
+        ServerMSG = ServerCommand("CU" & SwitchID & SwitchPIN)
+    End Sub
+
+    Private Sub SwitchUserBW_Complete() Handles SwitchUserBW.RunWorkerCompleted
+        RefreshNotice.Close()
+        Select Case ServerMSG
+            Case 1
+                RefreshNotice.Close()
+                MsgBox("User not found" & vbNewLine & "How did you even add this account to the KeyRing?", vbCritical, "ViBE Login error")
+                SwitchUserKeyRing()
+                Exit Select
+            Case 2
+                RefreshNotice.Close()
+                MsgBox("Pin is Incorrect." & vbNewLine & "Sign in manually, delete this account, and re-add it.", vbCritical, "ViBE Login Error")
+                SwitchUserKeyRing()
+                Exit Select
+
+            Case 3
+                ID = SwitchID
+                VibeLogin.LogonID.Text = SwitchID
+                VibeLogin.LogonPIN.Text = SwitchPIN
+                SwitchPIN = ""
+                Me.Show()
+                LoadValuesFromTemp()
+        End Select
+    End Sub
 
 End Class

@@ -29,6 +29,7 @@ Partial Class VibeMainScreen
         Me.GBANKCheck = New System.Windows.Forms.CheckBox()
         Me.RIVERCheck = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.KeyringButton = New System.Windows.Forms.Button()
         Me.RIVERLink = New System.Windows.Forms.LinkLabel()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.GBANKLink = New System.Windows.Forms.LinkLabel()
@@ -48,7 +49,7 @@ Partial Class VibeMainScreen
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.RefreshBW = New System.ComponentModel.BackgroundWorker()
         Me.RefreshTooltip = New System.Windows.Forms.ToolTip(Me.components)
         Me.EZTaxButton = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -59,6 +60,7 @@ Partial Class VibeMainScreen
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.CaptureScreenshot = New System.Windows.Forms.Button()
+        Me.SwitchUserBW = New System.ComponentModel.BackgroundWorker()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -108,6 +110,7 @@ Partial Class VibeMainScreen
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.KeyringButton)
         Me.GroupBox1.Controls.Add(Me.RIVERLink)
         Me.GroupBox1.Controls.Add(Me.Button3)
         Me.GroupBox1.Controls.Add(Me.GBANKLink)
@@ -127,6 +130,20 @@ Partial Class VibeMainScreen
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Registered Banks"
         '
+        'KeyringButton
+        '
+        Me.KeyringButton.Font = New System.Drawing.Font("Wingdings", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
+        Me.HelpProvider1.SetHelpString(Me.KeyringButton, "This button will log you out and launch the KeyRing")
+        Me.KeyringButton.Location = New System.Drawing.Point(421, 13)
+        Me.KeyringButton.Margin = New System.Windows.Forms.Padding(1)
+        Me.KeyringButton.Name = "KeyringButton"
+        Me.HelpProvider1.SetShowHelp(Me.KeyringButton, True)
+        Me.KeyringButton.Size = New System.Drawing.Size(23, 22)
+        Me.KeyringButton.TabIndex = 91
+        Me.KeyringButton.Text = ""
+        Me.RefreshTooltip.SetToolTip(Me.KeyringButton, "KeyRing")
+        Me.KeyringButton.UseVisualStyleBackColor = True
+        '
         'RIVERLink
         '
         Me.RIVERLink.AutoSize = True
@@ -144,7 +161,8 @@ Partial Class VibeMainScreen
         'Button3
         '
         Me.HelpProvider1.SetHelpKeyword(Me.Button3, "This button gives you 1,000p. Just kidding, it changes your PIN.")
-        Me.Button3.Location = New System.Drawing.Point(413, 13)
+        Me.Button3.Location = New System.Drawing.Point(396, 13)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(1)
         Me.Button3.Name = "Button3"
         Me.HelpProvider1.SetShowHelp(Me.Button3, True)
         Me.Button3.Size = New System.Drawing.Size(23, 22)
@@ -185,7 +203,8 @@ Partial Class VibeMainScreen
         Me.Button4.Font = New System.Drawing.Font("Wingdings 2", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
         Me.HelpProvider1.SetHelpString(Me.Button4, "This button logs you out of ViBE. If you had ViBE set to remember you, this will " &
         "stop it from remembering you.")
-        Me.Button4.Location = New System.Drawing.Point(441, 13)
+        Me.Button4.Location = New System.Drawing.Point(446, 13)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(1)
         Me.Button4.Name = "Button4"
         Me.HelpProvider1.SetShowHelp(Me.Button4, True)
         Me.Button4.Size = New System.Drawing.Size(23, 22)
@@ -199,7 +218,8 @@ Partial Class VibeMainScreen
         Me.NotifButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.HelpProvider1.SetHelpString(Me.NotifButton, "This button will bring up your notifications. A number will appear if you have an" &
         "y pending notifications")
-        Me.NotifButton.Location = New System.Drawing.Point(329, 13)
+        Me.NotifButton.Location = New System.Drawing.Point(321, 13)
+        Me.NotifButton.Margin = New System.Windows.Forms.Padding(1)
         Me.NotifButton.Name = "NotifButton"
         Me.HelpProvider1.SetShowHelp(Me.NotifButton, True)
         Me.NotifButton.Size = New System.Drawing.Size(23, 22)
@@ -212,7 +232,8 @@ Partial Class VibeMainScreen
         '
         Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.HelpProvider1.SetHelpString(Me.Button5, "This will bring up the about page, from which you can open the Readme")
-        Me.Button5.Location = New System.Drawing.Point(357, 13)
+        Me.Button5.Location = New System.Drawing.Point(346, 13)
+        Me.Button5.Margin = New System.Windows.Forms.Padding(1)
         Me.Button5.Name = "Button5"
         Me.HelpProvider1.SetShowHelp(Me.Button5, True)
         Me.Button5.Size = New System.Drawing.Size(23, 22)
@@ -226,7 +247,8 @@ Partial Class VibeMainScreen
         Me.RefreshButton.Font = New System.Drawing.Font("Wingdings 3", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(2, Byte))
         Me.HelpProvider1.SetHelpString(Me.RefreshButton, "This is the refresh button. It'll contact the server and ask for the most recent " &
         "information.")
-        Me.RefreshButton.Location = New System.Drawing.Point(385, 13)
+        Me.RefreshButton.Location = New System.Drawing.Point(371, 13)
+        Me.RefreshButton.Margin = New System.Windows.Forms.Padding(1)
         Me.RefreshButton.Name = "RefreshButton"
         Me.HelpProvider1.SetShowHelp(Me.RefreshButton, True)
         Me.RefreshButton.Size = New System.Drawing.Size(23, 22)
@@ -348,7 +370,7 @@ Partial Class VibeMainScreen
         Me.RefreshTooltip.SetToolTip(Me.Button2, "Transfer money between your bank accounts")
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'BackgroundWorker1
+        'RefreshBW
         '
         '
         'EZTaxButton
@@ -436,6 +458,9 @@ Partial Class VibeMainScreen
         Me.CaptureScreenshot.Text = "Capture"
         Me.CaptureScreenshot.UseVisualStyleBackColor = False
         '
+        'SwitchUserBW
+        '
+        '
         'VibeMainScreen
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -491,7 +516,7 @@ Partial Class VibeMainScreen
     Friend WithEvents Button3 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents RefreshButton As Button
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents RefreshBW As System.ComponentModel.BackgroundWorker
     Friend WithEvents GBANKBLabel As Label
     Friend WithEvents UMSNBBLabel As Label
     Friend WithEvents RefreshTooltip As ToolTip
@@ -509,4 +534,6 @@ Partial Class VibeMainScreen
     Friend WithEvents Button6 As Button
     Friend WithEvents Button7 As Button
     Friend WithEvents CaptureScreenshot As Button
+    Friend WithEvents KeyringButton As Button
+    Friend WithEvents SwitchUserBW As System.ComponentModel.BackgroundWorker
 End Class

@@ -24,6 +24,8 @@ Public Class EZTaxMain
     Public UpdatedTaxDue As Long
     Public UpdatedTaxBracket As String
 
+    Public MoveWarning As Boolean
+
     Public SearchMode As Boolean
 
 
@@ -165,6 +167,7 @@ Public Class EZTaxMain
         IncomeregistryArray = Nothing
         ID = VibeLogin.LogonID.Text
         Category = VibeMainScreen.Category
+        MoveWarning = False
         InitialBW.RunWorkerAsync()
         ModifyItemButton.Enabled = False
         RemoveItemButton.Enabled = False
@@ -186,9 +189,21 @@ Public Class EZTaxMain
 
 
         Try
+
+            If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & ID & ".IncomeRegistry.csv") Then
+                'Flag that we moved stuff
+                MoveWarning = True
+
+                'if the directory does not exist, make it
+                If Not Directory.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX") Then Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX")
+
+                'move the coso
+                File.Move(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & ID & ".IncomeRegistry.csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv")
+            End If
             'Open the file
-            FileOpen(1, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & ID & ".IncomeRegistry.csv", OpenMode.Input)
-        Catch
+            FileOpen(1, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv", OpenMode.Input)
+        Catch EE As Exception
+            Console.Write(EE.ToString)
             InitializationResult = 2
             GoTo LabelNoDownload
         End Try
@@ -254,6 +269,10 @@ LabelNoDownload:
         TaxBracketLabel.Text = TaxBracket
         TaxDueLabel.Text = Tax.ToString("N0") & "p"
 
+        If MoveWarning = True Then
+            MsgBox("Your Income Registry file was successfully moved to the EzTAX Folder", MsgBoxStyle.Information, "EzTAX")
+            MoveWarning = False
+        End If
 
 
         Select Case InitializationResult
@@ -412,7 +431,7 @@ LabelNoDownload:
         Servermsg = ServerCommand("EZTUPD" & ID & (UpdatedTotal - EI))
 
         Using wc As New System.Net.WebClient()
-            wc.UploadFile("http://igtnet-w.ddns.net:100/flow/" & VibeLogin.IDLabel.Text & ".IncomeRegistry." & DateTime.Now.ToString.Replace("/", "_").Replace(":", "-") & ".csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & ID & ".IncomeRegistry.csv")
+            wc.UploadFile("http://igtnet-w.ddns.net:100/flow/" & VibeLogin.IDLabel.Text & ".IncomeRegistry." & DateTime.Now.ToString.Replace("/", "_").Replace(":", "-") & ".csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv")
         End Using
 
 
@@ -461,7 +480,7 @@ LabelNoDownload:
         ListView1.FullRowSelect = True
         ListView1.HideSelection = False
 
-        FileOpen(2, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & ID & ".IncomeRegistry.csv", OpenMode.Output)
+        FileOpen(2, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv", OpenMode.Output)
 
         For I = 0 To IncomeregistryArray.Count - 1
 
