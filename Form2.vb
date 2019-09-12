@@ -13,7 +13,6 @@ Public Class KeyringForm
             Remember = ReturnRemember
         End Sub
     End Structure
-
     Public Structure User
         Private ID As String
         Private Pin As String
@@ -37,7 +36,6 @@ Public Class KeyringForm
         End Function
 
     End Structure
-
     Public Structure KeyRing
         Private Users As ArrayList
         Private NumberofUsers As Integer
