@@ -150,6 +150,9 @@ Partial Class EzTaxCertify
         Me.DetailsButton.Text = "Details"
         Me.DetailsButton.UseVisualStyleBackColor = True
         '
+        'WaitForRender
+        '
+        '
         'EzTaxCertify
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)

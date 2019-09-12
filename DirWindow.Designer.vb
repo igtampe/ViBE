@@ -42,6 +42,7 @@ Partial Class DirWindow
         Me.GBANKRButton = New System.Windows.Forms.RadioButton()
         Me.RIVERRButton = New System.Windows.Forms.RadioButton()
         Me.BankGroupBox = New System.Windows.Forms.GroupBox()
+        Me.Name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.UserGroupBox.SuspendLayout()
         Me.BankGroupBox.SuspendLayout()
@@ -232,7 +233,7 @@ Partial Class DirWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximumSize = New System.Drawing.Size(347, 505)
         Me.MinimumSize = New System.Drawing.Size(347, 300)
-        Me.Name = New ColumnHeader With {.Text = "DirWindow"}
+        'Me.Name = "DirWindow"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Directory"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

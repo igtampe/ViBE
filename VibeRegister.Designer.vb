@@ -262,12 +262,13 @@ Partial Class VibeRegister
         Me.Controls.Add(Me.LoadingLabel)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PictureBox1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximumSize = New System.Drawing.Size(382, 454)
         Me.MinimumSize = New System.Drawing.Size(382, 354)
         Me.Name = "VibeRegister"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "VibeRegister"
+        Me.Text = "Registration"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

@@ -101,6 +101,9 @@ Partial Class NotificationsForm
         'RemoveNotificationBW
         '
         '
+        'ClearAllNotificationsBW
+        '
+        '
         'NotificationsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)

@@ -265,6 +265,7 @@ Partial Class ConMain
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "ConMain"
+        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Contractus"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -153,7 +153,9 @@ Partial Class CheckbookMain
         Me.Controls.Add(Me.InboxButton)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
         Me.Name = "CheckbookMain"
+        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Checkbook 2000"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

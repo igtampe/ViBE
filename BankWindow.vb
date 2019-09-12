@@ -25,7 +25,7 @@ Public Class BankWindow
     Private Sub BankWindow_Load(sender As Object, e As EventArgs) Handles Me.Load
         Button3.Enabled = False
         ID = VibeLogin.LogonID.Text
-
+        Icon = VibeMainScreen.Icon
         Bank = "LEMON"
         Try
             Bank = VibeMainScreen.BANKTXB.Text
