@@ -28,7 +28,7 @@ Partial Class ConMain
         Me.AmountLabel = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.AvConLVIEW = New System.Windows.Forms.ListView()
-        Me.Name = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ItemName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.From = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TopBid = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TopBidFrom = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -97,7 +97,8 @@ Partial Class ConMain
         '
         'AvConLVIEW
         '
-        Me.AvConLVIEW.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.Name, Me.From, Me.TopBid, Me.TopBidFrom})
+        Me.AvConLVIEW.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ItemName, Me.From, Me.TopBid, Me.TopBidFrom})
+        Me.AvConLVIEW.HideSelection = False
         Me.AvConLVIEW.Location = New System.Drawing.Point(6, 19)
         Me.AvConLVIEW.Name = "AvConLVIEW"
         Me.AvConLVIEW.Size = New System.Drawing.Size(416, 146)
@@ -105,10 +106,10 @@ Partial Class ConMain
         Me.AvConLVIEW.UseCompatibleStateImageBehavior = False
         Me.AvConLVIEW.View = System.Windows.Forms.View.Details
         '
-        'Name
+        'ItemName
         '
-        Me.Name.Text = "Name"
-        Me.Name.Width = 184
+        Me.ItemName.Text = "Name"
+        Me.ItemName.Width = 184
         '
         'From
         '
@@ -176,6 +177,7 @@ Partial Class ConMain
         'AcConLVIEW
         '
         Me.AcConLVIEW.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.NameActive, Me.FromActive, Me.Amount})
+        Me.AcConLVIEW.HideSelection = False
         Me.AcConLVIEW.Location = New System.Drawing.Point(6, 19)
         Me.AcConLVIEW.Name = "AcConLVIEW"
         Me.AcConLVIEW.Size = New System.Drawing.Size(416, 146)
@@ -262,7 +264,7 @@ Partial Class ConMain
         Me.Controls.Add(Me.NameLabel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-
+        Me.Name = "ConMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Contractus"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -286,7 +288,7 @@ Partial Class ConMain
     Friend WithEvents SendBillBTN As Button
     Friend WithEvents AcDetails As Button
     Friend WithEvents CloseButton As Button
-    Friend WithEvents Name As ColumnHeader
+    Friend WithEvents ItemName As ColumnHeader
     Friend WithEvents From As ColumnHeader
     Friend WithEvents TopBid As ColumnHeader
     Friend WithEvents TopBidFrom As ColumnHeader

@@ -61,7 +61,7 @@ Partial Class EZTaxMain
         Me.Label18 = New System.Windows.Forms.Label()
         Me.InitialBW = New System.ComponentModel.BackgroundWorker()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Update = New System.Windows.Forms.Button()
+        Me.UpdateBTN = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Aboutbutton = New System.Windows.Forms.Button()
         Me.EzTaxTopLabel = New System.Windows.Forms.Label()
@@ -418,17 +418,17 @@ Partial Class EZTaxMain
         Me.PictureBox1.TabIndex = 7
         Me.PictureBox1.TabStop = False
         '
-        'Update
+        'UpdateBTN
         '
-        Me.Update.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Update.Image = CType(resources.GetObject("Update.Image"), System.Drawing.Image)
-        Me.Update.Location = New System.Drawing.Point(336, 462)
-        Me.Update.Name = "Update"
-        Me.Update.Size = New System.Drawing.Size(92, 23)
-        Me.Update.TabIndex = 5
-        Me.Update.Text = "Update Income"
-        Me.ToolTip1.SetToolTip(Me.Update, "Update your income")
-        Me.Update.UseVisualStyleBackColor = True
+        Me.UpdateBTN.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.UpdateBTN.Image = CType(resources.GetObject("UpdateBTN.Image"), System.Drawing.Image)
+        Me.UpdateBTN.Location = New System.Drawing.Point(336, 462)
+        Me.UpdateBTN.Name = "UpdateBTN"
+        Me.UpdateBTN.Size = New System.Drawing.Size(92, 23)
+        Me.UpdateBTN.TabIndex = 5
+        Me.UpdateBTN.Text = "Update Income"
+        Me.ToolTip1.SetToolTip(Me.UpdateBTN, "Update your income")
+        Me.UpdateBTN.UseVisualStyleBackColor = True
         '
         'Aboutbutton
         '
@@ -466,7 +466,7 @@ Partial Class EZTaxMain
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Aboutbutton)
         Me.Controls.Add(Me.Quit)
-        Me.Controls.Add(Me.Update)
+        Me.Controls.Add(Me.UpdateBTN)
         Me.Controls.Add(Me.RemoveItemButton)
         Me.Controls.Add(Me.ModifyItemButton)
         Me.Controls.Add(Me.AddItemButton)
@@ -526,7 +526,7 @@ Partial Class EZTaxMain
     Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents Update As Button
+    Friend WithEvents UpdateBTN As Button
     Friend WithEvents Label10 As Label
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents HitLabel As Label

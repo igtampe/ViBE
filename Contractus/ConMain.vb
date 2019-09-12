@@ -124,7 +124,7 @@ Public Class ConMain
 
     End Sub
 
-    Sub refreshAllContracts()
+    Sub RefreshAllContracts()
         RefreshNotice.Show()
         AllContracts = Nothing
         ActiveContractsExist = Nothing

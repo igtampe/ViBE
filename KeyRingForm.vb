@@ -14,9 +14,9 @@ Public Class KeyringForm
         End Sub
     End Structure
     Public Structure User
-        Private ID As String
-        Private Pin As String
-        Private Name As String
+        Private ReadOnly ID As String
+        Private ReadOnly Pin As String
+        Private ReadOnly Name As String
         Sub New(NewID As String, NewPIN As String, NewName As String)
             ID = NewID
             Pin = NewPIN
@@ -40,13 +40,13 @@ Public Class KeyringForm
         Private Users As ArrayList
         Private NumberofUsers As Integer
         Private NumberofHeaders As Integer
-        Private Filename As String
-        Private Ready As Boolean
+        Private ReadOnly Filename As String
+        Private ReadOnly Ready As Boolean
         Sub New(NewFilename As String)
             Users = New ArrayList
             NumberofUsers = 0
             Filename = NewFilename
-            If Not System.IO.File.Exists(Filename) Then
+            If Not File.Exists(Filename) Then
                 MsgBox("No KeyRing file exists, it will be generated when you add your first account to the keyring", MsgBoxStyle.Information, "KeyRing")
                 Exit Sub
             Else
@@ -160,14 +160,16 @@ Public Class KeyringForm
         ListView1.Clear()
         ListView1.View = View.Details
         Dim Column As ColumnHeader
-        Column = New ColumnHeader
-        Column.Text = "ID"
-        Column.Width = 50
+        Column = New ColumnHeader With {
+            .Text = "ID",
+            .Width = 50
+        }
         ListView1.Columns.Add(Column)
 
-        Column = New ColumnHeader
-        Column.Text = "Name"
-        Column.Width = 220
+        Column = New ColumnHeader With {
+            .Text = "Name",
+            .Width = 220
+        }
         ListView1.Columns.Add(Column)
 
         ListView1.FullRowSelect = True

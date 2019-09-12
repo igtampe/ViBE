@@ -126,7 +126,7 @@
 
     End Sub
 
-    Private Sub CancelButton_Click(sender As Object, e As EventArgs) Handles CancelButton.Click
+    Private Sub CancelButton_Click(sender As Object, e As EventArgs) Handles NoNoButton.Click
 
         Close()
 
@@ -149,7 +149,7 @@
             RIVERRButton.Enabled = False
 
             SelectButton.Enabled = False
-            CancelButton.Enabled = False
+            NoNoButton.Enabled = False
             DirectoryView.Enabled = False
             SearchBox.Enabled = False
 
@@ -164,7 +164,7 @@
             If INFO(4) = 1 Then RIVERRButton.Enabled = True Else RIVERRButton.Enabled = False
 
             SelectButton.Enabled = True
-            CancelButton.Enabled = True
+            NoNoButton.Enabled = True
             DirectoryView.Enabled = True
             SearchBox.Enabled = True
 

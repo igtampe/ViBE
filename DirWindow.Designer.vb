@@ -28,7 +28,7 @@ Partial Class DirWindow
         Me.Label1 = New System.Windows.Forms.Label()
         Me.LoadingLabel = New System.Windows.Forms.Label()
         Me.SelectButton = New System.Windows.Forms.Button()
-        Me.CancelButton = New System.Windows.Forms.Button()
+        Me.NoNoButton = New System.Windows.Forms.Button()
         Me.UserGroupBox = New System.Windows.Forms.GroupBox()
         Me.SearchBox = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -87,14 +87,14 @@ Partial Class DirWindow
         Me.SelectButton.Text = "Select"
         Me.SelectButton.UseVisualStyleBackColor = True
         '
-        'CancelButton
+        'NoNoButton
         '
-        Me.CancelButton.Location = New System.Drawing.Point(185, 419)
-        Me.CancelButton.Name = "CancelButton"
-        Me.CancelButton.Size = New System.Drawing.Size(134, 23)
-        Me.CancelButton.TabIndex = 4
-        Me.CancelButton.Text = "Cancel"
-        Me.CancelButton.UseVisualStyleBackColor = True
+        Me.NoNoButton.Location = New System.Drawing.Point(185, 419)
+        Me.NoNoButton.Name = "NoNoButton"
+        Me.NoNoButton.Size = New System.Drawing.Size(134, 23)
+        Me.NoNoButton.TabIndex = 4
+        Me.NoNoButton.Text = "Cancel"
+        Me.NoNoButton.UseVisualStyleBackColor = True
         '
         'UserGroupBox
         '
@@ -127,6 +127,7 @@ Partial Class DirWindow
         'DirectoryView
         '
         Me.DirectoryView.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
+        Me.DirectoryView.HideSelection = False
         Me.DirectoryView.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1})
         Me.DirectoryView.Location = New System.Drawing.Point(6, 42)
         Me.DirectoryView.MultiSelect = False
@@ -222,7 +223,7 @@ Partial Class DirWindow
         Me.Controls.Add(Me.OKButton)
         Me.Controls.Add(Me.BankGroupBox)
         Me.Controls.Add(Me.UserGroupBox)
-        Me.Controls.Add(Me.CancelButton)
+        Me.Controls.Add(Me.NoNoButton)
         Me.Controls.Add(Me.SelectButton)
         Me.Controls.Add(Me.LoadingLabel)
         Me.Controls.Add(Me.Label1)
@@ -231,7 +232,7 @@ Partial Class DirWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximumSize = New System.Drawing.Size(347, 505)
         Me.MinimumSize = New System.Drawing.Size(347, 300)
-
+        Me.Name = New ColumnHeader With {.Text = "DirWindow"}
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Directory"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -248,7 +249,7 @@ Partial Class DirWindow
     Friend WithEvents Label1 As Label
     Friend WithEvents LoadingLabel As Label
     Friend WithEvents SelectButton As Button
-    Friend WithEvents CancelButton As Button
+    Friend WithEvents NoNoButton As Button
     Friend WithEvents UserGroupBox As GroupBox
     Friend WithEvents OKButton As Button
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker

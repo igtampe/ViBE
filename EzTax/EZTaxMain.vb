@@ -364,7 +364,7 @@ LabelNoDownload:
 
     End Sub
 
-    Private Sub Update_Click(sender As Object, e As EventArgs) Handles Update.Click
+    Private Sub Update_Click(sender As Object, e As EventArgs) Handles UpdateBTN.Click
 
         Dim Servermsg As String
         Servermsg = ServerCommand.ServerCommand("EZTUPD" & ID & (UpdatedTotal - EI))
@@ -540,9 +540,12 @@ LabelNoDownload:
                         Exit Select
                     Case Else
                         TaxBracketCalc = "Untaxed (0%)"
-                        Taxb = 0.05
+                        Taxb = 0
                         Exit Select
                 End Select
+            Case Else
+                TaxBracketCalc = "Unknown (0%)"
+                Taxb = 0
 
         End Select
 
@@ -573,6 +576,9 @@ LabelNoDownload:
                         Exit Select
                 End Select
                 TaxCalc = (Total) * Taxb
+            Case Else
+                Taxb = 0
+                TaxCalc = Total * Taxb
         End Select
     End Function
 
