@@ -32,7 +32,7 @@ Public Class EzTaxCertify
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        ServerMSG = EZTaxMain.ServerCommand("CERT" & ItemName & " Has a calculated income of " & ItemIncome)
+        ServerMSG = ServerCommand.ServerCommand("CERT" & ItemName & " Has a calculated income of " & ItemIncome)
 
     End Sub
 
@@ -55,26 +55,8 @@ Public Class EzTaxCertify
 
     End Sub
 
-    Private Sub TakeScreenshot()
-        Dim bmpScreenShot As Bitmap
-        Dim gfxScreenshot As Graphics
-
-        bmpScreenShot = New Bitmap(Width, Height, PixelFormat.Format32bppArgb)
-
-        gfxScreenshot = Graphics.FromImage(bmpScreenShot)
-        gfxScreenshot.CopyFromScreen(Location.X, Location.Y, 0, 0, Size, CopyPixelOperation.SourceCopy)
-        If File.Exists(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png") Then File.Delete(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png")
-        bmpScreenShot.Save(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png", ImageFormat.Png)
-
-        Dim Coso As Image
-        Coso = Image.FromFile(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png")
-        My.Computer.Clipboard.SetImage(Coso)
-        Coso.Dispose()
-        ClipboardNotice.Show()
-    End Sub
-
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
-        TakeScreenshot()
+        ScreenCamera.TakeScreenshot(Width, Height, Location.X, Location.Y, Size)
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
@@ -87,18 +69,19 @@ Public Class EzTaxCertify
         gfxScreenshot.CopyFromScreen(Location.X, Location.Y, 0, 0, Size, CopyPixelOperation.SourceCopy)
         If File.Exists(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png") Then File.Delete(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png")
 
-        Dim FD As SaveFileDialog = New SaveFileDialog()
-        FD.Title = "Save As"
-        FD.AddExtension = True
-        FD.AutoUpgradeEnabled = True
-        FD.CheckFileExists = False
-        FD.CheckPathExists = True
-        FD.DefaultExt = ".png"
-        FD.InitialDirectory = My.Computer.FileSystem.SpecialDirectories.MyPictures
-        FD.OverwritePrompt = True
-        FD.SupportMultiDottedExtensions = False
-        FD.ValidateNames = True
-        FD.FileName = "Doot.png"
+        Dim FD As SaveFileDialog = New SaveFileDialog() With {
+            .Title = "Save As",
+            .AddExtension = True,
+            .AutoUpgradeEnabled = True,
+            .CheckFileExists = False,
+            .CheckPathExists = True,
+            .DefaultExt = ".png",
+            .InitialDirectory = My.Computer.FileSystem.SpecialDirectories.MyPictures,
+            .OverwritePrompt = True,
+            .SupportMultiDottedExtensions = False,
+            .ValidateNames = True,
+            .FileName = "Doot.png"
+        }
 
         If FD.ShowDialog() = DialogResult.OK Then
             bmpScreenShot.Save(FD.FileName, ImageFormat.Png)
@@ -115,7 +98,7 @@ Public Class EzTaxCertify
     End Sub
 
     Sub OKTakeTheScreenshotpls() Handles WaitForRender.RunWorkerCompleted
-        TakeScreenshot()
+        ScreenCamera.TakeScreenshot(Width, Height, Location.X, Location.Y, Size)
     End Sub
 
 End Class

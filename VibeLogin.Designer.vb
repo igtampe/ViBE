@@ -33,7 +33,6 @@ Partial Class VibeLogin
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.RememberMeCheckbox = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -128,9 +127,6 @@ Partial Class VibeLogin
         'BackgroundWorker1
         '
         '
-        'BackgroundWorker2
-        '
-        '
         'RememberMeCheckbox
         '
         Me.RememberMeCheckbox.AutoSize = True
@@ -215,7 +211,6 @@ Partial Class VibeLogin
     Friend WithEvents Button2 As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents RememberMeCheckbox As CheckBox
     Friend WithEvents Label1 As Label

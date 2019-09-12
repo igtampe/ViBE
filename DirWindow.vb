@@ -1,7 +1,4 @@
-﻿Imports System.IO
-Imports System.Net.Sockets
-
-Public Class DirWindow
+﻿Public Class DirWindow
 
     Public sortcolumn
     Public DirectoryArray() As String
@@ -106,7 +103,7 @@ Public Class DirWindow
         If GBANKRButton.Checked Then Bank = "GBANK"
         If RIVERRButton.Checked Then Bank = "RIVER"
 
-        If SelectedIndex = -1 Then
+        If Selectedindex = -1 Then
 
             MsgBox("Please select who you will ~ViBE~ money to", vbCritical, "ViBE")
             Exit Sub
@@ -135,66 +132,6 @@ Public Class DirWindow
 
     End Sub
 
-    Function ServerCommand(ByVal ClientMSG As String) As String
-
-        Dim tc As TcpClient = New TcpClient()
-        Dim ns As NetworkStream
-        Dim br As BinaryReader
-        Dim bw As BinaryWriter
-
-        ServerMSG = "E"
-
-        If ClientMSG = "" Then
-            ServerCommand = "E"
-            Exit Function
-        End If
-
-        Try
-            tc.Connect(“IGTNET-W.DDNS.NET”, 757)
-            'tc.Connect(“127.0.0.1”, 757)
-            Exit Try
-
-        Catch
-
-            MsgBox("Unable to connect to the server.", MsgBoxStyle.Exclamation, "ViBE Error")
-            VibeLogin.Show()
-            Close()
-            ServerCommand = "NOCONNECT"
-            Exit Function
-
-        End Try
-
-
-
-        If tc.Connected = True Then
-            ns = tc.GetStream
-            br = New BinaryReader(ns)
-            bw = New BinaryWriter(ns)
-
-            bw.Write(ClientMSG)
-
-            Try
-                ServerMSG = br.ReadString()
-            Catch
-                MsgBox("Seems like the server might've crashed! Contact CHOPO!", MsgBoxStyle.Exclamation, "ViBE Error")
-                VibeLogin.Show()
-                Close()
-                ServerCommand = "CRASH"
-                Exit Function
-
-            End Try
-
-
-            tc.Close()
-
-        End If
-
-
-
-        ServerCommand = ServerMSG
-
-    End Function
-
     Private Sub HeDidAClick() Handles DirectoryView.SelectedIndexChanged
         Dim Selectedindex As Integer
 
@@ -220,7 +157,7 @@ Public Class DirWindow
 
             Dim INFO() As String
 
-            INFO = ServerCommand("INFO" & DirectoryView.SelectedItems(0).Text).Split(",")
+            INFO = ServerCommand.ServerCommand("INFO" & DirectoryView.SelectedItems(0).Text).Split(",")
 
             If INFO(0) = 1 Then UMSNBRButton.Enabled = True Else UMSNBRButton.Enabled = False
             If INFO(2) = 1 Then GBANKRButton.Enabled = True Else GBANKRButton.Enabled = False
@@ -239,7 +176,7 @@ Public Class DirWindow
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
 
-        ServerMSG = ServerCommand("DIR")
+        ServerMSG = ServerCommand.ServerCommand("DIR")
 
         DirectoryArray = ServerMSG.Split(",")
         Dim N As Integer = 0

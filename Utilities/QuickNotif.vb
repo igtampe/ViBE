@@ -5,7 +5,6 @@
     Sub slowfade() Handles Me.Shown
         Opacity = 0.9
         BackgroundWorker1.RunWorkerAsync()
-
     End Sub
 
     Private Sub ReportProgresso() Handles BackgroundWorker1.ProgressChanged
@@ -25,7 +24,5 @@
     Private Sub Closeit() Handles BackgroundWorker1.RunWorkerCompleted
         Close()
     End Sub
-
-
 
 End Class

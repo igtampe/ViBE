@@ -1,6 +1,5 @@
 ﻿Imports System.Drawing.Imaging
 Imports System.IO
-Imports System.Net.Sockets
 
 Public Class CertificationWindow
 
@@ -58,69 +57,9 @@ Public Class CertificationWindow
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
-    Function ServerCommand(ByVal ClientMSG As String) As String
-
-        Dim tc As TcpClient = New TcpClient()
-        Dim ns As NetworkStream
-        Dim br As BinaryReader
-        Dim bw As BinaryWriter
-        Dim ServerMSG As String
-
-        ServerMSG = "E"
-
-        If ClientMSG = "" Then
-            ServerCommand = "E"
-            Exit Function
-        End If
-
-        Try
-            tc.Connect(“Igtnet-w.ddns.net”, 757)
-            'tc.Connect(“127.0.0.1”, 757)
-            Exit Try
-
-        Catch
-
-            MsgBox("Unable to connect to the server.", MsgBoxStyle.Exclamation, "ViBE Error")
-            VibeLogin.Show()
-            Close()
-            ServerCommand = "NOCONNECT"
-            Exit Function
-
-        End Try
-
-
-
-        If tc.Connected = True Then
-            ns = tc.GetStream
-            br = New BinaryReader(ns)
-            bw = New BinaryWriter(ns)
-
-            bw.Write(ClientMSG)
-
-            Try
-                ServerMSG = br.ReadString()
-            Catch
-                MsgBox("Seems like the server might've crashed! Contact CHOPO!", MsgBoxStyle.Exclamation, "ViBE Error")
-                VibeLogin.Show()
-                Close()
-                ServerCommand = "CRASH"
-                Exit Function
-
-            End Try
-
-
-            tc.Close()
-
-        End If
-
-
-
-        ServerCommand = ServerMSG
-
-    End Function
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        Servermsg = ServerCommand("CERT" & Certify)
+        Servermsg = ServerCommand.ServerCommand("CERT" & Certify)
 
     End Sub
 
@@ -143,30 +82,12 @@ Public Class CertificationWindow
 
     End Sub
 
-    Private Sub TakeScreenshot()
-        Dim bmpScreenShot As Bitmap
-        Dim gfxScreenshot As Graphics
-
-        bmpScreenShot = New Bitmap(Width, Height, PixelFormat.Format32bppArgb)
-
-        gfxScreenshot = Graphics.FromImage(bmpScreenShot)
-        gfxScreenshot.CopyFromScreen(Location.X, Location.Y, 0, 0, Size, CopyPixelOperation.SourceCopy)
-        If File.Exists(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png") Then File.Delete(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png")
-        bmpScreenShot.Save(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png", ImageFormat.Png)
-
-        Dim Coso As Image
-        Coso = Image.FromFile(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png")
-        My.Computer.Clipboard.SetImage(Coso)
-        Coso.Dispose()
-        ClipboardNotice.Show()
-    End Sub
-
     Private Sub WaitForRender_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles WaitForRender.DoWork
         Threading.Thread.Sleep(50)
     End Sub
 
     Sub OKTakeTheScreenshotpls() Handles WaitForRender.RunWorkerCompleted
-        TakeScreenshot()
+        ScreenCamera.TakeScreenshot(Width, Height, Location.X, Location.Y, Size)
     End Sub
 
 End Class

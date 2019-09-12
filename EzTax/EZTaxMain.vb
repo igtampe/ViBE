@@ -1,8 +1,6 @@
 ﻿
 Imports System.ComponentModel
 Imports System.IO
-Imports System.Net
-Imports System.Net.Sockets
 
 Public Class EZTaxMain
 
@@ -39,7 +37,7 @@ Public Class EZTaxMain
     End Structure
 
 
-    Private Sub AboutButton_click(sender As Object, e As EventArgs) Handles Aboutbutton.Click, PictureBox1.Click
+    Private Sub AboutButton_click(sender As Object, e As EventArgs) Handles Aboutbutton.Click
         EZTaxWizard.ShowDialog()
         If EZTaxWizard.ItemName = "~CANCEL~" Then
             'uh do nothing
@@ -244,7 +242,7 @@ LabelNoDownload:
         InitialBW.ReportProgress(I)
 
 
-        Servermsg = ServerCommand("EZTINF" & ID)
+        Servermsg = ServerCommand.ServerCommand("EZTINF" & ID)
         If Servermsg = "E" Then
             MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
             Close()
@@ -346,65 +344,6 @@ LabelNoDownload:
         RemoveItemButton.Enabled = True
     End Sub
 
-    Function ServerCommand(ByVal ClientMSG As String) As String
-
-        Dim tc As TcpClient = New TcpClient()
-        Dim ns As NetworkStream
-        Dim br As BinaryReader
-        Dim bw As BinaryWriter
-        Dim ServerMSG As String
-
-        ServerMSG = "E"
-
-        If ClientMSG = "" Then
-            ServerCommand = "E"
-            Exit Function
-        End If
-
-        Try
-            tc.Connect(“Igtnet-w.ddns.net”, 757)
-            Exit Try
-
-        Catch
-
-            MsgBox("Unable to connect to the server.", MsgBoxStyle.Exclamation, "ViBE Error")
-            VibeLogin.Show()
-            Close()
-            ServerCommand = "NOCONNECT"
-            Exit Function
-
-        End Try
-
-
-
-        If tc.Connected = True Then
-            ns = tc.GetStream
-            br = New BinaryReader(ns)
-            bw = New BinaryWriter(ns)
-
-            bw.Write(ClientMSG)
-
-            Try
-                ServerMSG = br.ReadString()
-            Catch
-                MsgBox("Seems like the server might've crashed! Contact CHOPO!", MsgBoxStyle.Exclamation, "ViBE Error")
-                VibeLogin.Show()
-                Close()
-                ServerCommand = "CRASH"
-                Exit Function
-
-            End Try
-
-
-            tc.Close()
-
-        End If
-
-
-
-        ServerCommand = ServerMSG
-
-    End Function
 
     Private Sub EZTaxMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
@@ -428,17 +367,11 @@ LabelNoDownload:
     Private Sub Update_Click(sender As Object, e As EventArgs) Handles Update.Click
 
         Dim Servermsg As String
-        Servermsg = ServerCommand("EZTUPD" & ID & (UpdatedTotal - EI))
-
-        Using wc As New System.Net.WebClient()
-            wc.UploadFile("http://igtnet-w.ddns.net:100/flow/" & VibeLogin.IDLabel.Text & ".IncomeRegistry." & DateTime.Now.ToString.Replace("/", "_").Replace(":", "-") & ".csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv")
-        End Using
-
+        Servermsg = ServerCommand.ServerCommand("EZTUPD" & ID & (UpdatedTotal - EI))
 
         Select Case Servermsg
             Case "E"
                 MsgBox("Could not update income", vbCritical, "EzTax")
-
             Case "S"
                 MsgBox("Updated income succesfully", vbInformation, "EzTax")
 
@@ -447,16 +380,11 @@ LabelNoDownload:
                 TaxBracket = UpdatedTaxBracket
                 Total = UpdatedTotal
 
-
                 IncomeLabel.Text = Income.ToString("N0") & "p"
                 TotalLabel.Text = Total.ToString("N0") & "p"
                 TaxBracketLabel.Text = TaxBracket
                 TaxDueLabel.Text = Tax.ToString("N0") & "p"
-
-
         End Select
-
-
 
     End Sub
     ''' <summary>
@@ -648,5 +576,9 @@ LabelNoDownload:
         End Select
     End Function
 
-
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        Hide()
+        EzTaxAbout.ShowDialog()
+        Show()
+    End Sub
 End Class

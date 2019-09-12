@@ -101,7 +101,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>VIBE.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\VIBE.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
@@ -155,58 +155,60 @@
     <Compile Include="CertificationWindow.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CheckbookInbox.Designer.vb">
+    <Compile Include="Checkbook2000\CheckbookInbox.Designer.vb">
       <DependentUpon>CheckbookInbox.vb</DependentUpon>
     </Compile>
-    <Compile Include="CheckbookInbox.vb">
+    <Compile Include="Checkbook2000\CheckbookInbox.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CheckbookMain.Designer.vb">
+    <Compile Include="Checkbook2000\CheckbookMain.Designer.vb">
       <DependentUpon>CheckbookMain.vb</DependentUpon>
     </Compile>
-    <Compile Include="CheckbookMain.vb">
+    <Compile Include="Checkbook2000\CheckbookMain.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CheckbookOutbox.Designer.vb">
+    <Compile Include="Checkbook2000\CheckbookOutbox.Designer.vb">
       <DependentUpon>CheckbookOutbox.vb</DependentUpon>
     </Compile>
-    <Compile Include="CheckbookOutbox.vb">
+    <Compile Include="Checkbook2000\CheckbookOutbox.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CheckbookSplash.Designer.vb">
+    <Compile Include="Checkbook2000\CheckbookSplash.Designer.vb">
       <DependentUpon>CheckbookSplash.vb</DependentUpon>
     </Compile>
-    <Compile Include="CheckbookSplash.vb">
+    <Compile Include="Checkbook2000\CheckbookSplash.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConAdd.Designer.vb">
+    <Compile Include="Utilities\ScreenCamera.vb" />
+    <Compile Include="Utilities\ServerCommand.vb" />
+    <Compile Include="Contractus\ConAdd.Designer.vb">
       <DependentUpon>ConAdd.vb</DependentUpon>
     </Compile>
-    <Compile Include="ConAdd.vb">
+    <Compile Include="Contractus\ConAdd.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConBid.Designer.vb">
+    <Compile Include="Contractus\ConBid.Designer.vb">
       <DependentUpon>ConBid.vb</DependentUpon>
     </Compile>
-    <Compile Include="ConBid.vb">
+    <Compile Include="Contractus\ConBid.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConDetails.Designer.vb">
+    <Compile Include="Contractus\ConDetails.Designer.vb">
       <DependentUpon>ConDetails.vb</DependentUpon>
     </Compile>
-    <Compile Include="ConDetails.vb">
+    <Compile Include="Contractus\ConDetails.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConMain.Designer.vb">
+    <Compile Include="Contractus\ConMain.Designer.vb">
       <DependentUpon>ConMain.vb</DependentUpon>
     </Compile>
-    <Compile Include="ConMain.vb">
+    <Compile Include="Contractus\ConMain.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConSplash.Designer.vb">
+    <Compile Include="Contractus\ConSplash.Designer.vb">
       <DependentUpon>ConSplash.vb</DependentUpon>
     </Compile>
-    <Compile Include="ConSplash.vb">
+    <Compile Include="Contractus\ConSplash.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DownloadForm.Designer.vb">
@@ -215,46 +217,46 @@
     <Compile Include="DownloadForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EzTaxAbout.Designer.vb">
+    <Compile Include="EzTax\EzTaxAbout.Designer.vb">
       <DependentUpon>EzTaxAbout.vb</DependentUpon>
     </Compile>
-    <Compile Include="EzTaxAbout.vb">
+    <Compile Include="EzTax\EzTaxAbout.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EzTaxCertify.Designer.vb">
+    <Compile Include="EzTax\EzTaxCertify.Designer.vb">
       <DependentUpon>EzTaxCertify.vb</DependentUpon>
     </Compile>
-    <Compile Include="EzTaxCertify.vb">
+    <Compile Include="EzTax\EzTaxCertify.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EZTaxMain.Designer.vb">
+    <Compile Include="EzTax\EZTaxMain.Designer.vb">
       <DependentUpon>EZTaxMain.vb</DependentUpon>
     </Compile>
-    <Compile Include="EZTaxMain.vb">
+    <Compile Include="EzTax\EZTaxMain.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EZTaxSplash.Designer.vb">
+    <Compile Include="EzTax\EZTaxSplash.Designer.vb">
       <DependentUpon>EZTaxSplash.vb</DependentUpon>
     </Compile>
-    <Compile Include="EZTaxSplash.vb">
+    <Compile Include="EzTax\EZTaxSplash.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EZTaxWizard.Designer.vb">
+    <Compile Include="EzTax\EZTaxWizard.Designer.vb">
       <DependentUpon>EzTaxWizard.vb</DependentUpon>
     </Compile>
-    <Compile Include="EzTaxWizard.vb">
+    <Compile Include="EzTax\EzTaxWizard.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="DirWindow.Designer.vb">
+      <DependentUpon>DirWindow.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form1.vb">
+    <Compile Include="DirWindow.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.vb">
-      <DependentUpon>Form2.vb</DependentUpon>
+    <Compile Include="KeyRingForm.Designer.vb">
+      <DependentUpon>KeyRingForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="Form2.vb">
+    <Compile Include="KeyRingForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InputForm.Designer.vb">
@@ -263,19 +265,18 @@
     <Compile Include="InputForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LandView.Designer.vb">
+    <Compile Include="LandView\LandView.Designer.vb">
       <DependentUpon>LandView.vb</DependentUpon>
     </Compile>
-    <Compile Include="LandView.vb">
+    <Compile Include="LandView\LandView.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LandViewDownload.Designer.vb">
+    <Compile Include="LandView\LandViewDownload.Designer.vb">
       <DependentUpon>LandViewDownload.vb</DependentUpon>
     </Compile>
-    <Compile Include="LandViewDownload.vb">
+    <Compile Include="LandView\LandViewDownload.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListViewItemComparer.vb" />
     <Compile Include="My Project\Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
     </Compile>
@@ -299,10 +300,10 @@
     <Compile Include="NotificationsForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuickNotif.Designer.vb">
+    <Compile Include="Utilities\QuickNotif.Designer.vb">
       <DependentUpon>QuickNotif.vb</DependentUpon>
     </Compile>
-    <Compile Include="QuickNotif.vb">
+    <Compile Include="Utilities\QuickNotif.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Readme.Designer.vb">
@@ -317,10 +318,10 @@
     <Compile Include="RefreshNotice.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ServerCommandLine.Designer.vb">
+    <Compile Include="Utilities\ServerCommandLine.Designer.vb">
       <DependentUpon>ServerCommandLine.vb</DependentUpon>
     </Compile>
-    <Compile Include="ServerCommandLine.vb">
+    <Compile Include="Utilities\ServerCommandLine.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VibeChangePin.vb">
@@ -344,10 +345,10 @@
     <Compile Include="VibeLogin.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SplashScreen1.Designer.vb">
-      <DependentUpon>SplashScreen1.vb</DependentUpon>
+    <Compile Include="ViBESplash.Designer.vb">
+      <DependentUpon>ViBESplash.vb</DependentUpon>
     </Compile>
-    <Compile Include="SplashScreen1.vb">
+    <Compile Include="ViBESplash.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -384,64 +385,64 @@
     <EmbeddedResource Include="CertificationWindow.resx">
       <DependentUpon>CertificationWindow.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CheckbookInbox.resx">
+    <EmbeddedResource Include="Checkbook2000\CheckbookInbox.resx">
       <DependentUpon>CheckbookInbox.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CheckbookMain.resx">
+    <EmbeddedResource Include="Checkbook2000\CheckbookMain.resx">
       <DependentUpon>CheckbookMain.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CheckbookOutbox.resx">
+    <EmbeddedResource Include="Checkbook2000\CheckbookOutbox.resx">
       <DependentUpon>CheckbookOutbox.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CheckbookSplash.resx">
+    <EmbeddedResource Include="Checkbook2000\CheckbookSplash.resx">
       <DependentUpon>CheckbookSplash.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConAdd.resx">
+    <EmbeddedResource Include="Contractus\ConAdd.resx">
       <DependentUpon>ConAdd.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConBid.resx">
+    <EmbeddedResource Include="Contractus\ConBid.resx">
       <DependentUpon>ConBid.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConDetails.resx">
+    <EmbeddedResource Include="Contractus\ConDetails.resx">
       <DependentUpon>ConDetails.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConMain.resx">
+    <EmbeddedResource Include="Contractus\ConMain.resx">
       <DependentUpon>ConMain.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConSplash.resx">
+    <EmbeddedResource Include="Contractus\ConSplash.resx">
       <DependentUpon>ConSplash.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadForm.resx">
       <DependentUpon>DownloadForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EzTaxAbout.resx">
+    <EmbeddedResource Include="EzTax\EzTaxAbout.resx">
       <DependentUpon>EzTaxAbout.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EzTaxCertify.resx">
+    <EmbeddedResource Include="EzTax\EzTaxCertify.resx">
       <DependentUpon>EzTaxCertify.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EZTaxMain.resx">
+    <EmbeddedResource Include="EzTax\EZTaxMain.resx">
       <DependentUpon>EZTaxMain.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EZTaxSplash.resx">
+    <EmbeddedResource Include="EzTax\EZTaxSplash.resx">
       <DependentUpon>EZTaxSplash.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EZTaxWizard.resx">
+    <EmbeddedResource Include="EzTax\EZTaxWizard.resx">
       <DependentUpon>EzTaxWizard.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="DirWindow.resx">
+      <DependentUpon>DirWindow.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.vb</DependentUpon>
+    <EmbeddedResource Include="KeyRingForm.resx">
+      <DependentUpon>KeyRingForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InputForm.resx">
       <DependentUpon>InputForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LandView.resx">
+    <EmbeddedResource Include="LandView\LandView.resx">
       <DependentUpon>LandView.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LandViewDownload.resx">
+    <EmbeddedResource Include="LandView\LandViewDownload.resx">
       <DependentUpon>LandViewDownload.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Form1.resx">
@@ -453,7 +454,7 @@
     <EmbeddedResource Include="NotificationsForm.resx">
       <DependentUpon>NotificationsForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuickNotif.resx">
+    <EmbeddedResource Include="Utilities\QuickNotif.resx">
       <DependentUpon>QuickNotif.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Readme.resx">
@@ -462,7 +463,7 @@
     <EmbeddedResource Include="RefreshNotice.resx">
       <DependentUpon>RefreshNotice.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ServerCommandLine.resx">
+    <EmbeddedResource Include="Utilities\ServerCommandLine.resx">
       <DependentUpon>ServerCommandLine.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VibeChangePin.resx">
@@ -477,8 +478,8 @@
     <EmbeddedResource Include="VibeLogin.resx">
       <DependentUpon>VibeLogin.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SplashScreen1.resx">
-      <DependentUpon>SplashScreen1.vb</DependentUpon>
+    <EmbeddedResource Include="ViBESplash.resx">
+      <DependentUpon>ViBESplash.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -508,15 +509,9 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
-    <None Include="Resources\readme.rtf" />
-    <None Include="Resources\WhatsNew.rtf" />
+    <None Include="Resources\Documents\readme.rtf" />
+    <None Include="Resources\Documents\WhatsNew.rtf" />
     <None Include="VIBE %28But on Visual Studio%29_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\VIBE.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\VIBE1.gif" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -534,39 +529,39 @@
     <None Include="Resources\VIBESplash.png" />
     <None Include="Resources\UMS NewFlag.png" />
     <None Include="Resources\VibeLoad.gif" />
-    <None Include="Resources\EZTaxSplash.png" />
-    <None Include="Resources\EzTax.png" />
-    <None Include="Resources\EzTaxButton.png" />
-    <None Include="Resources\EzTaxLogo.png" />
-    <None Include="Resources\LemonInvest.png" />
-    <None Include="Resources\GBANK.png" />
-    <None Include="Resources\Riverside.png" />
-    <None Include="Resources\UMSNB.png" />
-    <None Include="Resources\p.png" />
-    <None Include="Resources\Landview.png" />
-    <None Include="Resources\2000.png" />
-    <None Include="Resources\Iconsmind-Outline-Inbox-Into.png" />
-    <None Include="Resources\Iconsmind-Outline-Outbox-Into.png" />
-    <None Include="Resources\door-opened.png" />
-    <None Include="Resources\DidYouKnowBG.png" />
-    <None Include="Resources\Check.png" />
-    <None Include="Resources\Bill.png" />
+    <None Include="EzTax\Resources\EZTaxSplash.png" />
+    <None Include="EzTax\Resources\EzTax.png" />
+    <None Include="EzTax\Resources\EzTaxButton.png" />
+    <None Include="EzTax\Resources\EzTaxLogo.png" />
+    <None Include="Resources\Banks\LemonInvest.png" />
+    <None Include="Resources\Banks\GBANK.png" />
+    <None Include="Resources\Banks\Riverside.png" />
+    <None Include="Resources\Banks\UMSNB.png" />
+    <None Include="Resources\CertificationCheck.png" />
+    <None Include="LandView\Resources\Landview.png" />
+    <None Include="Checkbook2000\Resources\2000.png" />
+    <None Include="Checkbook2000\Resources\Iconsmind-Outline-Inbox-Into.png" />
+    <None Include="Checkbook2000\Resources\Iconsmind-Outline-Outbox-Into.png" />
+    <None Include="Checkbook2000\Resources\door-opened.png" />
+    <None Include="Checkbook2000\Resources\DidYouKnowBG.png" />
+    <None Include="Checkbook2000\Resources\Check.png" />
+    <None Include="Checkbook2000\Resources\Bill.png" />
     <None Include="Resources\UMSWEB.png" />
-    <None Include="Resources\CheckGray.png" />
-    <None Include="Resources\CheckGreen.png" />
-    <None Include="Resources\CheckPurple.png" />
-    <None Include="Resources\CheckRed.png" />
-    <None Include="Resources\CheckYellow.png" />
-    <None Include="Resources\Black.png" />
-    <None Include="Resources\Corporate.png" />
-    <None Include="Resources\Government.png" />
-    <None Include="Resources\welcome.WAV" />
-    <None Include="Resources\Contractus Splash.png" />
-    <None Include="Resources\Contractus.png" />
-    <None Include="Resources\giphy.gif" />
+    <None Include="Checkbook2000\Resources\CheckGray.png" />
+    <None Include="Checkbook2000\Resources\CheckGreen.png" />
+    <None Include="Checkbook2000\Resources\CheckPurple.png" />
+    <None Include="Checkbook2000\Resources\CheckRed.png" />
+    <None Include="Checkbook2000\Resources\CheckYellow.png" />
+    <None Include="Checkbook2000\Resources\Black.png" />
+    <None Include="Resources\AccountHeaders\Corporate.png" />
+    <None Include="Resources\AccountHeaders\Government.png" />
+    <None Include="Resources\Sounds\welcome.WAV" />
+    <None Include="Contractus\Resources\Contractus Splash.png" />
+    <None Include="Contractus\Resources\Contractus.png" />
     <None Include="Resources\Hourglass.gif" />
-    <None Include="Resources\EzTaxApproved.png" />
-    <Content Include="VIBE.ico" />
+    <None Include="EzTax\Resources\EzTaxApproved.png" />
+    <Content Include="Resources\VIBE.gif" />
+    <Content Include="Resources\VIBE.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

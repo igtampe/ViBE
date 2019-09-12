@@ -26,6 +26,7 @@ Partial Class VibeChangePin
         Me.NewPinTextBox = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'Label1
@@ -64,6 +65,9 @@ Partial Class VibeChangePin
         Me.Button2.Text = "Cancel"
         Me.Button2.UseVisualStyleBackColor = True
         '
+        'BackgroundWorker1
+        '
+        '
         'VibeChangePin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -87,4 +91,5 @@ Partial Class VibeChangePin
     Friend WithEvents NewPinTextBox As TextBox
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

@@ -37,7 +37,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateSplashScreen()
-            Me.SplashScreen = Global.VIBE__But_on_Visual_Studio_.SplashScreen1
+            Me.SplashScreen = Global.VIBE__But_on_Visual_Studio_.ViBESplash
         End Sub
     End Class
 End Namespace

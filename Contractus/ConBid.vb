@@ -1,6 +1,6 @@
 ﻿Public Class ConBid
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Select Case ConMain.ServerCommand("CONADDBID" & ConMain.AllContracts(ConMain.SelectedAvailableContract).ID & ";" & NumericUpDown1.Value & ";" & ConMain.UserID & ";" & ConMain.UserName)
+        Select Case ServerCommand.ServerCommand("CONADDBID" & ConMain.AllContracts(ConMain.SelectedAvailableContract).ID & ";" & NumericUpDown1.Value & ";" & ConMain.UserID & ";" & ConMain.UserName)
             Case "S"
                 MsgBox("Successfully placed a bid", vbInformation)
                 Close()

@@ -15,40 +15,25 @@ Public Class NotificationsForm
         ID = VibeLogin.LogonID.Text
         RefreshNotice.Show()
         ListView1.Clear()
-        ListView1.Visible = False
-        Button1.Enabled = False
-        BackgroundWorker1.RunWorkerAsync()
+        Me.Enabled = False
+        GetNotificationsBW.RunWorkerAsync()
 
 
     End Sub
 
-
+    Public ReferencedObject As String
+    Public ServerMSG As String
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Close()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim servermsg = VibeMainScreen.ServerCommand("NOTIFREMO" & VibeLogin.LogonID.Text & ListView1.SelectedIndices(0))
-        Select Case servermsg
-            Case "E"
-                MsgBox("A server side error has occurred. Contact CHOPO!", vbExclamation)
-
-            Case "N"
-                MsgBox("There's No Notification File.", vbInformation)
-                Close()
-            Case "S"
-                If notifs.Count = 1 Then Close()
-                RefreshNotice.Show()
-                BackgroundWorker1.RunWorkerAsync()
-        End Select
-
-
-        Button1.Enabled = False
+        ReferencedObject = ListView1.SelectedIndices(0)
+        RefreshNotice.Show()
+        Me.Enabled = False
+        RemoveNotificationBW.RunWorkerAsync()
 
     End Sub
-
-
-
 
     Sub Populatelistview()
         ListView1.Clear()
@@ -74,10 +59,10 @@ Public Class NotificationsForm
 
     End Sub
 
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+    Private Sub GetNotifications_GET(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles GetNotificationsBW.DoWork
         BWError = "ono"
 
-        Dim servermsg = VibeMainScreen.ServerCommand("NOTIFREAD" & ID)
+        Dim servermsg = ServerCommand.ServerCommand("NOTIFREAD" & ID)
         If servermsg = "N" Or servermsg = "E" Then
             BWError = servermsg
             Exit Sub
@@ -100,7 +85,7 @@ Public Class NotificationsForm
 
     End Sub
 
-    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+    Private Sub GetNotifications_DO(sender As Object, e As RunWorkerCompletedEventArgs) Handles GetNotificationsBW.RunWorkerCompleted
         If BWError = "N" Then
             MsgBox("There's no notifications availale", vbInformation)
             ListView1.Visible = False
@@ -112,7 +97,7 @@ Public Class NotificationsForm
             RefreshNotice.Close()
             Exit Sub
         End If
-
+        Me.Enabled = True
         Populatelistview()
         RefreshNotice.Close()
         ListView1.Visible = True
@@ -120,13 +105,44 @@ Public Class NotificationsForm
     End Sub
 
     Private Sub ListView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListView1.SelectedIndexChanged
-
         Button1.Enabled = True
-
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        Select Case VibeMainScreen.ServerCommand("NOTIFCLEAR" & VibeLogin.LogonID.Text)
+        RefreshNotice.Show()
+        Me.Enabled = False
+        ClearAllNotificationsBW.RunWorkerAsync()
+    End Sub
+
+    Private Sub RemoveNotificationBW_GET(sender As Object, e As DoWorkEventArgs) Handles RemoveNotificationBW.DoWork
+        ServerMSG = ServerCommand.ServerCommand("NOTIFREMO" & ID & ReferencedObject)
+    End Sub
+
+    Private Sub RemoveNotifications_DO() Handles RemoveNotificationBW.RunWorkerCompleted
+        Select Case ServerMSG
+            Case "E"
+                MsgBox("A server side error has occurred. Contact CHOPO!", vbExclamation)
+
+            Case "N"
+                MsgBox("There's No Notification File.", vbInformation)
+                Close()
+            Case "S"
+                If notifs.Count = 1 Then Close()
+                GetNotificationsBW.RunWorkerAsync()
+        End Select
+
+        Me.Enabled = True
+        Button1.Enabled = False
+    End Sub
+
+    Private Sub ClearNotification_GET() Handles ClearAllNotificationsBW.DoWork
+        ServerMSG = ServerCommand.ServerCommand("NOTIFCLEAR" & ID)
+    End Sub
+
+    Private Sub ClearNotification_do() Handles ClearAllNotificationsBW.RunWorkerCompleted
+        Me.Enabled = True
+        RefreshNotice.Close()
+        Select Case ServerMSG
             Case "E"
                 MsgBox("A server side error has occurred. Contact CHOPO!", vbExclamation)
 
@@ -138,4 +154,5 @@ Public Class NotificationsForm
         End Select
         Button1.Enabled = False
     End Sub
+
 End Class

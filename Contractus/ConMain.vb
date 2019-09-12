@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports System.Net.Sockets
 
 Public Class ConMain
 
@@ -102,7 +101,7 @@ Public Class ConMain
             Case DialogResult.Yes
                 CheckbookOutbox.ShowDialog()
                 If MsgBox("Are you sure you want to mark this contract as complete?", MsgBoxStyle.YesNo) = DialogResult.Yes Then
-                    Select Case ServerCommand("CONREMOVE" & UserContracts(SelectedActiveContract).ID & ";" & UserID)
+                    Select Case ServerCommand.ServerCommand("CONREMOVE" & UserContracts(SelectedActiveContract).ID & ";" & UserID)
                         Case "E"
                             MsgBox("A serverside error occurred", MsgBoxStyle.Information)
                         Case "S"
@@ -160,7 +159,7 @@ Public Class ConMain
         InitialBWStatus = 0
         InitialBW.ReportProgress(0)
         Dim CurrentItem() As String
-        Dim AVCMSG() = ServerCommand("CONREADALL").Split(";")
+        Dim AVCMSG() = ServerCommand.ServerCommand("CONREADALL").Split(";")
         If AVCMSG(0) = "N" Then
             AllContractsExist = False
             GoTo NoContracts
@@ -194,7 +193,7 @@ Public Class ConMain
 NoContracts:
         InitialBWStatus = 50
         InitialBW.ReportProgress(50)
-        Dim ACCMSG() = ServerCommand("CONREADUSR" & UserID).Split(";")
+        Dim ACCMSG() = ServerCommand.ServerCommand("CONREADUSR" & UserID).Split(";")
         If ACCMSG(0) = "N" Then
             ActiveContractsExist = False
             GoTo NoMas
@@ -336,44 +335,6 @@ NoMas:
 
 
     End Sub
-
-    Function ServerCommand(ByVal ClientMSG As String) As String
-
-        Dim tc As TcpClient = New TcpClient()
-        Dim ns As NetworkStream
-        Dim br As BinaryReader
-        Dim bw As BinaryWriter
-        Dim ServerMSG As String
-        ServerMSG = "E"
-        If ClientMSG = "" Then
-            ServerCommand = "E"
-            Exit Function
-        End If
-        Try
-            'tc.Connect(“127.0.0.1”, 757)
-            tc.Connect(“Igtnet-w.ddns.net”, 757)
-            Exit Try
-        Catch
-            MsgBox("Unable to connect to the server.", MsgBoxStyle.Exclamation, "ViBE Error")
-            ServerCommand = "NOCONNECT"
-            Exit Function
-        End Try
-        If tc.Connected = True Then
-            ns = tc.GetStream
-            br = New BinaryReader(ns)
-            bw = New BinaryWriter(ns)
-            bw.Write(ClientMSG)
-            Try
-                ServerMSG = br.ReadString()
-            Catch
-                MsgBox("Seems like the server might've crashed! Contact CHOPO!", MsgBoxStyle.Exclamation, "ViBE Error")
-                ServerCommand = "CRASH"
-                Exit Function
-            End Try
-            tc.Close()
-        End If
-        ServerCommand = ServerMSG
-    End Function
 
     Private Sub AvConLVIEW_SelectedIndexChanged(sender As Object, e As EventArgs) Handles AvConLVIEW.SelectedIndexChanged
         Try

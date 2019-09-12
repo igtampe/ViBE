@@ -30,13 +30,16 @@ Partial Class NotificationsForm
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.GetNotificationsBW = New System.ComponentModel.BackgroundWorker()
         Me.Button3 = New System.Windows.Forms.Button()
+        Me.RemoveNotificationBW = New System.ComponentModel.BackgroundWorker()
+        Me.ClearAllNotificationsBW = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
         'ListView1
         '
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
+        Me.ListView1.HideSelection = False
         Me.ListView1.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1})
         Me.ListView1.Location = New System.Drawing.Point(12, 37)
         Me.ListView1.Name = "ListView1"
@@ -83,7 +86,7 @@ Partial Class NotificationsForm
         Me.Button2.Text = "OK"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'BackgroundWorker1
+        'GetNotificationsBW
         '
         '
         'Button3
@@ -94,6 +97,9 @@ Partial Class NotificationsForm
         Me.Button3.TabIndex = 4
         Me.Button3.Text = "Clear All Notifications"
         Me.Button3.UseVisualStyleBackColor = True
+        '
+        'RemoveNotificationBW
+        '
         '
         'NotificationsForm
         '
@@ -121,6 +127,8 @@ Partial Class NotificationsForm
     Friend WithEvents Button2 As Button
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
-    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents GetNotificationsBW As System.ComponentModel.BackgroundWorker
     Friend WithEvents Button3 As Button
+    Friend WithEvents RemoveNotificationBW As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ClearAllNotificationsBW As System.ComponentModel.BackgroundWorker
 End Class

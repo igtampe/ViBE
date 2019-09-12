@@ -23,30 +23,15 @@ Partial Class EzTaxAbout
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EzTaxAbout))
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Quit = New System.Windows.Forms.Button()
+        Me.Label5 = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'TextBox1
-        '
-        Me.TextBox1.BackColor = System.Drawing.Color.Navy
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TextBox1.Font = New System.Drawing.Font("Arial Narrow", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.ForeColor = System.Drawing.Color.White
-        Me.TextBox1.Location = New System.Drawing.Point(0, 0)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(397, 19)
-        Me.TextBox1.TabIndex = 9
-        Me.TextBox1.Text = "About EzTax"
-        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'PictureBox1
         '
@@ -106,35 +91,47 @@ Partial Class EzTaxAbout
         Me.Quit.Text = "OK"
         Me.Quit.UseVisualStyleBackColor = True
         '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.Navy
+        Me.Label5.Font = New System.Drawing.Font("Arial Narrow", 12.0!)
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.Location = New System.Drawing.Point(0, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(397, 19)
+        Me.Label5.TabIndex = 14
+        Me.Label5.Text = "About EzTax"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'EzTaxAbout
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
         Me.ClientSize = New System.Drawing.Size(397, 154)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Quit)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.TextBox1)
         Me.ForeColor = System.Drawing.SystemColors.ControlText
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "EzTaxAbout"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "EzTaxAbout"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Quit As Button
+    Friend WithEvents Label5 As Label
 End Class

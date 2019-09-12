@@ -63,8 +63,8 @@ Partial Class EZTaxMain
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Update = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.EzTaxTopLabel = New System.Windows.Forms.Label()
         Me.Aboutbutton = New System.Windows.Forms.Button()
+        Me.EzTaxTopLabel = New System.Windows.Forms.Label()
         IncomeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -119,6 +119,7 @@ Partial Class EZTaxMain
         Me.ListView1.BackColor = System.Drawing.Color.White
         Me.ListView1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.NameColumn, IncomeColumn})
+        Me.ListView1.HideSelection = False
         Me.ListView1.Location = New System.Drawing.Point(6, 39)
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(497, 238)
@@ -429,18 +430,6 @@ Partial Class EZTaxMain
         Me.ToolTip1.SetToolTip(Me.Update, "Update your income")
         Me.Update.UseVisualStyleBackColor = True
         '
-        'EzTaxTopLabel
-        '
-        Me.EzTaxTopLabel.BackColor = System.Drawing.Color.DarkBlue
-        Me.EzTaxTopLabel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.EzTaxTopLabel.ForeColor = System.Drawing.Color.White
-        Me.EzTaxTopLabel.Location = New System.Drawing.Point(0, 0)
-        Me.EzTaxTopLabel.Name = "EzTaxTopLabel"
-        Me.EzTaxTopLabel.Size = New System.Drawing.Size(525, 22)
-        Me.EzTaxTopLabel.TabIndex = 8
-        Me.EzTaxTopLabel.Text = "EzTax"
-        Me.EzTaxTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'Aboutbutton
         '
         Me.Aboutbutton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
@@ -452,6 +441,18 @@ Partial Class EZTaxMain
         Me.Aboutbutton.Text = "Add Wizard"
         Me.ToolTip1.SetToolTip(Me.Aboutbutton, "About EzTax")
         Me.Aboutbutton.UseVisualStyleBackColor = True
+        '
+        'EzTaxTopLabel
+        '
+        Me.EzTaxTopLabel.BackColor = System.Drawing.Color.DarkBlue
+        Me.EzTaxTopLabel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.EzTaxTopLabel.ForeColor = System.Drawing.Color.White
+        Me.EzTaxTopLabel.Location = New System.Drawing.Point(0, 0)
+        Me.EzTaxTopLabel.Name = "EzTaxTopLabel"
+        Me.EzTaxTopLabel.Size = New System.Drawing.Size(525, 22)
+        Me.EzTaxTopLabel.TabIndex = 8
+        Me.EzTaxTopLabel.Text = "EzTax"
+        Me.EzTaxTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'EZTaxMain
         '
