@@ -257,6 +257,9 @@ Public Class VibeMainScreen
 
         If Not File.Exists(Application.UserAppDataPath & "\ViBE\WhatsNew.temp") Then
             WhatsNew.Show()
+            If Not Directory.Exists(Application.UserAppDataPath & "\ViBE") Then
+                Directory.CreateDirectory(Application.UserAppDataPath & "\ViBE")
+            End If
             File.Create(Application.UserAppDataPath & "\ViBE\WhatsNew.temp")
         End If
 
