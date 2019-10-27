@@ -534,9 +534,9 @@ LabelNoDownload:
 
                 Select Case Total
 
-                    Case > 5000000
-                        Taxb = 0.03
-                        TaxBracketCalc = "Corporate Taxed (3%)"
+                    Case > 500000000
+                        Taxb = 0.02
+                        TaxBracketCalc = "Corporate Taxed (2%)"
                         Exit Select
                     Case Else
                         TaxBracketCalc = "Untaxed (0%)"
@@ -569,7 +569,7 @@ LabelNoDownload:
                 'Corporate User
                 Select Case Total
                     Case > 5000000
-                        Taxb = 0.03
+                        Taxb = 0.02
                         Exit Select
                     Case Else
                         Taxb = 0
