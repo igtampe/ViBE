@@ -98,7 +98,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\VIBE.ico</ApplicationIcon>
@@ -511,7 +511,6 @@
     <None Include="App.config" />
     <None Include="Resources\Documents\readme.rtf" />
     <None Include="Resources\Documents\WhatsNew.rtf" />
-    <None Include="VIBE %28But on Visual Studio%29_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
