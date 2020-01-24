@@ -1,51 +1,48 @@
 ﻿Imports System.Drawing.Imaging
+Imports VIBE__But_on_Visual_Studio_.EZTaxMain
 Imports System.IO
 
 Public Class EzTaxCertify
+    Public ItemToCertify As IncomeRegistryItem
     Public ServerMSG
-    Public ItemName
-    Public ItemIncome
+    Public ItemName As String
+    Public ItemIncome As Long
+    Public HasToReport As Boolean
 
-    Private Sub Quit_Click(sender As Object, e As EventArgs) Handles DetailsButton.Click
-        If Size = MaximumSize Then
-            Size = MinimumSize
-        Else
-            Size = MaximumSize
-        End If
-
-    End Sub
-
-    Private Sub EzTaxCertify_Load(sender As Object, e As EventArgs) Handles Me.Load
-        PictureBox1.Image = My.Resources.Hourglass
-        TitleLBL.Text = "Certifying item"
-        SubtitleLBL.Text = "Please wait..."
-        OKButton.Enabled = False
-        DetailsButton.Enabled = False
+    Private Sub ThePreShow(sender As Object, e As EventArgs) Handles Me.Shown
         Size = MinimumSize
-        ItemName = EZTaxWizard.ItemNameTXB.Text
-        ItemIncome = EZTaxWizard.TotalIncome.Text
+        ItemName = ItemToCertify.Name
+        ItemIncome = ItemToCertify.TotalIncome
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles OKButton.Click
+    Private Sub DrawTheCurtain() Handles OKButton.Click
         Close()
     End Sub
 
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        ServerMSG = ServerCommand.ServerCommand("CERT" & ItemName & " Has a calculated income of " & ItemIncome)
-
+    Private Sub ExecuteThePlay(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+        ServerMSG = ServerCommand.ServerCommand("CERT" & ItemName & " HAS INCOME " & ItemIncome.ToString("N0") & "p (" & ItemToCertify.Apartment.Income & " + " & ItemToCertify.Hotel.Income & " + " & ItemToCertify.Business.Income & " + " & ItemToCertify.MiscIncome & ")")
     End Sub
 
-    Private Sub Woopdiedooitsdone() Handles BackgroundWorker1.RunWorkerCompleted
+    Private Sub TakeABow() Handles BackgroundWorker1.RunWorkerCompleted
 
         Select Case ServerMSG
             Case "S"
-                TitleLBL.Text = "Item Certified!"
-                SubtitleLBL.Text = EZTaxWizard.ItemNameTXB.Text & " Has a calculated income of " & EZTaxWizard.TotalIncome.Text
+
+                If HasToReport Then
+                    TitleLBL.Text = "Item Certified!"
+                    ReportLabel.Text = "Please send the copied screenshot to the SDC"
+
+                Else
+                    TitleLBL.Text = "Item Re-Certified!"
+                    ReportLabel.Text = "You do not need to re-report this income"
+                End If
+
+                SubtitleLBL.Text = ItemName & " Has a calculated income of " & ItemIncome.ToString("N0") & "p"
+
                 OKButton.Enabled = True
                 DetailsButton.Enabled = True
                 PictureBox1.Image = My.Resources.EzTaxApproved
-                DetailsTXB.Text = EZTaxWizard.ItemCompleteDetails
                 WaitForRender.RunWorkerAsync()
 
             Case "E"
@@ -55,11 +52,11 @@ Public Class EzTaxCertify
 
     End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub PostShowPhoto() Handles Button1.Click
         ScreenCamera.TakeScreenshot(Width, Height, Location.X, Location.Y, Size)
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub ThatsAKeeper() Handles Button2.Click
         Dim bmpScreenShot As Bitmap
         Dim gfxScreenshot As Graphics
 
@@ -89,16 +86,21 @@ Public Class EzTaxCertify
             'ok no
         End If
 
-
-
     End Sub
 
-    Private Sub WaitForRender_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles WaitForRender.DoWork
+    Private Sub WaitForIt(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles WaitForRender.DoWork
         Threading.Thread.Sleep(50)
     End Sub
 
-    Sub OKTakeTheScreenshotpls() Handles WaitForRender.RunWorkerCompleted
+    Sub Alright() Handles WaitForRender.RunWorkerCompleted
         ScreenCamera.TakeScreenshot(Width, Height, Location.X, Location.Y, Size)
     End Sub
 
+    Private Sub DetailsButton_Click(sender As Object, e As EventArgs) Handles DetailsButton.Click
+        If Size = MinimumSize Then
+            Size = MaximumSize
+        Else
+            Size = MinimumSize
+        End If
+    End Sub
 End Class

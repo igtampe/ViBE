@@ -1,33 +1,17 @@
-﻿
+﻿Imports VIBE__But_on_Visual_Studio_.EZTaxMain
+
 Public Class EZTaxWizard
 
+    Public SelectedItemIndex As Integer
     Public ItemName As String
     Public ItemIncome As Long
     Public NameClicked As Boolean
     Public ItemCompleteDetails As String
-
-    Sub ResetEverything() Handles Me.Load
-        EZTaxMain.Visible = False
-        StudioUnits.Value = 0
-        OneBRUnits.Value = 0
-        TwoBRUnits.Value = 0
-        ThreeBRUnits.Value = 0
-        PHUnits.Value = 0
-        HotelRooms.Value = 0
-        HotelSuites.Value = 0
-        HotelRoomRate.Value = 200
-        HotelSuitesRate.Value = 400
-        HotelMiscIncome.Value = 0
-        StoreChairs.Value = 0
-        StoreAvgSpending.Value = 0
-        StoreCustomersPerHour.Value = 0
-        StoreHoursOpen.Value = 0
-        StoreType.SelectedIndex = -1
-        ItemNameTXB.Text = "(Name)"
-        ItemIncome = 0
-        TotalIncome.Text = ItemIncome.ToString("N0") & "p"
-        NameClicked = False
-    End Sub
+    Public Enum Mode
+        Add
+        Modify
+    End Enum
+    Public WindowMode As Mode = Mode.Add
 
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles StoreType.SelectedIndexChanged
         Select Case StoreType.SelectedIndex
@@ -47,8 +31,6 @@ Public Class EZTaxWizard
 
 
     Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click, Quit.Click
-        ItemName = "~CANCEL~"
-        EZTaxMain.Visible = True
         Close()
     End Sub
 
@@ -61,8 +43,30 @@ Public Class EZTaxWizard
 
         RegenerateItemCompleteDetails()
 
-        EzTaxCertify.ShowDialog()
-        EZTaxMain.Visible = True
+        Dim ItemApartmentDetails As ApartmentDetails = New ApartmentDetails(StudioUnits.Value, OneBRUnits.Value, TwoBRUnits.Value, ThreeBRUnits.Value, PHUnits.Value, StudioRent.Value, OneBRRent.Value, TwoBRRent.Value, ThreeBRRent.Value, PHRent.Value)
+        Dim ItemHotelDetails As HotelDetails = New HotelDetails(HotelRooms.Value, HotelSuites.Value, HotelRoomRate.Value, HotelSuitesRate.Value, HotelMiscIncome.Value)
+        Dim ItemBusinessDetails As BusinessDetails = New BusinessDetails(StoreChairs.Value, StoreAvgSpending.Value, StoreCustomersPerHour.Value, StoreHoursOpen.Value)
+        Dim ItemMiscIncome As Long = MiscIncome.Value
+
+        Dim ItemAsIncomeRegistryItem As IncomeRegistryItem = New IncomeRegistryItem(ItemName, ItemApartmentDetails, ItemHotelDetails, ItemBusinessDetails, ItemMiscIncome, DistrictBox.Text)
+
+        Dim CertifyWindow As EzTaxCertify = New EzTaxCertify
+        CertifyWindow.ItemToCertify = ItemAsIncomeRegistryItem
+        CertifyWindow.DetailsTXB.Text = ItemCompleteDetails
+
+        If WindowMode = Mode.Add Then
+            AddToIncomeRegistry(ItemAsIncomeRegistryItem)
+            CertifyWindow.HasToReport = True
+            CertifyWindow.ShowDialog()
+
+        ElseIf WindowMode = Mode.Modify Then
+            ModifyItemInIncomeRegistry(ItemAsIncomeRegistryItem, SelectedItemIndex)
+            CertifyWindow.HasToReport = False
+            CertifyWindow.ShowDialog()
+        End If
+
+        CertifyWindow.Dispose()
+
         Close()
     End Sub
 
@@ -71,13 +75,13 @@ Public Class EZTaxWizard
         RegenerateItemCompleteDetails()
     End Sub
 
-    Private Sub StudioUnits_ValueChanged(sender As Object, e As EventArgs) Handles StudioUnits.ValueChanged, OneBRUnits.ValueChanged, TwoBRUnits.ValueChanged, ThreeBRUnits.ValueChanged, PHUnits.ValueChanged, HotelRooms.ValueChanged, HotelSuites.ValueChanged, HotelRoomRate.ValueChanged, HotelSuitesRate.ValueChanged, HotelMiscIncome.ValueChanged, StoreChairs.ValueChanged, StoreAvgSpending.ValueChanged, StoreCustomersPerHour.ValueChanged, StoreHoursOpen.ValueChanged, HotelMiscIncome.ValueChanged, StudioRent.ValueChanged, OneBRRent.ValueChanged, TwoBRRent.ValueChanged, ThreeBRRent.ValueChanged, PHRent.ValueChanged, FlightsPerDay.ValueChanged, EconSeats.ValueChanged, EconTicket.ValueChanged, BusinessSeats.ValueChanged, BusinessTicket.ValueChanged, FirstClassSeats.ValueChanged, FirstClassTicket.ValueChanged
+    Private Sub StudioUnits_ValueChanged(sender As Object, e As EventArgs) Handles StudioUnits.ValueChanged, OneBRUnits.ValueChanged, TwoBRUnits.ValueChanged, ThreeBRUnits.ValueChanged, PHUnits.ValueChanged, HotelRooms.ValueChanged, HotelSuites.ValueChanged, HotelRoomRate.ValueChanged, HotelSuitesRate.ValueChanged, HotelMiscIncome.ValueChanged, StoreChairs.ValueChanged, StoreAvgSpending.ValueChanged, StoreCustomersPerHour.ValueChanged, StoreHoursOpen.ValueChanged, HotelMiscIncome.ValueChanged, StudioRent.ValueChanged, OneBRRent.ValueChanged, TwoBRRent.ValueChanged, ThreeBRRent.ValueChanged, PHRent.ValueChanged, MiscIncome.ValueChanged, DistrictBox.TextChanged
 
 
         Dim ApartmentIncome As Long
         Dim HotelIncome As Long
         Dim StoreIncome As Long
-        Dim PlaneIncome As Long
+        Dim MiscIncome As Long
 
         ApartmentIncome = (StudioRent.Value * StudioUnits.Value) + (OneBRRent.Value * OneBRUnits.Value) + (TwoBRRent.Value * TwoBRUnits.Value) + (ThreeBRRent.Value * ThreeBRUnits.Value) + (PHRent.Value * PHUnits.Value)
 
@@ -89,11 +93,11 @@ Public Class EZTaxWizard
 
         HotelIncome = (MonthlyHotelRoomIncome * HotelRooms.Value) + (MonthlyHotelSuiteIncome * HotelSuites.Value) + HotelMiscIncome.Value
 
-        StoreIncome = ((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value
+        StoreIncome = 30 * ((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value
 
-        PlaneIncome = 30 * FlightsPerDay.Value * ((EconSeats.Value * EconTicket.Value * 0.125) + (BusinessTicket.Value * BusinessSeats.Value * 0.125) + (FirstClassTicket.Value * FirstClassSeats.Value * 0.125))
+        MiscIncome = Me.MiscIncome.Value
 
-        ItemIncome = ApartmentIncome + HotelIncome + StoreIncome + PlaneIncome
+        ItemIncome = ApartmentIncome + HotelIncome + StoreIncome + MiscIncome
         TotalIncome.Text = ItemIncome.ToString("N0") & "p"
         RegenerateItemCompleteDetails()
 
@@ -101,7 +105,7 @@ Public Class EZTaxWizard
 
     Sub RegenerateItemCompleteDetails()
         ItemCompleteDetails = Nothing
-        ItemCompleteDetails = ItemCompleteDetails & "-{" & ItemName & "}--------------"
+        ItemCompleteDetails = ItemCompleteDetails & "-{" & ItemName & "}--------------" & vbNewLine & "Located in: " & DistrictBox.Text
 
         If StudioUnits.Value = 0 And
             OneBRUnits.Value = 0 And
@@ -179,34 +183,18 @@ Public Class EZTaxWizard
         Dim MonthlyHotelRoomIncome As Long = (((HotelRoomRate.Value) / 2) * 365) / 12
         Dim MonthlyHotelSuiteIncome As Long = (((HotelSuitesRate.Value) / 2) * 365) / 12
 
-        If FlightsPerDay.Value = 0 Then
+        If MiscIncome.Value = 0 Then
             'do nothing
         Else
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "-[Planes]-------------"
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Flights/Day         : " & FlightsPerDay.Value
-            'Planes
-            If Not EconTicket.Value * EconSeats.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "~~~~~~~~~~~~[Economy]~"
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Seats               : " & EconSeats.Value
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Ticket Price        : " & EconTicket.Value
-            End If
-            If Not BusinessTicket.Value * BusinessSeats.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "~~~~~~~~~~~[Business]~"
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Seats               : " & BusinessSeats.Value
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Ticket Price        : " & BusinessTicket.Value
-            End If
-            If Not FirstClassTicket.Value * FirstClassSeats.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "~~~~~~~~[First Class]~"
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Seats               : " & FirstClassSeats.Value
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Ticket Price        : " & FirstClassTicket.Value
-            End If
+            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "-[Misc. Income]-------"
+            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Income              : " & MiscIncome.Value.ToString("N0") & "p"
         End If
 
 
         If (StudioRent.Value * StudioUnits.Value) + (OneBRRent.Value * OneBRUnits.Value) + (TwoBRRent.Value * TwoBRUnits.Value) + (ThreeBRRent.Value * ThreeBRUnits.Value) + (PHRent.Value * PHUnits.Value) = 0 And
             ((MonthlyHotelRoomIncome * HotelRooms.Value) + (MonthlyHotelSuiteIncome * HotelSuites.Value) + HotelMiscIncome.Value) = 0 And
             (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value) = 0 And
-            30 * FlightsPerDay.Value * ((EconSeats.Value * EconTicket.Value * 0.125) + (BusinessTicket.Value * BusinessSeats.Value * 0.125) + (FirstClassTicket.Value * FirstClassSeats.Value * 0.125)) = 0 Then
+            MiscIncome.Value = 0 Then
             'do nothing
         Else
             ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "-[Totals]-------------"
@@ -218,14 +206,13 @@ Public Class EZTaxWizard
                 ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Hotel Total         : " & ((MonthlyHotelRoomIncome * HotelRooms.Value) + (MonthlyHotelSuiteIncome * HotelSuites.Value) + HotelMiscIncome.Value).ToString("N0") & "p"
             End If
 
-            If Not (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value) = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Business Total      : " & (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value).ToString("N0") & "p"
+            If Not 30 * (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value) = 0 Then
+                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Business Total      : " & (30 * ((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value).ToString("N0") & "p"
             End If
 
-            If Not 30 * FlightsPerDay.Value * ((EconSeats.Value * EconTicket.Value * 0.125) + (BusinessTicket.Value * BusinessSeats.Value * 0.125) + (FirstClassTicket.Value * FirstClassSeats.Value * 0.125)) = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Plane Total         : " & (30 * FlightsPerDay.Value * ((EconSeats.Value * EconTicket.Value * 0.125) + (BusinessTicket.Value * BusinessSeats.Value * 0.125) + (FirstClassTicket.Value * FirstClassSeats.Value * 0.125))).ToString("N0") & "p"
+            If Not MiscIncome.Value = 0 Then
+                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Misc. Total         : " & (MiscIncome.Value).ToString("N0") & "p"
             End If
-
 
         End If
 

@@ -89,7 +89,7 @@ Partial Class SendMonet
         'AmountBox
         '
         Me.AmountBox.Location = New System.Drawing.Point(78, 104)
-        Me.AmountBox.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
+        Me.AmountBox.Maximum = New Decimal(New Integer() {1410065408, 2, 0, 0})
         Me.AmountBox.Name = "AmountBox"
         Me.AmountBox.Size = New System.Drawing.Size(144, 20)
         Me.AmountBox.TabIndex = 1

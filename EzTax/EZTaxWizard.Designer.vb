@@ -76,24 +76,9 @@ Partial Class EZTaxWizard
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.FlightsPerDay = New System.Windows.Forms.NumericUpDown()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.TabControl2 = New System.Windows.Forms.TabControl()
-        Me.TabPage5 = New System.Windows.Forms.TabPage()
-        Me.EconTicket = New System.Windows.Forms.NumericUpDown()
-        Me.EconSeats = New System.Windows.Forms.NumericUpDown()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.TabPage6 = New System.Windows.Forms.TabPage()
-        Me.BusinessTicket = New System.Windows.Forms.NumericUpDown()
-        Me.BusinessSeats = New System.Windows.Forms.NumericUpDown()
         Me.Label26 = New System.Windows.Forms.Label()
-        Me.Label30 = New System.Windows.Forms.Label()
-        Me.TabPage7 = New System.Windows.Forms.TabPage()
-        Me.FirstClassTicket = New System.Windows.Forms.NumericUpDown()
-        Me.FirstClassSeats = New System.Windows.Forms.NumericUpDown()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.Label33 = New System.Windows.Forms.Label()
+        Me.MiscIncome = New System.Windows.Forms.NumericUpDown()
+        Me.Label25 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TotalIncome = New System.Windows.Forms.Label()
         Me.ItemNameTXB = New System.Windows.Forms.TextBox()
@@ -101,6 +86,8 @@ Partial Class EZTaxWizard
         Me.DetailsTXB = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.DistrictBox = New System.Windows.Forms.ComboBox()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.PHUnits, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -125,17 +112,7 @@ Partial Class EZTaxWizard
         CType(Me.StoreAvgSpending, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StoreChairs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage4.SuspendLayout()
-        CType(Me.FlightsPerDay, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabControl2.SuspendLayout()
-        Me.TabPage5.SuspendLayout()
-        CType(Me.EconTicket, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.EconSeats, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage6.SuspendLayout()
-        CType(Me.BusinessTicket, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.BusinessSeats, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage7.SuspendLayout()
-        CType(Me.FirstClassTicket, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.FirstClassSeats, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MiscIncome, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'InitialBW
@@ -160,7 +137,7 @@ Partial Class EZTaxWizard
         Me.AddItemButton.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTaxButton
         Me.AddItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.AddItemButton.Image = CType(resources.GetObject("AddItemButton.Image"), System.Drawing.Image)
-        Me.AddItemButton.Location = New System.Drawing.Point(33, 298)
+        Me.AddItemButton.Location = New System.Drawing.Point(33, 336)
         Me.AddItemButton.Name = "AddItemButton"
         Me.AddItemButton.Size = New System.Drawing.Size(75, 23)
         Me.AddItemButton.TabIndex = 16
@@ -173,7 +150,7 @@ Partial Class EZTaxWizard
         Me.Button1.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTaxButton
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(65, 327)
+        Me.Button1.Location = New System.Drawing.Point(65, 365)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(96, 23)
         Me.Button1.TabIndex = 18
@@ -457,6 +434,7 @@ Partial Class EZTaxWizard
         Me.HotelSuitesRate.Name = "HotelSuitesRate"
         Me.HotelSuitesRate.Size = New System.Drawing.Size(75, 20)
         Me.HotelSuitesRate.TabIndex = 33
+        Me.HotelSuitesRate.Value = New Decimal(New Integer() {400, 0, 0, 0})
         '
         'HotelRoomRate
         '
@@ -465,6 +443,7 @@ Partial Class EZTaxWizard
         Me.HotelRoomRate.Name = "HotelRoomRate"
         Me.HotelRoomRate.Size = New System.Drawing.Size(75, 20)
         Me.HotelRoomRate.TabIndex = 32
+        Me.HotelRoomRate.Value = New Decimal(New Integer() {200, 0, 0, 0})
         '
         'HotelSuites
         '
@@ -638,193 +617,48 @@ Partial Class EZTaxWizard
         'TabPage4
         '
         Me.TabPage4.BackColor = System.Drawing.Color.Silver
-        Me.TabPage4.Controls.Add(Me.FlightsPerDay)
+        Me.TabPage4.Controls.Add(Me.Label26)
+        Me.TabPage4.Controls.Add(Me.MiscIncome)
         Me.TabPage4.Controls.Add(Me.Label25)
-        Me.TabPage4.Controls.Add(Me.TabControl2)
         Me.TabPage4.Location = New System.Drawing.Point(4, 25)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage4.Size = New System.Drawing.Size(222, 169)
         Me.TabPage4.TabIndex = 3
-        Me.TabPage4.Text = "Plane"
+        Me.TabPage4.Text = "Misc Income"
         '
-        'FlightsPerDay
+        'Label26
         '
-        Me.FlightsPerDay.Location = New System.Drawing.Point(113, 115)
-        Me.FlightsPerDay.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
-        Me.FlightsPerDay.Name = "FlightsPerDay"
-        Me.FlightsPerDay.Size = New System.Drawing.Size(75, 20)
-        Me.FlightsPerDay.TabIndex = 41
+        Me.Label26.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.Location = New System.Drawing.Point(6, 55)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(209, 101)
+        Me.Label26.TabIndex = 42
+        Me.Label26.Text = "WARNING:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "This should only be used for MISC INCOME and should not be tied to AN" &
+    "Y BUSINESS."
+        Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'MiscIncome
+        '
+        Me.MiscIncome.Location = New System.Drawing.Point(94, 17)
+        Me.MiscIncome.Maximum = New Decimal(New Integer() {1000000000, 0, 0, 0})
+        Me.MiscIncome.Name = "MiscIncome"
+        Me.MiscIncome.Size = New System.Drawing.Size(121, 20)
+        Me.MiscIncome.TabIndex = 41
         '
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(40, 117)
+        Me.Label25.Location = New System.Drawing.Point(40, 19)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(61, 13)
+        Me.Label25.Size = New System.Drawing.Size(42, 13)
         Me.Label25.TabIndex = 40
-        Me.Label25.Text = "Flights/Day"
-        '
-        'TabControl2
-        '
-        Me.TabControl2.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
-        Me.TabControl2.Controls.Add(Me.TabPage5)
-        Me.TabControl2.Controls.Add(Me.TabPage6)
-        Me.TabControl2.Controls.Add(Me.TabPage7)
-        Me.TabControl2.Location = New System.Drawing.Point(5, 6)
-        Me.TabControl2.Name = "TabControl2"
-        Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(210, 103)
-        Me.TabControl2.TabIndex = 28
-        '
-        'TabPage5
-        '
-        Me.TabPage5.BackColor = System.Drawing.Color.Silver
-        Me.TabPage5.Controls.Add(Me.EconTicket)
-        Me.TabPage5.Controls.Add(Me.EconSeats)
-        Me.TabPage5.Controls.Add(Me.Label28)
-        Me.TabPage5.Controls.Add(Me.Label29)
-        Me.TabPage5.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(202, 74)
-        Me.TabPage5.TabIndex = 0
-        Me.TabPage5.Text = "Economy"
-        '
-        'EconTicket
-        '
-        Me.EconTicket.Location = New System.Drawing.Point(104, 40)
-        Me.EconTicket.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
-        Me.EconTicket.Name = "EconTicket"
-        Me.EconTicket.Size = New System.Drawing.Size(75, 20)
-        Me.EconTicket.TabIndex = 32
-        '
-        'EconSeats
-        '
-        Me.EconSeats.Location = New System.Drawing.Point(104, 14)
-        Me.EconSeats.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
-        Me.EconSeats.Name = "EconSeats"
-        Me.EconSeats.Size = New System.Drawing.Size(75, 20)
-        Me.EconSeats.TabIndex = 31
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(28, 42)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(64, 13)
-        Me.Label28.TabIndex = 29
-        Me.Label28.Text = "Ticket Price"
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(58, 16)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(34, 13)
-        Me.Label29.TabIndex = 28
-        Me.Label29.Text = "Seats"
-        '
-        'TabPage6
-        '
-        Me.TabPage6.BackColor = System.Drawing.Color.Silver
-        Me.TabPage6.Controls.Add(Me.BusinessTicket)
-        Me.TabPage6.Controls.Add(Me.BusinessSeats)
-        Me.TabPage6.Controls.Add(Me.Label26)
-        Me.TabPage6.Controls.Add(Me.Label30)
-        Me.TabPage6.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage6.Size = New System.Drawing.Size(202, 74)
-        Me.TabPage6.TabIndex = 1
-        Me.TabPage6.Text = "Business"
-        '
-        'BusinessTicket
-        '
-        Me.BusinessTicket.Location = New System.Drawing.Point(104, 40)
-        Me.BusinessTicket.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
-        Me.BusinessTicket.Name = "BusinessTicket"
-        Me.BusinessTicket.Size = New System.Drawing.Size(75, 20)
-        Me.BusinessTicket.TabIndex = 38
-        '
-        'BusinessSeats
-        '
-        Me.BusinessSeats.Location = New System.Drawing.Point(104, 14)
-        Me.BusinessSeats.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
-        Me.BusinessSeats.Name = "BusinessSeats"
-        Me.BusinessSeats.Size = New System.Drawing.Size(75, 20)
-        Me.BusinessSeats.TabIndex = 37
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(28, 42)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(64, 13)
-        Me.Label26.TabIndex = 35
-        Me.Label26.Text = "Ticket Price"
-        '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(58, 16)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(34, 13)
-        Me.Label30.TabIndex = 34
-        Me.Label30.Text = "Seats"
-        '
-        'TabPage7
-        '
-        Me.TabPage7.BackColor = System.Drawing.Color.Silver
-        Me.TabPage7.Controls.Add(Me.FirstClassTicket)
-        Me.TabPage7.Controls.Add(Me.FirstClassSeats)
-        Me.TabPage7.Controls.Add(Me.Label32)
-        Me.TabPage7.Controls.Add(Me.Label33)
-        Me.TabPage7.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage7.Name = "TabPage7"
-        Me.TabPage7.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage7.Size = New System.Drawing.Size(202, 74)
-        Me.TabPage7.TabIndex = 2
-        Me.TabPage7.Text = "First Class"
-        '
-        'FirstClassTicket
-        '
-        Me.FirstClassTicket.Location = New System.Drawing.Point(104, 40)
-        Me.FirstClassTicket.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
-        Me.FirstClassTicket.Name = "FirstClassTicket"
-        Me.FirstClassTicket.Size = New System.Drawing.Size(75, 20)
-        Me.FirstClassTicket.TabIndex = 38
-        '
-        'FirstClassSeats
-        '
-        Me.FirstClassSeats.Location = New System.Drawing.Point(104, 14)
-        Me.FirstClassSeats.Maximum = New Decimal(New Integer() {500, 0, 0, 0})
-        Me.FirstClassSeats.Name = "FirstClassSeats"
-        Me.FirstClassSeats.Size = New System.Drawing.Size(75, 20)
-        Me.FirstClassSeats.TabIndex = 37
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(28, 42)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(64, 13)
-        Me.Label32.TabIndex = 35
-        Me.Label32.Text = "Ticket Price"
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(58, 16)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(34, 13)
-        Me.Label33.TabIndex = 34
-        Me.Label33.Text = "Seats"
+        Me.Label25.Text = "Income"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(39, 274)
+        Me.Label6.Location = New System.Drawing.Point(39, 312)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(69, 13)
         Me.Label6.TabIndex = 5
@@ -834,7 +668,7 @@ Partial Class EZTaxWizard
         '
         Me.TotalIncome.AutoSize = True
         Me.TotalIncome.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TotalIncome.Location = New System.Drawing.Point(117, 274)
+        Me.TotalIncome.Location = New System.Drawing.Point(117, 312)
         Me.TotalIncome.Name = "TotalIncome"
         Me.TotalIncome.Size = New System.Drawing.Size(21, 13)
         Me.TotalIncome.TabIndex = 6
@@ -854,7 +688,7 @@ Partial Class EZTaxWizard
         Me.Cancel.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTaxButton
         Me.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Cancel.Image = CType(resources.GetObject("Cancel.Image"), System.Drawing.Image)
-        Me.Cancel.Location = New System.Drawing.Point(120, 298)
+        Me.Cancel.Location = New System.Drawing.Point(120, 336)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(75, 23)
         Me.Cancel.TabIndex = 17
@@ -892,12 +726,33 @@ Partial Class EZTaxWizard
         Me.Label8.TabIndex = 22
         Me.Label8.Text = "Summary:"
         '
+        'DistrictBox
+        '
+        Me.DistrictBox.FormattingEnabled = True
+        Me.DistrictBox.Items.AddRange(New Object() {"Newpond", "Paradisus", "Urbia", "Laertes", "South Osten", "North Osten"})
+        Me.DistrictBox.Location = New System.Drawing.Point(101, 277)
+        Me.DistrictBox.Name = "DistrictBox"
+        Me.DistrictBox.Size = New System.Drawing.Size(121, 21)
+        Me.DistrictBox.TabIndex = 23
+        Me.DistrictBox.Text = "Select a District"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(44, 280)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(42, 13)
+        Me.Label27.TabIndex = 24
+        Me.Label27.Text = "District:"
+        '
         'EZTaxWizard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
-        Me.ClientSize = New System.Drawing.Size(234, 360)
+        Me.ClientSize = New System.Drawing.Size(234, 400)
+        Me.Controls.Add(Me.Label27)
+        Me.Controls.Add(Me.DistrictBox)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.DetailsTXB)
@@ -912,8 +767,8 @@ Partial Class EZTaxWizard
         Me.Controls.Add(Me.Label6)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MaximumSize = New System.Drawing.Size(508, 360)
-        Me.MinimumSize = New System.Drawing.Size(234, 360)
+        Me.MaximumSize = New System.Drawing.Size(508, 400)
+        Me.MinimumSize = New System.Drawing.Size(234, 400)
         Me.Name = "EZTaxWizard"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "EZTax Add Wizard"
@@ -945,20 +800,7 @@ Partial Class EZTaxWizard
         CType(Me.StoreChairs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage4.ResumeLayout(False)
         Me.TabPage4.PerformLayout()
-        CType(Me.FlightsPerDay, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabControl2.ResumeLayout(False)
-        Me.TabPage5.ResumeLayout(False)
-        Me.TabPage5.PerformLayout()
-        CType(Me.EconTicket, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.EconSeats, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage6.ResumeLayout(False)
-        Me.TabPage6.PerformLayout()
-        CType(Me.BusinessTicket, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.BusinessSeats, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage7.ResumeLayout(False)
-        Me.TabPage7.PerformLayout()
-        CType(Me.FirstClassTicket, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.FirstClassSeats, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MiscIncome, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1022,22 +864,9 @@ Partial Class EZTaxWizard
     Friend WithEvents Label14 As Label
     Friend WithEvents Label24 As Label
     Friend WithEvents TabPage4 As TabPage
-    Friend WithEvents FlightsPerDay As NumericUpDown
+    Friend WithEvents MiscIncome As NumericUpDown
     Friend WithEvents Label25 As Label
-    Friend WithEvents TabControl2 As TabControl
-    Friend WithEvents TabPage5 As TabPage
-    Friend WithEvents EconTicket As NumericUpDown
-    Friend WithEvents EconSeats As NumericUpDown
-    Friend WithEvents Label28 As Label
-    Friend WithEvents Label29 As Label
-    Friend WithEvents TabPage6 As TabPage
-    Friend WithEvents BusinessTicket As NumericUpDown
-    Friend WithEvents BusinessSeats As NumericUpDown
     Friend WithEvents Label26 As Label
-    Friend WithEvents Label30 As Label
-    Friend WithEvents TabPage7 As TabPage
-    Friend WithEvents FirstClassTicket As NumericUpDown
-    Friend WithEvents FirstClassSeats As NumericUpDown
-    Friend WithEvents Label32 As Label
-    Friend WithEvents Label33 As Label
+    Friend WithEvents DistrictBox As ComboBox
+    Friend WithEvents Label27 As Label
 End Class

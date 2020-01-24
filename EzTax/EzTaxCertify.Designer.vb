@@ -35,6 +35,7 @@ Partial Class EzTaxCertify
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.DetailsButton = New System.Windows.Forms.Button()
         Me.WaitForRender = New System.ComponentModel.BackgroundWorker()
+        Me.ReportLabel = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -53,7 +54,7 @@ Partial Class EzTaxCertify
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTaxApproved
+        Me.PictureBox1.Image = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.Hourglass
         Me.PictureBox1.Location = New System.Drawing.Point(12, 29)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(69, 60)
@@ -67,20 +68,21 @@ Partial Class EzTaxCertify
         Me.TitleLBL.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TitleLBL.Location = New System.Drawing.Point(87, 29)
         Me.TitleLBL.Name = "TitleLBL"
-        Me.TitleLBL.Size = New System.Drawing.Size(123, 24)
+        Me.TitleLBL.Size = New System.Drawing.Size(127, 24)
         Me.TitleLBL.TabIndex = 16
-        Me.TitleLBL.Text = "Item Certified!"
+        Me.TitleLBL.Text = "Certifying Item"
         '
         'SubtitleLBL
         '
         Me.SubtitleLBL.Location = New System.Drawing.Point(88, 56)
         Me.SubtitleLBL.Name = "SubtitleLBL"
-        Me.SubtitleLBL.Size = New System.Drawing.Size(214, 33)
+        Me.SubtitleLBL.Size = New System.Drawing.Size(214, 30)
         Me.SubtitleLBL.TabIndex = 17
-        Me.SubtitleLBL.Text = "The Building of Buildings makes 5,000,000p"
+        Me.SubtitleLBL.Text = "Please wait..."
         '
         'OKButton
         '
+        Me.OKButton.Enabled = False
         Me.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.OKButton.Image = CType(resources.GetObject("OKButton.Image"), System.Drawing.Image)
         Me.OKButton.Location = New System.Drawing.Point(310, 32)
@@ -134,13 +136,13 @@ Partial Class EzTaxCertify
         Me.DetailsTXB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.DetailsTXB.Size = New System.Drawing.Size(280, 235)
         Me.DetailsTXB.TabIndex = 19
-        Me.DetailsTXB.Text = "help   :" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "me     :"
         '
         'BackgroundWorker1
         '
         '
         'DetailsButton
         '
+        Me.DetailsButton.Enabled = False
         Me.DetailsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.DetailsButton.Image = CType(resources.GetObject("DetailsButton.Image"), System.Drawing.Image)
         Me.DetailsButton.Location = New System.Drawing.Point(310, 66)
@@ -153,12 +155,23 @@ Partial Class EzTaxCertify
         'WaitForRender
         '
         '
+        'ReportLabel
+        '
+        Me.ReportLabel.AutoSize = True
+        Me.ReportLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ReportLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.ReportLabel.Location = New System.Drawing.Point(89, 86)
+        Me.ReportLabel.Name = "ReportLabel"
+        Me.ReportLabel.Size = New System.Drawing.Size(0, 9)
+        Me.ReportLabel.TabIndex = 19
+        '
         'EzTaxCertify
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
         Me.ClientSize = New System.Drawing.Size(397, 380)
+        Me.Controls.Add(Me.ReportLabel)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.SubtitleLBL)
         Me.Controls.Add(Me.TitleLBL)
@@ -193,4 +206,5 @@ Partial Class EzTaxCertify
     Friend WithEvents Button2 As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents WaitForRender As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ReportLabel As Label
 End Class

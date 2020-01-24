@@ -236,7 +236,14 @@ Public Class KeyringForm
         LoadUp()
     End Sub
 
-    Private Sub ActionButton_Click(sender As Object, e As EventArgs) Handles ActionButton.Click
+    Private Sub KeyRingDoubleclick() Handles ListView1.DoubleClick
+        Try
+            ActionButton_Click()
+        Catch
+        End Try
+    End Sub
+
+    Private Sub ActionButton_Click() Handles ActionButton.Click
         Dim SelectedIndex As Integer
         SelectedIndex = ListView1.SelectedIndices(0)
 

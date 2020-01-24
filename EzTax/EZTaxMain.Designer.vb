@@ -28,14 +28,10 @@ Partial Class EZTaxMain
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.HitLabel = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.SearchBox = New System.Windows.Forms.TextBox()
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.NameColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.ItemNameTXB = New System.Windows.Forms.TextBox()
-        Me.ItemIncomeTXB = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.AddItemButton = New System.Windows.Forms.Button()
+        Me.DetailsButton = New System.Windows.Forms.Button()
         Me.RemoveItemButton = New System.Windows.Forms.Button()
         Me.ModifyItemButton = New System.Windows.Forms.Button()
         Me.Quit = New System.Windows.Forms.Button()
@@ -60,16 +56,16 @@ Partial Class EZTaxMain
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.InitialBW = New System.ComponentModel.BackgroundWorker()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.EzTaxLogo = New System.Windows.Forms.PictureBox()
         Me.UpdateBTN = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Aboutbutton = New System.Windows.Forms.Button()
+        Me.AddButton = New System.Windows.Forms.Button()
         Me.EzTaxTopLabel = New System.Windows.Forms.Label()
         IncomeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.EzTaxLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'IncomeColumn
@@ -81,11 +77,11 @@ Partial Class EZTaxMain
         '
         Me.GroupBox1.Controls.Add(Me.HitLabel)
         Me.GroupBox1.Controls.Add(Me.Label10)
-        Me.GroupBox1.Controls.Add(Me.TextBox2)
+        Me.GroupBox1.Controls.Add(Me.SearchBox)
         Me.GroupBox1.Controls.Add(Me.ListView1)
         Me.GroupBox1.Location = New System.Drawing.Point(6, 147)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(509, 283)
+        Me.GroupBox1.Size = New System.Drawing.Size(509, 309)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Income Registry"
@@ -107,12 +103,12 @@ Partial Class EZTaxMain
         Me.Label10.TabIndex = 2
         Me.Label10.Text = "Search:"
         '
-        'TextBox2
+        'SearchBox
         '
-        Me.TextBox2.Location = New System.Drawing.Point(56, 13)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(379, 20)
-        Me.TextBox2.TabIndex = 1
+        Me.SearchBox.Location = New System.Drawing.Point(56, 13)
+        Me.SearchBox.Name = "SearchBox"
+        Me.SearchBox.Size = New System.Drawing.Size(379, 20)
+        Me.SearchBox.TabIndex = 1
         '
         'ListView1
         '
@@ -122,7 +118,7 @@ Partial Class EZTaxMain
         Me.ListView1.HideSelection = False
         Me.ListView1.Location = New System.Drawing.Point(6, 39)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(497, 238)
+        Me.ListView1.Size = New System.Drawing.Size(497, 264)
         Me.ListView1.TabIndex = 0
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
@@ -132,52 +128,18 @@ Partial Class EZTaxMain
         Me.NameColumn.Text = "Name"
         Me.NameColumn.Width = 340
         '
-        'Label1
+        'DetailsButton
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(9, 439)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(61, 13)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Item Name:"
-        '
-        'ItemNameTXB
-        '
-        Me.ItemNameTXB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ItemNameTXB.Location = New System.Drawing.Point(76, 436)
-        Me.ItemNameTXB.Name = "ItemNameTXB"
-        Me.ItemNameTXB.Size = New System.Drawing.Size(234, 20)
-        Me.ItemNameTXB.TabIndex = 2
-        '
-        'ItemIncomeTXB
-        '
-        Me.ItemIncomeTXB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ItemIncomeTXB.Location = New System.Drawing.Point(390, 436)
-        Me.ItemIncomeTXB.Name = "ItemIncomeTXB"
-        Me.ItemIncomeTXB.Size = New System.Drawing.Size(119, 20)
-        Me.ItemIncomeTXB.TabIndex = 3
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(316, 439)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(68, 13)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Item Income:"
-        '
-        'AddItemButton
-        '
-        Me.AddItemButton.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTaxButton
-        Me.AddItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.AddItemButton.Image = CType(resources.GetObject("AddItemButton.Image"), System.Drawing.Image)
-        Me.AddItemButton.Location = New System.Drawing.Point(93, 462)
-        Me.AddItemButton.Name = "AddItemButton"
-        Me.AddItemButton.Size = New System.Drawing.Size(75, 23)
-        Me.AddItemButton.TabIndex = 5
-        Me.AddItemButton.Text = "Add"
-        Me.ToolTip1.SetToolTip(Me.AddItemButton, "Add a new item with the specified information")
-        Me.AddItemButton.UseVisualStyleBackColor = True
+        Me.DetailsButton.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTaxButton
+        Me.DetailsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.DetailsButton.Image = CType(resources.GetObject("DetailsButton.Image"), System.Drawing.Image)
+        Me.DetailsButton.Location = New System.Drawing.Point(93, 462)
+        Me.DetailsButton.Name = "DetailsButton"
+        Me.DetailsButton.Size = New System.Drawing.Size(75, 23)
+        Me.DetailsButton.TabIndex = 5
+        Me.DetailsButton.Text = "View Details"
+        Me.ToolTip1.SetToolTip(Me.DetailsButton, "Add a new item with the specified information")
+        Me.DetailsButton.UseVisualStyleBackColor = True
         '
         'RemoveItemButton
         '
@@ -408,15 +370,15 @@ Partial Class EZTaxMain
         '
         Me.InitialBW.WorkerReportsProgress = True
         '
-        'PictureBox1
+        'EzTaxLogo
         '
-        Me.PictureBox1.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTax
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox1.Location = New System.Drawing.Point(434, 25)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(81, 115)
-        Me.PictureBox1.TabIndex = 7
-        Me.PictureBox1.TabStop = False
+        Me.EzTaxLogo.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTax
+        Me.EzTaxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.EzTaxLogo.Location = New System.Drawing.Point(434, 25)
+        Me.EzTaxLogo.Name = "EzTaxLogo"
+        Me.EzTaxLogo.Size = New System.Drawing.Size(81, 115)
+        Me.EzTaxLogo.TabIndex = 7
+        Me.EzTaxLogo.TabStop = False
         '
         'UpdateBTN
         '
@@ -430,17 +392,17 @@ Partial Class EZTaxMain
         Me.ToolTip1.SetToolTip(Me.UpdateBTN, "Update your income")
         Me.UpdateBTN.UseVisualStyleBackColor = True
         '
-        'Aboutbutton
+        'AddButton
         '
-        Me.Aboutbutton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Aboutbutton.Image = CType(resources.GetObject("Aboutbutton.Image"), System.Drawing.Image)
-        Me.Aboutbutton.Location = New System.Drawing.Point(12, 462)
-        Me.Aboutbutton.Name = "Aboutbutton"
-        Me.Aboutbutton.Size = New System.Drawing.Size(75, 23)
-        Me.Aboutbutton.TabIndex = 5
-        Me.Aboutbutton.Text = "Add Wizard"
-        Me.ToolTip1.SetToolTip(Me.Aboutbutton, "About EzTax")
-        Me.Aboutbutton.UseVisualStyleBackColor = True
+        Me.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.AddButton.Image = CType(resources.GetObject("AddButton.Image"), System.Drawing.Image)
+        Me.AddButton.Location = New System.Drawing.Point(12, 462)
+        Me.AddButton.Name = "AddButton"
+        Me.AddButton.Size = New System.Drawing.Size(75, 23)
+        Me.AddButton.TabIndex = 5
+        Me.AddButton.Text = "Add"
+        Me.ToolTip1.SetToolTip(Me.AddButton, "About EzTax")
+        Me.AddButton.UseVisualStyleBackColor = True
         '
         'EzTaxTopLabel
         '
@@ -461,19 +423,15 @@ Partial Class EZTaxMain
         Me.BackColor = System.Drawing.Color.Silver
         Me.ClientSize = New System.Drawing.Size(525, 497)
         Me.Controls.Add(Me.EzTaxTopLabel)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.EzTaxLogo)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.Aboutbutton)
+        Me.Controls.Add(Me.AddButton)
         Me.Controls.Add(Me.Quit)
         Me.Controls.Add(Me.UpdateBTN)
         Me.Controls.Add(Me.RemoveItemButton)
         Me.Controls.Add(Me.ModifyItemButton)
-        Me.Controls.Add(Me.AddItemButton)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.ItemIncomeTXB)
-        Me.Controls.Add(Me.ItemNameTXB)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.DetailsButton)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -486,19 +444,14 @@ Partial Class EZTaxMain
         Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.EzTaxLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents ListView1 As ListView
-    Friend WithEvents Label1 As Label
-    Friend WithEvents ItemNameTXB As TextBox
-    Friend WithEvents ItemIncomeTXB As TextBox
-    Friend WithEvents Label2 As Label
-    Friend WithEvents AddItemButton As Button
+    Friend WithEvents DetailsButton As Button
     Friend WithEvents RemoveItemButton As Button
     Friend WithEvents ModifyItemButton As Button
     Friend WithEvents Quit As Button
@@ -518,7 +471,7 @@ Partial Class EZTaxMain
     Friend WithEvents Label18 As Label
     Friend WithEvents InitialBW As System.ComponentModel.BackgroundWorker
     Friend WithEvents NameColumn As ColumnHeader
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents EzTaxLogo As PictureBox
     Friend WithEvents UpdatedTotalLabel As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents UpdatedTaxDueLabel As Label
@@ -528,8 +481,8 @@ Partial Class EZTaxMain
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents UpdateBTN As Button
     Friend WithEvents Label10 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents SearchBox As TextBox
     Friend WithEvents HitLabel As Label
     Friend WithEvents EzTaxTopLabel As Label
-    Friend WithEvents Aboutbutton As Button
+    Friend WithEvents AddButton As Button
 End Class

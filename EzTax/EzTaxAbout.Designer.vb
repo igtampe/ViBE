@@ -60,7 +60,7 @@ Partial Class EzTaxAbout
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(60, 13)
         Me.Label2.TabIndex = 12
-        Me.Label2.Text = "Version 4.0"
+        Me.Label2.Text = "Version 5.0"
         '
         'Label3
         '
@@ -69,7 +69,7 @@ Partial Class EzTaxAbout
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(187, 13)
         Me.Label3.TabIndex = 12
-        Me.Label3.Text = "(C)2019 Igtampe, No Rights Reserved"
+        Me.Label3.Text = "(C)2020 Igtampe, No Rights Reserved"
         '
         'Label4
         '

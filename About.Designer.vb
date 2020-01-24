@@ -51,7 +51,7 @@ Partial Class About
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(246, 13)
         Me.Label2.TabIndex = 23
-        Me.Label2.Text = "Version 3.0, (C)2019 Igtampe, No Rights Reserved"
+        Me.Label2.Text = "Version 4.0, (C)2020 Igtampe, No Rights Reserved"
         '
         'Label3
         '
