@@ -343,7 +343,7 @@ Public Class EZTaxMain
         ModWindow.OneBRRent.Value = SelectedItem.Apartment.BR1Rent
         ModWindow.TwoBRRent.Value = SelectedItem.Apartment.BR2Rent
         ModWindow.ThreeBRRent.Value = SelectedItem.Apartment.BR3Rent
-        ModWindow.StudioRent.Value = SelectedItem.Apartment.PHRent
+        ModWindow.PHRent.Value = SelectedItem.Apartment.PHRent
 
         'Hotel
         ModWindow.HotelRooms.Value = SelectedItem.Hotel.Rooms
@@ -381,30 +381,35 @@ Public Class EZTaxMain
     End Sub
 
     Private Sub RemoveItemButton_Click(sender As Object, e As EventArgs) Handles RemoveItemButton.Click
-        DetailsButton.Enabled = False
-        ModifyItemButton.Enabled = False
-        RemoveItemButton.Enabled = False
+        Dim DeletePrompt = MsgBox("Are you sure you want to remove " & SelectedItem.Name & "?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "EzTax")
+
+        If DeletePrompt = MsgBoxResult.Yes Then
+            DetailsButton.Enabled = False
+            ModifyItemButton.Enabled = False
+            RemoveItemButton.Enabled = False
 
 
-        Dim NewItemIndex As Integer
-        Try
-            NewItemIndex = ListView1.SelectedIndices(0)
-        Catch
-        End Try
+            Dim NewItemIndex As Integer
+            Try
+                NewItemIndex = ListView1.SelectedIndices(0)
+            Catch
+            End Try
 
-        If SearchMode = True Then
-            NewItemIndex = SearchIncomeArray(NewItemIndex + 1).RealItemLocation
+            If SearchMode = True Then
+                NewItemIndex = SearchIncomeArray(NewItemIndex + 1).RealItemLocation
+            End If
+
+            Dim I As Integer
+
+            For I = NewItemIndex To IncomeregistryArray.Count - 2
+                IncomeregistryArray(I) = IncomeregistryArray(I + 1)
+            Next
+
+            ReDim Preserve IncomeregistryArray(IncomeregistryArray.Count - 2)
+
+            RePopulateListView()
         End If
 
-        Dim I As Integer
-
-        For I = NewItemIndex To IncomeregistryArray.Count - 2
-            IncomeregistryArray(I) = IncomeregistryArray(I + 1)
-        Next
-
-        ReDim Preserve IncomeregistryArray(IncomeregistryArray.Count - 2)
-
-        RePopulateListView()
 
     End Sub
 
@@ -746,7 +751,7 @@ LabelNoDownload:
                         Exit Select
                 End Select
             Case 1
-
+                'Business
                 Select Case Total
 
                     Case > 500000000
@@ -782,7 +787,7 @@ LabelNoDownload:
             Case 1
                 'Corporate User
                 Select Case Total
-                    Case > 5000000
+                    Case > 500000000
                         Taxb = 0.02
                         Exit Select
                     Case Else

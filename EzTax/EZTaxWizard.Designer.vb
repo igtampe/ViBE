@@ -641,7 +641,7 @@ Partial Class EZTaxWizard
         'MiscIncome
         '
         Me.MiscIncome.Location = New System.Drawing.Point(94, 17)
-        Me.MiscIncome.Maximum = New Decimal(New Integer() {1000000000, 0, 0, 0})
+        Me.MiscIncome.Maximum = New Decimal(New Integer() {1215752192, 23, 0, 0})
         Me.MiscIncome.Name = "MiscIncome"
         Me.MiscIncome.Size = New System.Drawing.Size(121, 20)
         Me.MiscIncome.TabIndex = 41
