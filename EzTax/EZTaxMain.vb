@@ -508,7 +508,7 @@ LabelNoDownload:
         InitialBW.ReportProgress(I)
 
 
-        Servermsg = ServerCommand.ServerCommand("EZTINF" & ID)
+        Servermsg = ServerCommand.RawCommand("EZTINF" & ID)
         If Servermsg = "E" Then
             MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
             Close()
@@ -616,7 +616,7 @@ LabelNoDownload:
     Private Sub Update_Click(sender As Object, e As EventArgs) Handles UpdateBTN.Click
 
         Dim Servermsg As String
-        Servermsg = ServerCommand.ServerCommand("EZTUPD" & ID & (UpdatedTotal - EI))
+        Servermsg = ServerCommand.RawCommand("EZTUPD" & ID & (UpdatedTotal - EI))
 
         Select Case Servermsg
             Case "E"

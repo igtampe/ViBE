@@ -1,7 +1,7 @@
 ﻿Public Class ConAdd
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         'Build The Building~57174~Igtampe;Build the Building and make it real good boio pls help
-        Select Case ServerCommand.ServerCommand("CONADDTOALL" & NameTXB.Text & "~" & ConMain.UserID & "~" & ConMain.UserName & ";" & DetailsTXB.Text)
+        Select Case ServerCommand.RawCommand("CONADDTOALL" & NameTXB.Text & "~" & ConMain.UserID & "~" & ConMain.UserName & ";" & DetailsTXB.Text)
             Case "S"
                 MsgBox("Successfully added the contract", vbInformation)
                 Close()

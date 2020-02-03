@@ -14,7 +14,7 @@ Public Class ServerCommand
         End Sub
     End Structure
 
-    Public Shared Function ServerCommand(ByVal ClientMSG As String, Optional IPOverride As String = "") As String
+    Public Shared Function RawCommand(ByVal ClientMSG As String, Optional IPOverride As String = "") As String
 
         Dim tc As TcpClient = New TcpClient()
         Dim ns As NetworkStream
@@ -27,7 +27,7 @@ Public Class ServerCommand
 
         'Check if the ClientMSG is blank, and if it is return an error flag
         If ClientMSG = "" Then
-            ServerCommand = "E"
+            RawCommand = "E"
             Exit Function
         End If
 
@@ -39,7 +39,7 @@ Public Class ServerCommand
             End If
         Catch
             MsgBox("Unable to connect to the server.", MsgBoxStyle.Exclamation, "ViBE Error")
-            ServerCommand = "NOCONNECT"
+            RawCommand = "NOCONNECT"
             Exit Function
         End Try
 
@@ -54,13 +54,13 @@ Public Class ServerCommand
                 ServerMSG = br.ReadString()
             Catch
                 MsgBox("Seems like the server might've crashed! Contact CHOPO!", MsgBoxStyle.Exclamation, "ViBE Error")
-                ServerCommand = "CRASH"
+                RawCommand = "CRASH"
                 Exit Function
             End Try
             tc.Close()
             Return ServerMSG
         End If
-        ServerCommand = ServerMSG
+        RawCommand = ServerMSG
     End Function
 
     Public Shared Function ExtendedServerCommand(ByVal ClientMSG As String, Optional IPOverride As String = "") As ServerReply

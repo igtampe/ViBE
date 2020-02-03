@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports VIBE__But_on_Visual_Studio_.BankCommands
 Public Class BankWindow
 
     Public Bank As String
@@ -88,8 +89,7 @@ Public Class BankWindow
     End Function
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles OpenAccountBW.DoWork
-        'BNKO57174GBANK
-        ServerMSG = ServerCommand.ServerCommand("BNKO" & ID & Bank)
+        ServerMSG = OpenBank(Bank)
     End Sub
 
     Private Sub DoneOpen() Handles OpenAccountBW.RunWorkerCompleted
@@ -105,7 +105,7 @@ Public Class BankWindow
     End Sub
 
     Private Sub CloseAccountBW_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles CloseAccountBW.DoWork
-        ServerMSG = ServerCommand.ServerCommand("BNKC" & ID & Bank)
+        ServerMSG = CloseBank(Bank)
     End Sub
 
     Private Sub DoneClose() Handles CloseAccountBW.RunWorkerCompleted
@@ -121,7 +121,7 @@ Public Class BankWindow
 
     Private Sub LogBW_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles LogBW.DoWork
         'BNKL57174GBANK
-        ServerMSG = ServerCommand.ServerCommand("BNKL" & ID & Bank)
+        ServerMSG = BankLog(Bank)
         Select Case ServerMSG
             Case "S"
                 Try

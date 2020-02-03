@@ -157,7 +157,7 @@
 
             Dim INFO() As String
 
-            INFO = ServerCommand.ServerCommand("INFO" & DirectoryView.SelectedItems(0).Text).Split(",")
+            INFO = ServerCommand.RawCommand("INFO" & DirectoryView.SelectedItems(0).Text).Split(",")
 
             If INFO(0) = 1 Then UMSNBRButton.Enabled = True Else UMSNBRButton.Enabled = False
             If INFO(2) = 1 Then GBANKRButton.Enabled = True Else GBANKRButton.Enabled = False
@@ -176,7 +176,7 @@
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
 
-        ServerMSG = ServerCommand.ServerCommand("DIR")
+        ServerMSG = ServerCommand.RawCommand("DIR")
 
         DirectoryArray = ServerMSG.Split(",")
         Dim N As Integer = 0

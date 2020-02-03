@@ -66,7 +66,7 @@
     End Sub
 
     Private Sub LoadDetails_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles LoadDetails.DoWork
-        ContractDetails = ServerCommand.ServerCommand("CONDETAILS" & ContractID)
+        ContractDetails = ServerCommand.RawCommand("CONDETAILS" & ContractID)
 
     End Sub
     Sub LoadDetailsDone() Handles LoadDetails.RunWorkerCompleted
@@ -81,7 +81,7 @@
                     'Available
 
                     'ContractID;User
-                    Select Case ServerCommand.ServerCommand("CONMOVETOUSER" & ContractID & ";" & ConMain.AllContracts(ConMain.SelectedAvailableContract).FromID)
+                    Select Case ServerCommand.RawCommand("CONMOVETOUSER" & ContractID & ";" & ConMain.AllContracts(ConMain.SelectedAvailableContract).FromID)
                         Case "E"
                             MsgBox("A serverside error occurred", vbInformation)
                         Case "S"

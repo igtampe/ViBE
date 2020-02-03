@@ -36,8 +36,13 @@ Public Class EZTaxWizard
 
     Private Sub AddItemButton_Click_1(sender As Object, e As EventArgs) Handles AddItemButton.Click
 
+        If DistrictBox.SelectedIndex = -1 Then
+            MsgBox("Please select a district.", MsgBoxStyle.Exclamation)
+            Exit Sub
+        End If
+
         If ItemIncome = 0 Then
-            MsgBox("Cannot add an empty item!", MsgBoxStyle.Information)
+            MsgBox("Cannot add an empty item!", MsgBoxStyle.Exclamation)
             Exit Sub
         End If
 

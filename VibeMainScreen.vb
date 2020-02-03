@@ -5,10 +5,18 @@ Imports System.IO
 Public Class VibeMainScreen
 
     Public ServerMSG As String
-    Public ID As String
+
+    ''' <summary>
+    ''' Currently Logged in ViBE Login ID
+    ''' </summary>
+    Public Shared ID As String
     Public LogoutExit As Boolean = False
     Public Category As Integer
-    Public Username As String
+
+    ''' <summary>
+    ''' Currently Logged ViBE Username
+    ''' </summary>
+    Public Shared Username As String
 
     Public SwitchID As String
     Public SwitchPIN As String
@@ -75,7 +83,7 @@ Public Class VibeMainScreen
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles RefreshBW.DoWork
-        ServerMSG = ServerCommand.ServerCommand("INFO" & ID)
+        ServerMSG = ServerCommand.RawCommand("INFO" & ID)
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles RefreshBW.RunWorkerCompleted
@@ -251,7 +259,7 @@ Public Class VibeMainScreen
     End Sub
 
     Private Sub SwitchUserBW_DoWork(sender As Object, e As DoWorkEventArgs) Handles SwitchUserBW.DoWork
-        ServerMSG = ServerCommand.ServerCommand("CU" & SwitchID & SwitchPIN)
+        ServerMSG = ServerCommand.RawCommand("CU" & SwitchID & SwitchPIN)
     End Sub
 
     Private Sub SwitchUserBW_Complete() Handles SwitchUserBW.RunWorkerCompleted

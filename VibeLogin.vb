@@ -29,7 +29,7 @@ Public Class VibeLogin
     ' ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝    ╚═╝     ╚═╝╚══════╝                       '
     '================================================================================================'
 
-    Public Shared VVer As Integer = 403
+    Public Shared VVer As Integer = 405
 
 
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles IDLabel.Click, PinLabel.Click, Label1.Click
@@ -134,7 +134,7 @@ Public Class VibeLogin
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        servermsg = ServerCommand.ServerCommand("CU" & LogonID.Text & LogonPIN.Text)
+        servermsg = ServerCommand.RawCommand("CU" & LogonID.Text & LogonPIN.Text)
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted

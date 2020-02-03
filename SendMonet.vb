@@ -61,7 +61,7 @@
                 MsgBox("Please select an origin", vbCritical, "Couldn't send money")
             Else
                 'SM57174\UMSNB33118\UMSNB5000
-                ServerMSG = ServerCommand.ServerCommand("SM" & ID & "\" & fromBank & Destination & Amount)
+                ServerMSG = ServerCommand.RawCommand("SM" & ID & "\" & fromBank & Destination & Amount)
                 Select Case ServerMSG
                     Case "1"
                         MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")

@@ -62,7 +62,7 @@ Public Class NotificationsForm
     Private Sub GetNotifications_GET(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles GetNotificationsBW.DoWork
         BWError = "ono"
 
-        Dim servermsg = ServerCommand.ServerCommand("NOTIFREAD" & ID)
+        Dim servermsg = ServerCommand.RawCommand("NOTIFREAD" & ID)
         If servermsg = "N" Or servermsg = "E" Then
             BWError = servermsg
             Exit Sub
@@ -115,7 +115,7 @@ Public Class NotificationsForm
     End Sub
 
     Private Sub RemoveNotificationBW_GET(sender As Object, e As DoWorkEventArgs) Handles RemoveNotificationBW.DoWork
-        ServerMSG = ServerCommand.ServerCommand("NOTIFREMO" & ID & ReferencedObject)
+        ServerMSG = ServerCommand.RawCommand("NOTIFREMO" & ID & ReferencedObject)
     End Sub
 
     Private Sub RemoveNotifications_DO() Handles RemoveNotificationBW.RunWorkerCompleted
@@ -136,7 +136,7 @@ Public Class NotificationsForm
     End Sub
 
     Private Sub ClearNotification_GET() Handles ClearAllNotificationsBW.DoWork
-        ServerMSG = ServerCommand.ServerCommand("NOTIFCLEAR" & ID)
+        ServerMSG = ServerCommand.RawCommand("NOTIFCLEAR" & ID)
     End Sub
 
     Private Sub ClearNotification_do() Handles ClearAllNotificationsBW.RunWorkerCompleted

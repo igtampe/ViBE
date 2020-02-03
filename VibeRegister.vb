@@ -30,9 +30,9 @@
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         If CheckBox2.Checked Then
-            ServerMSG = ServerCommand.ServerCommand("REG" & PINTXB.Text & "," & NameTXB.Text & " (Corp.)")
+            ServerMSG = ServerCommand.RawCommand("REG" & PINTXB.Text & "," & NameTXB.Text & " (Corp.)")
         Else
-            ServerMSG = ServerCommand.ServerCommand("REG" & PINTXB.Text & "," & NameTXB.Text)
+            ServerMSG = ServerCommand.RawCommand("REG" & PINTXB.Text & "," & NameTXB.Text)
         End If
     End Sub
 

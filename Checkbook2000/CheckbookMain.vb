@@ -60,7 +60,7 @@ Public Class CheckbookMain
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         bwerror = "ono"
-        Dim Servermsg = ServerCommand.ServerCommand("CHCKBKREAD" & ID)
+        Dim Servermsg = ServerCommand.RawCommand("CHCKBKREAD" & ID)
         If Servermsg = "N" Or Servermsg = "E" Or Servermsg = "F" Then
             bwerror = Servermsg
             Exit Sub

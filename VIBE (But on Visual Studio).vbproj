@@ -188,6 +188,13 @@
     <Compile Include="EzTax\EzTaxDetails.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="EzTax\EzTaxUpdateIncome.Designer.vb">
+      <DependentUpon>EzTaxUpdateIncome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EzTax\EzTaxUpdateIncome.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utilities\Commands\BankCommands.vb" />
     <Compile Include="Utilities\ScreenCamera.vb" />
     <Compile Include="Utilities\ServerCommand.vb" />
     <Compile Include="Contractus\ConAdd.Designer.vb">
@@ -439,6 +446,9 @@
     <EmbeddedResource Include="EzTax\EZTaxSplash.resx">
       <DependentUpon>EZTaxSplash.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EzTax\EzTaxUpdateIncome.resx">
+      <DependentUpon>EzTaxUpdateIncome.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EzTax\EZTaxWizard.resx">
       <DependentUpon>EzTaxWizard.vb</DependentUpon>
     </EmbeddedResource>
@@ -571,6 +581,7 @@
     <None Include="Contractus\Resources\Contractus.png" />
     <None Include="Resources\Hourglass.gif" />
     <None Include="EzTax\Resources\EzTaxApproved.png" />
+    <None Include="EzTax\Resources\EzTaxDenied.png" />
     <Content Include="Resources\VIBE.gif" />
     <Content Include="Resources\VIBE.ico" />
   </ItemGroup>

@@ -252,7 +252,7 @@ Public Class CheckbookInbox
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         CheckbookMain.bwerror = "ono"
-        Dim Servermsg = ServerCommand.ServerCommand("CHCKBKREAD" & ID)
+        Dim Servermsg = ServerCommand.RawCommand("CHCKBKREAD" & ID)
         If Servermsg = "N" Or Servermsg = "E" Or Servermsg = "F" Then
             CheckbookMain.bwerror = Servermsg
             Exit Sub
@@ -304,7 +304,7 @@ Public Class CheckbookInbox
     End Sub
 
     Private Sub RemoveItem() Handles DELETTHIS.Click
-        Dim servermsg = ServerCommand.ServerCommand("CHCKBKREMO" & VibeLogin.LogonID.Text & ListView1.SelectedIndices(0))
+        Dim servermsg = ServerCommand.RawCommand("CHCKBKREMO" & VibeLogin.LogonID.Text & ListView1.SelectedIndices(0))
         Select Case servermsg
             Case "E"
                 MsgBox("A server side error has occurred. Contact CHOPO!", vbExclamation)
@@ -347,7 +347,7 @@ Public Class CheckbookInbox
 
         Select Case CheckbookMain.MessageItem(I).Type
             Case 0
-                ServerMSG = ServerCommand.ServerCommand("SM" & TheSender & TheUser & Amount)
+                ServerMSG = ServerCommand.RawCommand("SM" & TheSender & TheUser & Amount)
                 Select Case ServerMSG
                     Case "1"
                         MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")
@@ -358,7 +358,7 @@ Public Class CheckbookInbox
                         RemoveItem()
                 End Select
             Case 1
-                ServerMSG = ServerCommand.ServerCommand("SM" & TheUser & TheSender & Amount)
+                ServerMSG = ServerCommand.RawCommand("SM" & TheUser & TheSender & Amount)
                 Select Case ServerMSG
                     Case "1"
                         MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")

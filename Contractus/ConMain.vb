@@ -101,7 +101,7 @@ Public Class ConMain
             Case DialogResult.Yes
                 CheckbookOutbox.ShowDialog()
                 If MsgBox("Are you sure you want to mark this contract as complete?", MsgBoxStyle.YesNo) = DialogResult.Yes Then
-                    Select Case ServerCommand.ServerCommand("CONREMOVE" & UserContracts(SelectedActiveContract).ID & ";" & UserID)
+                    Select Case ServerCommand.RawCommand("CONREMOVE" & UserContracts(SelectedActiveContract).ID & ";" & UserID)
                         Case "E"
                             MsgBox("A serverside error occurred", MsgBoxStyle.Information)
                         Case "S"
@@ -159,7 +159,7 @@ Public Class ConMain
         InitialBWStatus = 0
         InitialBW.ReportProgress(0)
         Dim CurrentItem() As String
-        Dim AVCMSG() = ServerCommand.ServerCommand("CONREADALL").Split(";")
+        Dim AVCMSG() = ServerCommand.RawCommand("CONREADALL").Split(";")
         If AVCMSG(0) = "N" Then
             AllContractsExist = False
             GoTo NoContracts
@@ -193,7 +193,7 @@ Public Class ConMain
 NoContracts:
         InitialBWStatus = 50
         InitialBW.ReportProgress(50)
-        Dim ACCMSG() = ServerCommand.ServerCommand("CONREADUSR" & UserID).Split(";")
+        Dim ACCMSG() = ServerCommand.RawCommand("CONREADUSR" & UserID).Split(";")
         If ACCMSG(0) = "N" Then
             ActiveContractsExist = False
             GoTo NoMas
