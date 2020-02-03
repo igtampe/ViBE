@@ -583,6 +583,7 @@ LabelNoDownload:
             ServerTaxInfo = New TaxInformation(EI, Incomes(0), Incomes(1), Incomes(2), Incomes(3), Incomes(4), Incomes(5), Category)
         End If
 
+        Income = ServerTaxInfo.FederalIncome - EI
         Total = ServerTaxInfo.FederalIncome
         Tax = ServerTaxInfo.TotalTax
 
