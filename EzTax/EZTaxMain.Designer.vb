@@ -49,11 +49,7 @@ Partial Class EZTaxMain
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.UpdatedTaxDueLabel = New System.Windows.Forms.Label()
         Me.TaxDueLabel = New System.Windows.Forms.Label()
-        Me.UpdatedTaxBracketLabel = New System.Windows.Forms.Label()
-        Me.TaxBracketLabel = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.InitialBW = New System.ComponentModel.BackgroundWorker()
         Me.EzTaxLogo = New System.Windows.Forms.PictureBox()
@@ -61,6 +57,7 @@ Partial Class EZTaxMain
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.AddButton = New System.Windows.Forms.Button()
         Me.EzTaxTopLabel = New System.Windows.Forms.Label()
+        Me.TaxBreakdownLink = New System.Windows.Forms.LinkLabel()
         IncomeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -283,13 +280,10 @@ Partial Class EZTaxMain
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.TaxBreakdownLink)
         Me.GroupBox3.Controls.Add(Me.UpdatedTaxDueLabel)
         Me.GroupBox3.Controls.Add(Me.TaxDueLabel)
-        Me.GroupBox3.Controls.Add(Me.UpdatedTaxBracketLabel)
-        Me.GroupBox3.Controls.Add(Me.TaxBracketLabel)
-        Me.GroupBox3.Controls.Add(Me.Label9)
         Me.GroupBox3.Controls.Add(Me.Label8)
-        Me.GroupBox3.Controls.Add(Me.Label17)
         Me.GroupBox3.Controls.Add(Me.Label18)
         Me.GroupBox3.Location = New System.Drawing.Point(205, 25)
         Me.GroupBox3.Name = "GroupBox3"
@@ -301,7 +295,7 @@ Partial Class EZTaxMain
         'UpdatedTaxDueLabel
         '
         Me.UpdatedTaxDueLabel.AutoSize = True
-        Me.UpdatedTaxDueLabel.Location = New System.Drawing.Point(80, 92)
+        Me.UpdatedTaxDueLabel.Location = New System.Drawing.Point(80, 38)
         Me.UpdatedTaxDueLabel.Name = "UpdatedTaxDueLabel"
         Me.UpdatedTaxDueLabel.Size = New System.Drawing.Size(0, 13)
         Me.UpdatedTaxDueLabel.TabIndex = 0
@@ -309,58 +303,24 @@ Partial Class EZTaxMain
         'TaxDueLabel
         '
         Me.TaxDueLabel.AutoSize = True
-        Me.TaxDueLabel.Location = New System.Drawing.Point(80, 38)
+        Me.TaxDueLabel.Location = New System.Drawing.Point(80, 25)
         Me.TaxDueLabel.Name = "TaxDueLabel"
         Me.TaxDueLabel.Size = New System.Drawing.Size(0, 13)
         Me.TaxDueLabel.TabIndex = 0
         '
-        'UpdatedTaxBracketLabel
-        '
-        Me.UpdatedTaxBracketLabel.AutoSize = True
-        Me.UpdatedTaxBracketLabel.Location = New System.Drawing.Point(80, 79)
-        Me.UpdatedTaxBracketLabel.Name = "UpdatedTaxBracketLabel"
-        Me.UpdatedTaxBracketLabel.Size = New System.Drawing.Size(0, 13)
-        Me.UpdatedTaxBracketLabel.TabIndex = 0
-        '
-        'TaxBracketLabel
-        '
-        Me.TaxBracketLabel.AutoSize = True
-        Me.TaxBracketLabel.Location = New System.Drawing.Point(80, 25)
-        Me.TaxBracketLabel.Name = "TaxBracketLabel"
-        Me.TaxBracketLabel.Size = New System.Drawing.Size(0, 13)
-        Me.TaxBracketLabel.TabIndex = 0
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(6, 79)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(72, 13)
-        Me.Label9.TabIndex = 0
-        Me.Label9.Text = "New Bracket:"
-        '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(6, 92)
+        Me.Label8.Location = New System.Drawing.Point(6, 38)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(76, 13)
         Me.Label8.TabIndex = 0
         Me.Label8.Text = "New Tax Due:"
         '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(6, 25)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(68, 13)
-        Me.Label17.TabIndex = 0
-        Me.Label17.Text = "Tax Bracket:"
-        '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(6, 38)
+        Me.Label18.Location = New System.Drawing.Point(6, 25)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(51, 13)
         Me.Label18.TabIndex = 0
@@ -416,6 +376,16 @@ Partial Class EZTaxMain
         Me.EzTaxTopLabel.Text = "EzTax"
         Me.EzTaxTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'TaxBreakdownLink
+        '
+        Me.TaxBreakdownLink.AutoSize = True
+        Me.TaxBreakdownLink.Location = New System.Drawing.Point(6, 79)
+        Me.TaxBreakdownLink.Name = "TaxBreakdownLink"
+        Me.TaxBreakdownLink.Size = New System.Drawing.Size(129, 13)
+        Me.TaxBreakdownLink.TabIndex = 1
+        Me.TaxBreakdownLink.TabStop = True
+        Me.TaxBreakdownLink.Text = "See Your Tax Breakdown"
+        '
         'EZTaxMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -466,8 +436,6 @@ Partial Class EZTaxMain
     Friend WithEvents Label5 As Label
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents TaxDueLabel As Label
-    Friend WithEvents TaxBracketLabel As Label
-    Friend WithEvents Label17 As Label
     Friend WithEvents Label18 As Label
     Friend WithEvents InitialBW As System.ComponentModel.BackgroundWorker
     Friend WithEvents NameColumn As ColumnHeader
@@ -475,8 +443,6 @@ Partial Class EZTaxMain
     Friend WithEvents UpdatedTotalLabel As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents UpdatedTaxDueLabel As Label
-    Friend WithEvents UpdatedTaxBracketLabel As Label
-    Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents UpdateBTN As Button
@@ -485,4 +451,5 @@ Partial Class EZTaxMain
     Friend WithEvents HitLabel As Label
     Friend WithEvents EzTaxTopLabel As Label
     Friend WithEvents AddButton As Button
+    Friend WithEvents TaxBreakdownLink As LinkLabel
 End Class

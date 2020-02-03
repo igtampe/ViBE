@@ -1,15 +1,69 @@
 ﻿
+Imports VIBE__But_on_Visual_Studio_.TaxCalc
 Imports System.ComponentModel
 Imports System.IO
 
 Public Class EZTaxMain
 
+    Public Structure TaxInformation
+        Public Federal As TaxCalcResult
+        Public Newpond As TaxCalcResult
+        Public Urbia As TaxCalcResult
+        Public Paradisus As TaxCalcResult
+        Public Laertes As TaxCalcResult
+        Public NorthOsten As TaxCalcResult
+        Public SouthOsten As TaxCalcResult
+
+        Public FederalIncome As Long
+        Public NewpondIncome As Long
+        Public UrbiaIncome As Long
+        Public ParadisusIncome As Long
+        Public LaertesIncome As Long
+        Public NorthOstenIncome As Long
+        Public SouthOstenIncome As Long
+        Public ExtraIncome As Long
+
+        Public TotalTax As Long
+
+        ''' <summary>
+        ''' Creates and calculates tax information based on income
+        ''' </summary>
+        Public Sub New(ExtraIncome As Long, NewpondIncome As Long, UrbiaIncome As Long, ParadisusIncome As Long, LaertesIncome As Long, NorthOstenIncome As Long, SouthOstenIncome As Long, Category As Integer)
+
+            Me.NewpondIncome = NewpondIncome
+            Me.UrbiaIncome = UrbiaIncome
+            Me.ParadisusIncome = ParadisusIncome
+            Me.LaertesIncome = LaertesIncome
+            Me.NorthOstenIncome = NorthOstenIncome
+            Me.SouthOstenIncome = SouthOstenIncome
+            Me.ExtraIncome = ExtraIncome
+
+            FederalIncome = ExtraIncome + NewpondIncome + UrbiaIncome + ParadisusIncome + LaertesIncome + NorthOstenIncome + SouthOstenIncome
+            Dim Corporate As Boolean = False
+            If Category = 1 Then Corporate = True
+            Federal = CalculateTax(FederalIncome, AllDistricts.Federal, Corporate)
+            Newpond = CalculateTax(NewpondIncome, AllDistricts.Newpond, Corporate)
+            Urbia = CalculateTax(UrbiaIncome, AllDistricts.Urbia, Corporate)
+            Paradisus = CalculateTax(ParadisusIncome, AllDistricts.Paradisus, Corporate)
+            Laertes = CalculateTax(LaertesIncome, AllDistricts.Laertes, Corporate)
+            NorthOsten = CalculateTax(NorthOstenIncome, AllDistricts.NorthOsten, Corporate)
+            SouthOsten = CalculateTax(SouthOstenIncome, AllDistricts.SouthOsten, Corporate)
+            TotalTax = Federal.MoneyOwed + Newpond.MoneyOwed + Urbia.MoneyOwed + Paradisus.MoneyOwed + Laertes.MoneyOwed + NorthOsten.MoneyOwed + SouthOsten.MoneyOwed
+
+        End Sub
+    End Structure
+
+    Public LocalTaxInfo As TaxInformation
+    Public ServerTaxInfo As TaxInformation
+
     Public Income As Long
     Public IRTI As Long
 
     Public EI As Long
+
     Public TaxBracket As String
     Public Tax As Long
+
     Public Total As Long
     Public InitializationResult
     Public ID As String
@@ -289,7 +343,7 @@ Public Class EZTaxMain
 
     Private Sub EzTaxDoubleClick() Handles ListView1.DoubleClick
         Try
-            ShowDetails()
+            ModifyItemButton_Click()
         Catch
         End Try
     End Sub
@@ -302,7 +356,7 @@ Public Class EZTaxMain
         Show()
     End Sub
 
-    Private Sub ModifyItemButton_Click(sender As Object, e As EventArgs) Handles ModifyItemButton.Click
+    Private Sub ModifyItemButton_Click() Handles ModifyItemButton.Click
 
         Dim NewItemIndex As Integer
 
@@ -414,6 +468,7 @@ Public Class EZTaxMain
     End Sub
 
     Private Sub EZTaxMain_Load(sender As Object, e As EventArgs) Handles Me.Shown
+        Dim ourTaxCalc As TaxCalc = New TaxCalc
         EZTaxSplash.Show()
         SearchMode = False
         IncomeregistryArray = Nothing
@@ -504,23 +559,32 @@ LabelNoDownload:
         Dim Servermsg As String
         Dim Incomes() As String
 
-        IWStatus = "Retrieving Income " & I
+        IWStatus = "Retrieving Income From Server"
         InitialBW.ReportProgress(I)
 
 
         Servermsg = ServerCommand.RawCommand("EZTINF" & ID)
         If Servermsg = "E" Then
             MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
-            Close()
+            Income = 0
+            EI = 0
+        Else
+            EI = Servermsg.Split(",")(1)
         End If
-        Incomes = Servermsg.Split(",")
-        Income = Incomes(0)
-        EI = Incomes(1)
 
-        Total = Income + EI
+        IWStatus = "Retrieving Income Breakdown"
+        InitialBW.ReportProgress(I)
+        Servermsg = ServerCommand.RawCommand("EZTBRK" & ID)
+        If Servermsg = "E" Then
+            MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
+            ServerTaxInfo = New TaxInformation(EI, 0, 0, 0, 0, 0, 0, Category)
+        Else
+            Incomes = Servermsg.Split(",")
+            ServerTaxInfo = New TaxInformation(EI, Incomes(0), Incomes(1), Incomes(2), Incomes(3), Incomes(4), Incomes(5), Category)
+        End If
 
-        Tax = TaxCalc(Total, Category)
-        TaxBracket = TaxBracketCalc(Total, Category)
+        Total = ServerTaxInfo.FederalIncome
+        Tax = ServerTaxInfo.TotalTax
 
     End Sub
 
@@ -530,7 +594,6 @@ LabelNoDownload:
         UpdatedLabel.Text = "0p"
         EILabel.Text = EI.ToString("N0") & "p"
         TotalLabel.Text = Total.ToString("N0") & "p"
-        TaxBracketLabel.Text = TaxBracket
         TaxDueLabel.Text = Tax.ToString("N0") & "p"
 
         If MoveWarning = True Then
@@ -622,26 +685,6 @@ LabelNoDownload:
         UpdateWindow.ShowDialog()
         Show()
 
-        'Dim Servermsg As String
-        'Servermsg = ServerCommand.RawCommand("EZTUPD" & ID & (UpdatedTotal - EI))
-
-        'Select Case Servermsg
-        ' Case "E"
-        ' MsgBox("Could not update income", vbCritical, "EzTax")
-        ' Case "S"
-        ' MsgBox("Updated income succesfully", vbInformation, "EzTax")
-        '
-        '        Income = IRTI
-        '        Tax = UpdatedTaxDue
-        '        TaxBracket = UpdatedTaxBracket
-        '        Total = UpdatedTotal
-        '
-        '        IncomeLabel.Text = Income.ToString("N0") & "p"
-        '        TotalLabel.Text = Total.ToString("N0") & "p"
-        '        TaxBracketLabel.Text = TaxBracket
-        '        TaxDueLabel.Text = Tax.ToString("N0") & "p"
-        '       End Select
-
     End Sub
 
     ''' <summary>
@@ -655,6 +698,14 @@ LabelNoDownload:
         Dim Hits As Integer
         IRTI = 0
         Hits = 0
+
+        Dim NewpondIncome As Long = 0
+        Dim UrbiaIncome As Long = 0
+        Dim ParadisusIncome As Long = 0
+        Dim LaertesIncome As Long = 0
+        Dim NOIncome As Long = 0
+        Dim SOIncome As Long = 0
+
 
         'Set up Listview
         ListView1.Clear()
@@ -707,6 +758,24 @@ LabelNoDownload:
 
             IRTI = IRTI + IncomeregistryArray(I).TotalIncome
 
+            Dim Current As IncomeRegistryItem = IncomeregistryArray(I)
+
+            Select Case Current.Location.ToUpper
+                Case "NEWPOND"
+                    NewpondIncome += Current.TotalIncome
+                Case "URBIA"
+                    UrbiaIncome += Current.TotalIncome
+                Case "PARADISUS"
+                    ParadisusIncome += Current.TotalIncome
+                Case "LAERTES"
+                    LaertesIncome += Current.TotalIncome
+                Case "NORTH OSTEN"
+                    NOIncome += Current.TotalIncome
+                Case "SOUTH OSTEN"
+                    SOIncome += Current.TotalIncome
+                Case Else
+            End Select
+
         Next
 
         FileClose(2)
@@ -714,11 +783,11 @@ LabelNoDownload:
         UpdatedLabel.Text = IRTI.ToString("N0") & "p"
         UpdatedTotal = IRTI + EI
 
-        UpdatedTaxDue = TaxCalc(UpdatedTotal, Category)
-        UpdatedTaxBracket = TaxBracketCalc(UpdatedTotal, Category)
+        LocalTaxInfo = New TaxInformation(EI, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome, Category)
+
+        UpdatedTaxDue = LocalTaxInfo.TotalTax
 
         UpdatedTotalLabel.Text = UpdatedTotal.ToString("N0") & "p"
-        UpdatedTaxBracketLabel.Text = UpdatedTaxBracket
         UpdatedTaxDueLabel.Text = UpdatedTaxDue.ToString("N0") & "p"
         If Hits = 0 Then HitsCounter(0)
 
@@ -742,72 +811,6 @@ LabelNoDownload:
         End If
     End Sub
 
-    Function TaxBracketCalc(Total As Long, Category As Integer) As String
-        Dim Taxb As Single
-        Select Case Category
-            Case 0
-                'Personal User
-                Select Case Total
-                    Case > 5000000
-                        Taxb = 0.05
-                        TaxBracketCalc = "Personal Taxed (5%)"
-                        Exit Select
-                    Case Else
-                        TaxBracketCalc = "Untaxed (0%)"
-                        Taxb = 0.00
-                        Exit Select
-                End Select
-            Case 1
-                'Business
-                Select Case Total
-
-                    Case > 500000000
-                        Taxb = 0.02
-                        TaxBracketCalc = "Corporate Taxed (2%)"
-                        Exit Select
-                    Case Else
-                        TaxBracketCalc = "Untaxed (0%)"
-                        Taxb = 0
-                        Exit Select
-                End Select
-            Case Else
-                TaxBracketCalc = "Unknown (0%)"
-                Taxb = 0
-
-        End Select
-
-    End Function
-    Function TaxCalc(Total As Long, Category As Integer) As Long
-        Dim Taxb As Single
-        Select Case Category
-            Case 0
-                'Personal User
-                Select Case Total
-                    Case > 5000000
-                        Taxb = 0.05
-                        Exit Select
-                    Case Else
-                        Taxb = 0.00
-                        Exit Select
-                End Select
-                TaxCalc = Total * Taxb
-            Case 1
-                'Corporate User
-                Select Case Total
-                    Case > 500000000
-                        Taxb = 0.02
-                        Exit Select
-                    Case Else
-                        Taxb = 0
-                        Exit Select
-                End Select
-                TaxCalc = (Total) * Taxb
-            Case Else
-                Taxb = 0
-                TaxCalc = Total * Taxb
-        End Select
-    End Function
-
     Private Sub EzTaxLogoClick() Handles EzTaxLogo.Click
         Hide()
         EzTaxAbout.ShowDialog()
@@ -815,5 +818,18 @@ LabelNoDownload:
     End Sub
     Private Sub QuitIt() Handles Quit.Click
         Close()
+    End Sub
+
+    Private Sub TaxBreakdownLink_LinkClicked() Handles TaxBreakdownLink.LinkClicked
+        Dim THEBIGBOI As EzTaxBreakdown = New EzTaxBreakdown With {
+         .LocalInformation = LocalTaxInfo,
+         .ServerInformation = ServerTaxInfo
+        }
+
+        Hide()
+        THEBIGBOI.ShowDialog()
+        Show()
+
+
     End Sub
 End Class
