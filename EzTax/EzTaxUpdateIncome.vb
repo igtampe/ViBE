@@ -34,6 +34,12 @@ Public Class EzTaxUpdateIncome
         'South Osten
         'North Osten
 
+        If IsNothing(AllIncomeItems) Then
+            ServerMSG = "You have no income items"
+            Send = False
+            Exit Sub
+        End If
+
         For Each Current As IncomeRegistryItem In AllIncomeItems
             TotalIncome += Current.TotalIncome
             Select Case Current.Location.ToUpper
@@ -50,12 +56,13 @@ Public Class EzTaxUpdateIncome
                 Case "SOUTH OSTEN"
                     SOIncome += Current.TotalIncome
                 Case Else
-                    ServerMSG = Current.Name & "does not have a valid location (" & Current.Location.ToUpper & ")"
+                    ServerMSG = Current.Name & " does not have a valid location (" & Current.Location.ToUpper & ")"
                     Send = False
+                    Exit Sub
             End Select
         Next
 
-        If Send Then ServerMSG = ServerCommand.RawCommand("EZTUPD" & VibeLogin.LogonID.Text & "," & NewpondIncome & "," & UrbiaIncome & "," & ParadisusIncome & "," & LaertesIncome & "," & NOIncome & "," & SOIncome)
+        If Send Then ServerMSG = ServerCommand.RawCommand("EZTUPD" & VibeMainScreen.ID & "," & TotalIncome & "," & NewpondIncome & "," & UrbiaIncome & "," & ParadisusIncome & "," & LaertesIncome & "," & NOIncome & "," & SOIncome)
 
     End Sub
 

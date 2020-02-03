@@ -614,26 +614,33 @@ LabelNoDownload:
     End Sub
 
     Private Sub Update_Click(sender As Object, e As EventArgs) Handles UpdateBTN.Click
+        Dim UpdateWindow As EzTaxUpdateIncome = New EzTaxUpdateIncome With {
+            .AllIncomeItems = IncomeregistryArray
+        }
 
-        Dim Servermsg As String
-        Servermsg = ServerCommand.RawCommand("EZTUPD" & ID & (UpdatedTotal - EI))
+        Hide()
+        UpdateWindow.ShowDialog()
+        Show()
 
-        Select Case Servermsg
-            Case "E"
-                MsgBox("Could not update income", vbCritical, "EzTax")
-            Case "S"
-                MsgBox("Updated income succesfully", vbInformation, "EzTax")
+        'Dim Servermsg As String
+        'Servermsg = ServerCommand.RawCommand("EZTUPD" & ID & (UpdatedTotal - EI))
 
-                Income = IRTI
-                Tax = UpdatedTaxDue
-                TaxBracket = UpdatedTaxBracket
-                Total = UpdatedTotal
-
-                IncomeLabel.Text = Income.ToString("N0") & "p"
-                TotalLabel.Text = Total.ToString("N0") & "p"
-                TaxBracketLabel.Text = TaxBracket
-                TaxDueLabel.Text = Tax.ToString("N0") & "p"
-        End Select
+        'Select Case Servermsg
+        ' Case "E"
+        ' MsgBox("Could not update income", vbCritical, "EzTax")
+        ' Case "S"
+        ' MsgBox("Updated income succesfully", vbInformation, "EzTax")
+        '
+        '        Income = IRTI
+        '        Tax = UpdatedTaxDue
+        '        TaxBracket = UpdatedTaxBracket
+        '        Total = UpdatedTotal
+        '
+        '        IncomeLabel.Text = Income.ToString("N0") & "p"
+        '        TotalLabel.Text = Total.ToString("N0") & "p"
+        '        TaxBracketLabel.Text = TaxBracket
+        '        TaxDueLabel.Text = Tax.ToString("N0") & "p"
+        '       End Select
 
     End Sub
 
