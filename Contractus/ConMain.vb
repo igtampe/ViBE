@@ -181,7 +181,7 @@ Public Class ConMain
             AllContracts(N).FromID = CurrentItem(2)
 
             If AllContracts(N).FromID = UserID Then
-                OpenContractsAmount = OpenContractsAmount + 1
+                OpenContractsAmount += 1
             End If
 
             AllContracts(N).FromName = CurrentItem(3)

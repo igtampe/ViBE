@@ -74,21 +74,20 @@ Public Class CheckbookMain
 
         Do
             ReDim Preserve MessageItem(N)
-            I = I + 1
+            I += 1
             MessageItem(N).Type = Doot(I)
-            I = I + 1
+            I += 1
             MessageItem(N).Time = Doot(I)
-            I = I + 1
+            I += 1
             MessageItem(N).FromName = Doot(I)
-            I = I + 1
+            I += 1
             MessageItem(N).FromBank = Doot(I)
-            I = I + 1
+            I += 1
             MessageItem(N).Amount = Doot(I)
-            I = I + 1
+            I += 1
             MessageItem(N).Comment = Doot(I)
 
             If MessageItem(N).Comment.StartsWith("::") Then
-                SubtypeProcessor = ""
                 SubtypeProcessor = MessageItem(N).Comment.Remove(5, MessageItem(N).Comment.Length - 5)
                 MessageItem(N).Subtype = CInt(SubtypeProcessor.Replace(":", ""))
                 MessageItem(N).Comment = MessageItem(N).Comment.Replace(SubtypeProcessor, "")
@@ -97,7 +96,7 @@ Public Class CheckbookMain
                 MessageItem(N).Subtype = 0
             End If
 
-            N = N + 1
+            N += 1
 
             If I = Doot.Count - 1 Then Exit Do
         Loop

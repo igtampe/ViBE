@@ -179,7 +179,7 @@
         ServerMSG = ServerCommand.RawCommand("DIR")
 
         DirectoryArray = ServerMSG.Split(",")
-        Dim N As Integer = 0
+        Dim N As Integer
         Dim StringProcessor() As String
 
         ReDim DirectoryUser(DirectoryArray.Count - 1)
@@ -243,7 +243,7 @@
         For I = 0 To DirectoryUser.Count - 1
 
             Dim CLVI As ListViewItem
-            If Not SearchItem = "" Then
+            If Not String.IsNullOrEmpty(SearchItem) Then
                 If DirectoryUser(I).Name.ToLower.Contains(SearchItem.ToLower) Then
                     CLVI = New ListViewItem With {
                 .Text = DirectoryUser(I).ID
@@ -296,7 +296,7 @@
     'Me.Name = "DirWindow"
     Sub RePopulateListView() Handles SearchBox.TextChanged
 
-        If Not SearchBox.Text = "" Then
+        If Not String.IsNullOrEmpty(SearchBox.Text) Then
             PopulateListview(SearchBox.Text)
         Else
             PopulateListview()

@@ -48,8 +48,6 @@
         Dim Amount As Long
         Dim fromBank As String
         Dim ServerMSG As String
-        Amount = 0
-        Destination = ""
         Amount = AmountBox.Value
         Destination = DestinationBox.Text
         If Destination.Count = 11 Then

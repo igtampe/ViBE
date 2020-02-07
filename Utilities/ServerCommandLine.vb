@@ -4,7 +4,7 @@
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim clientmsg As String = TextBox2.Text
-        If clientmsg = "" Then Exit Sub
+        If String.IsNullOrEmpty(clientmsg) Then Exit Sub
         log = log & "[SERVER] " & ServerCommand.RawCommand(clientmsg, “127.0.0.1”) & vbNewLine
         TextBox1.Text = log
     End Sub

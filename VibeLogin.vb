@@ -96,7 +96,7 @@ Public Class VibeLogin
 
         ImWaiting(True)
 
-        If ID = "" Then
+        If String.IsNullOrEmpty(ID.Trim) Then
             MsgBox("You must enter an ID", MsgBoxStyle.Critical, "ViBE Error")
             ImWaiting(False)
             Exit Sub
@@ -108,7 +108,7 @@ Public Class VibeLogin
             Exit Sub
         End If
 
-        If PIN = "" Then
+        If String.IsNullOrEmpty(PIN.Trim) Then
             MsgBox("You must enter an PIN", MsgBoxStyle.Critical, "ViBE Error")
             ImWaiting(False)
             Exit Sub

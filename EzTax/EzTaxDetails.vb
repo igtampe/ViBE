@@ -124,9 +124,10 @@ Public Class EzTaxDetails
     End Sub
 
     Private Sub Encore() Handles RecertifyButton.Click
-        Dim RecertWindow As EzTaxCertify = New EzTaxCertify
-        RecertWindow.HasToReport = False
-        RecertWindow.ItemToCertify = myItem
+        Dim RecertWindow As EzTaxCertify = New EzTaxCertify With {
+            .HasToReport = False,
+            .ItemToCertify = myItem
+        }
         RecertWindow.DetailsTXB.Text = ItemCompleteDetails
         RecertWindow.ShowDialog()
     End Sub

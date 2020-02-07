@@ -151,11 +151,11 @@
         Dim Subtype As Integer = CheckVariantCombobox.SelectedIndex
 
         If UMSNBRButton.Checked = True Then
-            bank = bank & "\UMSNB"
+            bank &= "\UMSNB"
         ElseIf GBANKRbutton.Checked = True Then
-            bank = bank & "\GBANK"
+            bank &= "\GBANK"
         ElseIf RIVERRButton.Checked = True Then
-            bank = bank & "\RIVER"
+            bank &= "\RIVER"
         End If
 
         Dim amount As Long = NumericUpDown1.Value

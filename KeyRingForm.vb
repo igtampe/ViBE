@@ -102,8 +102,8 @@ Public Class KeyringForm
         End Function
 
         Public Sub RemoveUser(Index As Integer)
-            If GetUser(Index).GetID = "-----" Then NumberofHeaders = NumberofHeaders - 1
-            NumberofUsers = NumberofUsers - 1
+            If GetUser(Index).GetID = "-----" Then NumberofHeaders -= 1
+            NumberofUsers -= 1
             Users.Remove(GetUser(Index))
 
         End Sub
@@ -122,8 +122,8 @@ Public Class KeyringForm
 
 
         Public Sub AddUser(ID As String, Pin As String, Name As String)
-            If ID = "-----" Then NumberofHeaders = NumberofHeaders + 1
-            NumberofUsers = NumberofUsers + 1
+            If ID = "-----" Then NumberofHeaders += 1
+            NumberofUsers += 1
             Users.Add(New User(ID, Pin, Name))
         End Sub
         Function GetUser(Number As Integer) As User
@@ -306,9 +306,8 @@ Public Class KeyringForm
     ''' Renders a fancier input box
     ''' </summary>
     ''' <param name="Prompt">The prompt of the InputBox</param>
-    ''' <param name="Title">The title of the dialog</param>
     ''' <returns></returns>
-    Function FancyInputBox(ByVal Prompt As String, Optional ByVal Title As String = "", Optional ByVal maxstringlength As Integer = 999999) As String
+    Function FancyInputBox(ByVal Prompt As String, Optional ByVal maxstringlength As Integer = 999999) As String
 
         InputForm.PromptLBL.Text = Prompt
         InputForm.Answer.Text = ""

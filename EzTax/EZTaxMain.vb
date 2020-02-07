@@ -349,8 +349,9 @@ Public Class EZTaxMain
     End Sub
 
     Private Sub ShowDetails() Handles DetailsButton.Click
-        Dim Detailswindow As EzTaxDetails = New EzTaxDetails
-        Detailswindow.myItem = SelectedItem
+        Dim Detailswindow As EzTaxDetails = New EzTaxDetails With {
+            .myItem = SelectedItem
+        }
         Hide()
         Detailswindow.ShowDialog()
         Show()
@@ -371,8 +372,9 @@ Public Class EZTaxMain
             NewItemIndex = SearchIncomeArray(NewItemIndex + 1).RealItemLocation
         End If
 
-        Dim ModWindow As EZTaxWizard = New EZTaxWizard
-        ModWindow.WindowMode = EZTaxWizard.Mode.Modify
+        Dim ModWindow As EZTaxWizard = New EZTaxWizard With {
+            .WindowMode = EZTaxWizard.Mode.Modify
+        }
         ModWindow.AddItemButton.Text = "Modify"
         ModWindow.SelectedItemIndex = NewItemIndex
 
@@ -548,7 +550,7 @@ Public Class EZTaxMain
 
             End If
 
-            I = I + 1
+            I += 1
             Threading.Thread.Sleep(5)
         End While
         FileClose(1)
@@ -667,8 +669,8 @@ LabelNoDownload:
 
         While Not X < 15
 
-            X = X - 10
-            If Not y < 15 Then y = y - 10
+            X -= 10
+            If Not y < 15 Then y -= 10
             Me.Size = (New Drawing.Size(X, y))
             Threading.Thread.Sleep(3)
 
@@ -726,7 +728,7 @@ LabelNoDownload:
             Dim CLVI As ListViewItem
             EZTaxSplash.StatusLabel.Text = "Adding Record " & I & " out of " & IncomeregistryArray.Count - 1 & "To Listbox"
 
-            If Not SearchItem = "" Then
+            If Not String.IsNullOrEmpty(SearchItem) Then
                 'For Searching
                 If IncomeregistryArray(I).Name.ToLower.Contains(SearchItem.ToLower) Then
                     CLVI = New ListViewItem With {
@@ -734,12 +736,13 @@ LabelNoDownload:
             }
                     CLVI.SubItems.Add(IncomeregistryArray(I).TotalIncome.ToString("N0") & "p")
                     ListView1.Items.Add(CLVI)
-                    Hits = Hits + 1
+                    Hits += 1
                     HitsCounter(Hits)
 
                     ReDim Preserve SearchIncomeArray(Hits)
-                    SearchIncomeArray(Hits) = New IncomeRegistryItem(IncomeregistryArray(I))
-                    SearchIncomeArray(Hits).RealItemLocation = I
+                    SearchIncomeArray(Hits) = New IncomeRegistryItem(IncomeregistryArray(I)) With {
+                        .RealItemLocation = I
+                    }
 
 
                 End If
@@ -750,14 +753,14 @@ LabelNoDownload:
             }
                 CLVI.SubItems.Add(IncomeregistryArray(I).TotalIncome.ToString("N0") & "p")
                 ListView1.Items.Add(CLVI)
-                Hits = Hits + 1
+                Hits += 1
                 HitsCounter(Hits)
             End If
 
             'Save the item
             PrintLine(2, IncomeregistryArray(I).Name & "," & IncomeregistryArray(I).TotalIncome & "," & IncomeregistryArray(I).Apartment.StudioUnits & "," & IncomeregistryArray(I).Apartment.BR1Units & "," & IncomeregistryArray(I).Apartment.BR2Units & "," & IncomeregistryArray(I).Apartment.BR3Units & "," & IncomeregistryArray(I).Apartment.PHUnits & "," & IncomeregistryArray(I).Apartment.StudioRent & "," & IncomeregistryArray(I).Apartment.BR1Rent & "," & IncomeregistryArray(I).Apartment.BR2Rent & "," & IncomeregistryArray(I).Apartment.BR3Rent & "," & IncomeregistryArray(I).Apartment.PHRent & "," & IncomeregistryArray(I).Hotel.Rooms & "," & IncomeregistryArray(I).Hotel.Suites & "," & IncomeregistryArray(I).Hotel.RoomRate & "," & IncomeregistryArray(I).Hotel.SuiteRate & "," & IncomeregistryArray(I).Hotel.MiscIncome & "," & IncomeregistryArray(I).Business.Chairs & "," & IncomeregistryArray(I).Business.AvgSpend & "," & IncomeregistryArray(I).Business.CustomersPerHour & "," & IncomeregistryArray(I).Business.HoursOpen & "," & IncomeregistryArray(I).MiscIncome & "," & IncomeregistryArray(I).Location)
 
-            IRTI = IRTI + IncomeregistryArray(I).TotalIncome
+            IRTI += IncomeregistryArray(I).TotalIncome
 
             Dim Current As IncomeRegistryItem = IncomeregistryArray(I)
 
@@ -803,7 +806,7 @@ LabelNoDownload:
     End Sub
 
     Public Sub RePopulateListView() Handles SearchBox.TextChanged
-        If Not SearchBox.Text = "" Then
+        If Not String.IsNullOrEmpty(SearchBox.Text) Then
             PopulateListview(SearchBox.Text)
             SearchMode = True
         Else

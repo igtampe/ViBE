@@ -56,9 +56,9 @@ Public Class EZTaxWizard
         Dim ItemAsIncomeRegistryItem As IncomeRegistryItem = New IncomeRegistryItem(ItemName, ItemApartmentDetails, ItemHotelDetails, ItemBusinessDetails, ItemMiscIncome, DistrictBox.Text)
 
         If WindowMode = Mode.Add Then
-            Dim CertifyWindow As EzTaxCertify = New EzTaxCertify
-
-            CertifyWindow.ItemToCertify = ItemAsIncomeRegistryItem
+            Dim CertifyWindow As EzTaxCertify = New EzTaxCertify With {
+                .ItemToCertify = ItemAsIncomeRegistryItem
+            }
             CertifyWindow.DetailsTXB.Text = ItemCompleteDetails
 
             AddToIncomeRegistry(ItemAsIncomeRegistryItem)

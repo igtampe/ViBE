@@ -20,10 +20,10 @@
 
     Function CheckForInput() As Boolean
         CheckForInput = True
-        If NameTXB.Text.Trim(" ") = "" Then
+        If String.IsNullOrEmpty(NameTXB.Text.Trim) Then
             CheckForInput = False
         End If
-        If PINTXB.Text.Trim(" ") = "" Then
+        If String.IsNullOrEmpty(PINTXB.Text.Trim) Then
             CheckForInput = False
         End If
     End Function

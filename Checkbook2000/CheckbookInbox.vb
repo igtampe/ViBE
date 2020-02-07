@@ -265,19 +265,19 @@ Public Class CheckbookInbox
 
         Do
             ReDim Preserve CheckbookMain.MessageItem(N)
-            I = I + 1
+            I += 1
             CheckbookMain.MessageItem(N).Type = Doot(I)
-            I = I + 1
+            I += 1
             CheckbookMain.MessageItem(N).Time = Doot(I)
-            I = I + 1
+            I += 1
             CheckbookMain.MessageItem(N).FromName = Doot(I)
-            I = I + 1
+            I += 1
             CheckbookMain.MessageItem(N).FromBank = Doot(I)
-            I = I + 1
+            I += 1
             CheckbookMain.MessageItem(N).Amount = Doot(I)
-            I = I + 1
+            I += 1
             CheckbookMain.MessageItem(N).Comment = Doot(I)
-            N = N + 1
+            N += 1
             If I = Doot.Count - 1 Then Exit Do
         Loop
 

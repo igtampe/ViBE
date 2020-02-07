@@ -78,7 +78,7 @@
             For Each NewBracket As String In DistrictBrakcets
                 CurrentBracket = NewBracket.Split(",")
                 Dim toplimit As Long
-                If CurrentBracket(3).Trim = "" Then toplimit = 2 ^ 62 Else toplimit = CurrentBracket(3).Trim
+                If String.IsNullOrEmpty(CurrentBracket(3).Trim) Then toplimit = 2 ^ 62 Else toplimit = CurrentBracket(3).Trim
 
                 'This isn't the max a long value can hold but if someone makes more than 4 Quintillion they deserve the money.
 

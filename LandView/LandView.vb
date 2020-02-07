@@ -357,10 +357,7 @@ Public Class LandView
 
     End Sub
 
-
-
-
-    Sub DownloadToTemp(filetodownload As String)
+    Public Shared Sub DownloadToTemp(filetodownload As String)
         If File.Exists(My.Computer.FileSystem.SpecialDirectories.Temp & "\" & filetodownload) Then File.Delete(My.Computer.FileSystem.SpecialDirectories.Temp & "\" & filetodownload)
         My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/PlotView/" & filetodownload, My.Computer.FileSystem.SpecialDirectories.Temp & "\" & filetodownload)
     End Sub
@@ -410,7 +407,7 @@ Public Class LandView
                 Plot.Industrial(I).Price = currentline(7)
 
                 Plot.Industrial(I).Area = Plot.Industrial(I).Width * Plot.Industrial(I).Height
-                I = I + 1
+                I += 1
 
             ElseIf currentline(0).StartsWith("U") Then
                 ReDim Preserve Plot.UMSMain(U)
@@ -435,7 +432,7 @@ Public Class LandView
                 Plot.UMSMain(U).Price = currentline(7)
 
                 Plot.UMSMain(U).Area = Plot.UMSMain(U).Width * Plot.UMSMain(U).Height
-                U = U + 1
+                U += 1
 
             ElseIf currentline(0).StartsWith("S") Then
                 ReDim Preserve Plot.Suburbia(S)
@@ -460,7 +457,7 @@ Public Class LandView
                 Plot.Suburbia(S).Price = currentline(7)
 
                 Plot.Suburbia(S).Area = Plot.Suburbia(S).Width * Plot.Suburbia(S).Height
-                S = S + 1
+                S += 1
 
             ElseIf currentline(0).StartsWith("R") Then
                 ReDim Preserve Plot.Urbia(R)
@@ -485,7 +482,7 @@ Public Class LandView
                 Plot.Urbia(R).Price = currentline(7)
 
                 Plot.Urbia(R).Area = Plot.Urbia(R).Width * Plot.Urbia(R).Height
-                R = R + 1
+                R += 1
 
             ElseIf currentline(0).StartsWith("P") Then
                 ReDim Preserve Plot.Paradisus(P)
@@ -510,7 +507,7 @@ Public Class LandView
                 Plot.Paradisus(P).Price = currentline(7)
 
                 Plot.Paradisus(P).Area = Plot.Paradisus(P).Width * Plot.Paradisus(P).Height
-                P = P + 1
+                P += 1
 
             ElseIf currentline(0).StartsWith("D") Then
                 ReDim Preserve Plot.Domum(D)
@@ -535,7 +532,7 @@ Public Class LandView
                 Plot.Domum(D).Price = currentline(7)
 
                 Plot.Domum(D).Area = Plot.Domum(D).Width * Plot.Domum(D).Height
-                D = D + 1
+                D += 1
 
             ElseIf currentline(0).StartsWith("L") Then
                 ReDim Preserve Plot.Laetres(L)
@@ -560,7 +557,7 @@ Public Class LandView
                 Plot.Laetres(L).Price = currentline(7)
 
                 Plot.Laetres(L).Area = Plot.Laetres(L).Width * Plot.Laetres(L).Height
-                L = L + 1
+                L += 1
 
             ElseIf currentline(0).StartsWith("Y") Then
                 ReDim Preserve Plot.Synergia(SY)
@@ -585,7 +582,7 @@ Public Class LandView
                 Plot.Synergia(SY).Price = currentline(7)
 
                 Plot.Synergia(SY).Area = Plot.Synergia(SY).Width * Plot.Synergia(SY).Height
-                SY = SY + 1
+                SY += 1
             End If
 
         End While
