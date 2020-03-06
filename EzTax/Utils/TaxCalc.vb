@@ -1,4 +1,54 @@
 ﻿Public Class TaxCalc
+
+
+    Public Structure TaxInformation
+        Public Federal As TaxCalcResult
+        Public Newpond As TaxCalcResult
+        Public Urbia As TaxCalcResult
+        Public Paradisus As TaxCalcResult
+        Public Laertes As TaxCalcResult
+        Public NorthOsten As TaxCalcResult
+        Public SouthOsten As TaxCalcResult
+
+        Public FederalIncome As Long
+        Public NewpondIncome As Long
+        Public UrbiaIncome As Long
+        Public ParadisusIncome As Long
+        Public LaertesIncome As Long
+        Public NorthOstenIncome As Long
+        Public SouthOstenIncome As Long
+        Public ExtraIncome As Long
+
+        Public TotalTax As Long
+
+        ''' <summary>
+        ''' Creates and calculates tax information based on income
+        ''' </summary>
+        Public Sub New(ExtraIncome As Long, NewpondIncome As Long, UrbiaIncome As Long, ParadisusIncome As Long, LaertesIncome As Long, NorthOstenIncome As Long, SouthOstenIncome As Long, Category As Integer)
+
+            Me.NewpondIncome = NewpondIncome
+            Me.UrbiaIncome = UrbiaIncome
+            Me.ParadisusIncome = ParadisusIncome
+            Me.LaertesIncome = LaertesIncome
+            Me.NorthOstenIncome = NorthOstenIncome
+            Me.SouthOstenIncome = SouthOstenIncome
+            Me.ExtraIncome = ExtraIncome
+
+            FederalIncome = ExtraIncome + NewpondIncome + UrbiaIncome + ParadisusIncome + LaertesIncome + NorthOstenIncome + SouthOstenIncome
+            Dim Corporate As Boolean = False
+            If Category = 1 Then Corporate = True
+            Federal = CalculateTax(FederalIncome, AllDistricts.Federal, Corporate)
+            Newpond = CalculateTax(NewpondIncome, AllDistricts.Newpond, Corporate)
+            Urbia = CalculateTax(UrbiaIncome, AllDistricts.Urbia, Corporate)
+            Paradisus = CalculateTax(ParadisusIncome, AllDistricts.Paradisus, Corporate)
+            Laertes = CalculateTax(LaertesIncome, AllDistricts.Laertes, Corporate)
+            NorthOsten = CalculateTax(NorthOstenIncome, AllDistricts.NorthOsten, Corporate)
+            SouthOsten = CalculateTax(SouthOstenIncome, AllDistricts.SouthOsten, Corporate)
+            TotalTax = Federal.MoneyOwed + Newpond.MoneyOwed + Urbia.MoneyOwed + Paradisus.MoneyOwed + Laertes.MoneyOwed + NorthOsten.MoneyOwed + SouthOsten.MoneyOwed
+
+        End Sub
+    End Structure
+
     Public Structure TaxBracket
         ''' <summary>
         ''' Percent taken at this tax bracket
