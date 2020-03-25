@@ -1,4 +1,5 @@
-﻿Imports System.Drawing.Imaging
+﻿Imports VIBE__But_on_Visual_Studio_.Core
+Imports System.Drawing.Imaging
 Imports VIBE__But_on_Visual_Studio_.EZTaxMain
 Imports System.IO
 
@@ -21,7 +22,7 @@ Public Class EzTaxCertify
     End Sub
 
     Private Sub ExecuteThePlay(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        ServerMSG = ServerCommand.RawCommand("CERT" & ItemName & " HAS INCOME " & ItemIncome.ToString("N0") & "p (" & ItemToCertify.Apartment.Income & " + " & ItemToCertify.Hotel.Income & " + " & ItemToCertify.Business.Income & " + " & ItemToCertify.MiscIncome & ")")
+        ServerMSG = Certify(ItemName & " HAS INCOME " & ItemIncome.ToString("N0") & "p (" & ItemToCertify.Apartment.Income & " + " & ItemToCertify.Hotel.Income & " + " & ItemToCertify.Business.Income & " + " & ItemToCertify.MiscIncome & ")")
     End Sub
 
     Private Sub TakeABow() Handles BackgroundWorker1.RunWorkerCompleted

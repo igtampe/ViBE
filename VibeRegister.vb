@@ -1,4 +1,5 @@
-﻿Public Class VibeRegister
+﻿Imports VIBE__But_on_Visual_Studio_.Core
+Public Class VibeRegister
     Public ServerMSG As String
     Private Sub CancelButtonReg_Click(sender As Object, e As EventArgs) Handles CancelButtonReg.Click, OKBTN.Click
         Close()
@@ -29,11 +30,7 @@
     End Function
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        If CheckBox2.Checked Then
-            ServerMSG = ServerCommand.RawCommand("REG" & PINTXB.Text & "," & NameTXB.Text & " (Corp.)")
-        Else
-            ServerMSG = ServerCommand.RawCommand("REG" & PINTXB.Text & "," & NameTXB.Text)
-        End If
+        ServerMSG = RegisterUser(PINTXB.Text, NameTXB.Text, CheckBox2.Checked)
     End Sub
 
     Private Sub Donedoingthething() Handles BackgroundWorker1.RunWorkerCompleted

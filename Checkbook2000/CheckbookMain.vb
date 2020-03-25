@@ -1,4 +1,5 @@
-﻿Imports System.ComponentModel
+﻿Imports VIBE__But_on_Visual_Studio_.Checkbook
+Imports System.ComponentModel
 
 Public Class CheckbookMain
 
@@ -60,7 +61,7 @@ Public Class CheckbookMain
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         bwerror = "ono"
-        Dim Servermsg = ServerCommand.RawCommand("CHCKBKREAD" & ID)
+        Dim Servermsg = ReadChecks(ID)
         If Servermsg = "N" Or Servermsg = "E" Or Servermsg = "F" Then
             bwerror = Servermsg
             Exit Sub

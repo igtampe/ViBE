@@ -1,4 +1,5 @@
-﻿Imports System.ComponentModel
+﻿Imports VIBE__But_on_Visual_Studio_.Notif
+Imports System.ComponentModel
 
 Public Class NotificationsForm
 
@@ -59,10 +60,10 @@ Public Class NotificationsForm
 
     End Sub
 
-    Private Sub GetNotifications_GET(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles GetNotificationsBW.DoWork
+    Public Sub GetNotifications_GET(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles GetNotificationsBW.DoWork
         BWError = "ono"
 
-        Dim servermsg = ServerCommand.RawCommand("NOTIFREAD" & ID)
+        Dim servermsg = ReadNotifs(ID)
         If servermsg = "N" Or servermsg = "E" Then
             BWError = servermsg
             Exit Sub
@@ -115,7 +116,7 @@ Public Class NotificationsForm
     End Sub
 
     Private Sub RemoveNotificationBW_GET(sender As Object, e As DoWorkEventArgs) Handles RemoveNotificationBW.DoWork
-        ServerMSG = ServerCommand.RawCommand("NOTIFREMO" & ID & ReferencedObject)
+        ServerMSG = RemoveNotif(ID, ReferencedObject)
     End Sub
 
     Private Sub RemoveNotifications_DO() Handles RemoveNotificationBW.RunWorkerCompleted
@@ -136,7 +137,7 @@ Public Class NotificationsForm
     End Sub
 
     Private Sub ClearNotification_GET() Handles ClearAllNotificationsBW.DoWork
-        ServerMSG = ServerCommand.RawCommand("NOTIFCLEAR" & ID)
+        ServerMSG = ClearNotifs(ID)
     End Sub
 
     Private Sub ClearNotification_do() Handles ClearAllNotificationsBW.RunWorkerCompleted

@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
+Imports VIBE__But_on_Visual_Studio_.Core
 
 Public Class VibeLogin
     Public CV As String
@@ -29,12 +30,7 @@ Public Class VibeLogin
     ' ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝    ╚═╝     ╚═╝╚══════╝                       '
     '================================================================================================'
 
-    Public Shared VVer As Integer = 405
-
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles IDLabel.Click, PinLabel.Click, Label1.Click
-
-    End Sub
+    Public Shared VVer As Integer = 406
 
     Sub CheckforUpdates() Handles Me.Load
         Try
@@ -76,7 +72,7 @@ Public Class VibeLogin
             LogonPIN.Text = login(1)
             AutoLogin = True
             RememberMeCheckbox.Checked = True
-            Call Button1_Click()
+            Button1_Click()
         End If
     End Sub
 
@@ -121,7 +117,7 @@ Public Class VibeLogin
         End If
 
         RefreshNotice.Show()
-        Call BackgroundWorker1.RunWorkerAsync()
+        BackgroundWorker1.RunWorkerAsync()
 
     End Sub
 
@@ -134,7 +130,7 @@ Public Class VibeLogin
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        servermsg = ServerCommand.RawCommand("CU" & LogonID.Text & LogonPIN.Text)
+        servermsg = CU(LogonID.Text, LogonPIN.Text)
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted

@@ -1,4 +1,5 @@
-﻿Public Class VibeChangePin
+﻿Imports VIBE__But_on_Visual_Studio_.Core
+Public Class VibeChangePin
     Public ServerMSG As String
     Public ID As String
     Public Pin As String
@@ -16,7 +17,7 @@
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        servermsg = ServerCommand.RawCommand("CP" & ID & PIN)
+        ServerMSG = ChangePin(ID, Pin)
     End Sub
 
     Private Sub BackgroundWorker1_RWC() Handles BackgroundWorker1.RunWorkerCompleted

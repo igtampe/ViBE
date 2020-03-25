@@ -1,4 +1,5 @@
-﻿Public Class TransferMonet
+﻿Imports VIBE__But_on_Visual_Studio_.Core
+Public Class TransferMonet
 
     Public ID As String
     Public Username As String
@@ -87,7 +88,7 @@
 
                     'TM57174UMSNBGBANK5000
 
-                    ServerMSG = ServerCommand.RawCommand("TM" & ID & frombank & Tobank & transferamount)
+                    ServerMSG = TM(ID, frombank, Tobank, transferamount)
 
                     Select Case ServerMSG
                         Case "1"
@@ -99,11 +100,6 @@
                             Close()
                     End Select
 
-
-
-
-
-
                 End If
 
             End If
@@ -111,10 +107,6 @@
         End If
 
         'Call a logman to log it to both bank's logs
-
-    End Sub
-
-    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles TransferAmountBox.ValueChanged
 
     End Sub
 

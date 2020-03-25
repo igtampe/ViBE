@@ -1,4 +1,4 @@
-﻿
+﻿Imports VIBE__But_on_Visual_Studio_.EzTax
 Imports VIBE__But_on_Visual_Studio_.TaxCalc
 Imports System.ComponentModel
 Imports System.IO
@@ -517,7 +517,7 @@ LabelNoDownload:
         InitialBW.ReportProgress(I)
 
 
-        Servermsg = ServerCommand.RawCommand("EZTINF" & ID)
+        Servermsg = Info(ID)
         If Servermsg = "E" Then
             MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
             Income = 0
@@ -528,7 +528,7 @@ LabelNoDownload:
 
         IWStatus = "Retrieving Income Breakdown"
         InitialBW.ReportProgress(I)
-        Servermsg = ServerCommand.RawCommand("EZTBRK" & ID)
+        Servermsg = Breakdown(ID)
         If Servermsg = "E" Then
             MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
             ServerTaxInfo = New TaxInformation(EI, 0, 0, 0, 0, 0, 0, Category)

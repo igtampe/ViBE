@@ -1,4 +1,4 @@
-﻿Imports System.IO
+﻿Imports VIBE__But_on_Visual_Studio_.Contractus
 
 Public Class ConMain
 
@@ -101,27 +101,16 @@ Public Class ConMain
             Case DialogResult.Yes
                 CheckbookOutbox.ShowDialog()
                 If MsgBox("Are you sure you want to mark this contract as complete?", MsgBoxStyle.YesNo) = DialogResult.Yes Then
-                    Select Case ServerCommand.RawCommand("CONREMOVE" & UserContracts(SelectedActiveContract).ID & ";" & UserID)
+                    Select Case RemoveContract(UserContracts(SelectedActiveContract).ID, UserID)
                         Case "E"
                             MsgBox("A serverside error occurred", MsgBoxStyle.Information)
                         Case "S"
                             MsgBox("Successfully removed this contract", MsgBoxStyle.Information)
                     End Select
-                    refreshAllContracts()
-
+                    RefreshAllContracts()
                 End If
-
-
-
         End Select
-
         'Send Bill
-
-    End Sub
-
-    Private Sub AboutButton_Click(sender As Object, e As EventArgs)
-        'AboutWindow
-
     End Sub
 
     Sub RefreshAllContracts()
@@ -159,7 +148,7 @@ Public Class ConMain
         InitialBWStatus = 0
         InitialBW.ReportProgress(0)
         Dim CurrentItem() As String
-        Dim AVCMSG() = ServerCommand.RawCommand("CONREADALL").Split(";")
+        Dim AVCMSG() = ReadAllContracts().Split(";")
         If AVCMSG(0) = "N" Then
             AllContractsExist = False
             GoTo NoContracts
@@ -193,7 +182,7 @@ Public Class ConMain
 NoContracts:
         InitialBWStatus = 50
         InitialBW.ReportProgress(50)
-        Dim ACCMSG() = ServerCommand.RawCommand("CONREADUSR" & UserID).Split(";")
+        Dim ACCMSG() = ReadUserContracts(UserID).Split(";")
         If ACCMSG(0) = "N" Then
             ActiveContractsExist = False
             GoTo NoMas

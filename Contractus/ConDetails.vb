@@ -1,4 +1,5 @@
-﻿Public Class ConDetails
+﻿Imports VIBE__But_on_Visual_Studio_.Contractus
+Public Class ConDetails
     Public ContractID As Integer
     Public ContractDetails As String
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles OKBtn.Click
@@ -66,8 +67,7 @@
     End Sub
 
     Private Sub LoadDetails_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles LoadDetails.DoWork
-        ContractDetails = ServerCommand.RawCommand("CONDETAILS" & ContractID)
-
+        ContractDetails = Contractus.ConDetails(ContractID)
     End Sub
     Sub LoadDetailsDone() Handles LoadDetails.RunWorkerCompleted
         DetailsTXB.Text = ContractDetails
@@ -81,7 +81,7 @@
                     'Available
 
                     'ContractID;User
-                    Select Case ServerCommand.RawCommand("CONMOVETOUSER" & ContractID & ";" & ConMain.AllContracts(ConMain.SelectedAvailableContract).FromID)
+                    Select Case MoveToUser(ContractID, ConMain.AllContracts(ConMain.SelectedAvailableContract).FromID)
                         Case "E"
                             MsgBox("A serverside error occurred", vbInformation)
                         Case "S"

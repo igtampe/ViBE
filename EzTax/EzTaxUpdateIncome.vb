@@ -62,7 +62,7 @@ Public Class EzTaxUpdateIncome
             End Select
         Next
 
-        If Send Then ServerMSG = ServerCommand.RawCommand("EZTUPD" & VibeMainScreen.ID & "," & TotalIncome & "," & NewpondIncome & "," & UrbiaIncome & "," & ParadisusIncome & "," & LaertesIncome & "," & NOIncome & "," & SOIncome)
+        If Send Then ServerMSG = EzTax.UpdateIncome(VibeMainScreen.ID, TotalIncome, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome)
 
     End Sub
 

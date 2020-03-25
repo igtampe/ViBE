@@ -202,6 +202,11 @@
     </Compile>
     <Compile Include="EzTax\Utils\TaxCalc.vb" />
     <Compile Include="Utilities\Commands\BankCommands.vb" />
+    <Compile Include="Utilities\Commands\Checkbook.vb" />
+    <Compile Include="Utilities\Commands\Contractus.vb" />
+    <Compile Include="Utilities\Commands\Core.vb" />
+    <Compile Include="Utilities\Commands\EzTax.vb" />
+    <Compile Include="Utilities\Commands\Notif.vb" />
     <Compile Include="Utilities\ScreenCamera.vb" />
     <Compile Include="Utilities\ServerCommand.vb" />
     <Compile Include="Contractus\ConAdd.Designer.vb">

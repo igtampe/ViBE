@@ -1,6 +1,6 @@
 ﻿Imports System.ComponentModel
-Imports System.Drawing.Imaging
 Imports System.IO
+Imports VIBE__But_on_Visual_Studio_.Core
 
 Public Class VibeMainScreen
 
@@ -83,7 +83,7 @@ Public Class VibeMainScreen
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles RefreshBW.DoWork
-        ServerMSG = ServerCommand.RawCommand("INFO" & ID)
+        ServerMSG = INFO(ID)
     End Sub
 
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles RefreshBW.RunWorkerCompleted
@@ -259,7 +259,7 @@ Public Class VibeMainScreen
     End Sub
 
     Private Sub SwitchUserBW_DoWork(sender As Object, e As DoWorkEventArgs) Handles SwitchUserBW.DoWork
-        ServerMSG = ServerCommand.RawCommand("CU" & SwitchID & SwitchPIN)
+        ServerMSG = CU(SwitchID, SwitchPIN)
     End Sub
 
     Private Sub SwitchUserBW_Complete() Handles SwitchUserBW.RunWorkerCompleted

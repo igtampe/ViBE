@@ -1,4 +1,5 @@
-﻿Public Class DirWindow
+﻿Imports VIBE__But_on_Visual_Studio_.Core
+Public Class DirWindow
 
     Public sortcolumn
     Public DirectoryArray() As String
@@ -14,9 +15,6 @@
     Public DirectoryUser() As DirectoryTable
 
     Private Sub DootDootDootDootDoot(Sender As Object, e As EventArgs) Handles Me.Load
-
-
-
         If Application.OpenForms().OfType(Of SendMonet).Any Then
 
             BankGroupBox.Enabled = True
@@ -43,22 +41,15 @@
 
         End If
 
-
         LoadingLabel.Text = "Loading..."
         DirectoryView.Items.Clear()
         DirectoryView.Visible = False
 
-
-
     End Sub
 
     Private Sub LoadAllTheCosos(Sender As Object, e As EventArgs) Handles Me.Shown
-
         RefreshNotice.Show()
         BackgroundWorker1.RunWorkerAsync()
-
-
-
     End Sub
 
 
@@ -110,8 +101,6 @@
 
         End If
 
-
-
         If Bank = "NO" Then
 
             MsgBox("Please select a destination bank", vbCritical, "ViBE")
@@ -127,9 +116,7 @@
     End Sub
 
     Private Sub CancelButton_Click(sender As Object, e As EventArgs) Handles NoNoButton.Click
-
         Close()
-
     End Sub
 
     Private Sub HeDidAClick() Handles DirectoryView.SelectedIndexChanged
@@ -157,7 +144,7 @@
 
             Dim INFO() As String
 
-            INFO = ServerCommand.RawCommand("INFO" & DirectoryView.SelectedItems(0).Text).Split(",")
+            INFO = Core.INFO(DirectoryView.SelectedItems(0).Text).Split(",")
 
             If INFO(0) = 1 Then UMSNBRButton.Enabled = True Else UMSNBRButton.Enabled = False
             If INFO(2) = 1 Then GBANKRButton.Enabled = True Else GBANKRButton.Enabled = False
@@ -168,15 +155,13 @@
             DirectoryView.Enabled = True
             SearchBox.Enabled = True
 
-
         End If
-
 
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
 
-        ServerMSG = ServerCommand.RawCommand("DIR")
+        ServerMSG = GetDirectory()
 
         DirectoryArray = ServerMSG.Split(",")
         Dim N As Integer
@@ -197,11 +182,7 @@
             Else
                 DirectoryUser(N).Category = 0
             End If
-
-
-
         Next
-
 
     End Sub
 

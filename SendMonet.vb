@@ -1,4 +1,5 @@
-﻿Public Class SendMonet
+﻿Imports VIBE__But_on_Visual_Studio_.Core
+Public Class SendMonet
 
     Public ID As String
     Public Username As String
@@ -19,8 +20,6 @@
         AmountBox.Value = 0
         DestinationBox.Text = ""
 
-
-
         ID = VibeLogin.LogonID.Text
 
         UMSNBRButton.Enabled = VibeMainScreen.UMSNBCheck.Checked
@@ -30,8 +29,6 @@
         UMSNBBalance = VibeMainScreen.UMSNBBLabel.Text.TrimEnd("p")
         GBANKBalance = VibeMainScreen.GBANKBLabel.Text.TrimEnd("p")
         RIVERBalance = VibeMainScreen.RIVERBLabel.Text.TrimEnd("p")
-
-
 
     End Sub
 
@@ -59,7 +56,7 @@
                 MsgBox("Please select an origin", vbCritical, "Couldn't send money")
             Else
                 'SM57174\UMSNB33118\UMSNB5000
-                ServerMSG = ServerCommand.RawCommand("SM" & ID & "\" & fromBank & Destination & Amount)
+                ServerMSG = SM(ID + "\" + fromBank, Destination, Amount)
                 Select Case ServerMSG
                     Case "1"
                         MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")

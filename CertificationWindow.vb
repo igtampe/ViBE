@@ -1,5 +1,4 @@
-﻿Imports System.Drawing.Imaging
-Imports System.IO
+﻿Imports VIBE__But_on_Visual_Studio_.Core
 
 Public Class CertificationWindow
 
@@ -59,7 +58,7 @@ Public Class CertificationWindow
 
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        Servermsg = ServerCommand.RawCommand("CERT" & Certify)
+        Servermsg = Core.Certify(Certify)
 
     End Sub
 
