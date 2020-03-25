@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Core
+﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
 
 Public Class CertificationWindow
 
@@ -58,7 +58,7 @@ Public Class CertificationWindow
 
 
     Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        Servermsg = Core.Certify(Certify)
+        Servermsg = CoreCommands.Certify(Certify)
 
     End Sub
 

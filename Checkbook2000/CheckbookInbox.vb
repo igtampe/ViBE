@@ -1,5 +1,5 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Checkbook
-Imports VIBE__But_on_Visual_Studio_.Core
+﻿Imports VIBE__But_on_Visual_Studio_.CheckbookCommands
+Imports VIBE__But_on_Visual_Studio_.CoreCommands
 Imports System.ComponentModel
 
 Public Class CheckbookInbox

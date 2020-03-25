@@ -3,7 +3,7 @@
 ''' <summary>
 ''' Contractus Expansion Commands
 ''' </summary>
-Public Class Contractus
+Public Class ContractusCommands
 
     ''' <summary>
     ''' Returns all contracts

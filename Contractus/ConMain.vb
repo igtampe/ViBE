@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Contractus
+﻿Imports VIBE__But_on_Visual_Studio_.ContractusCommands
 
 Public Class ConMain
 

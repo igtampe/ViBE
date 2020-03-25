@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Contractus
+﻿Imports VIBE__But_on_Visual_Studio_.ContractusCommands
 Public Class ConAdd
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         'Build The Building~57174~Igtampe;Build the Building and make it real good boio pls help

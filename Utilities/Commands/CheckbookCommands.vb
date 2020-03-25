@@ -3,7 +3,7 @@
 ''' <summary>
 ''' Checkbook 2000 Extension Commands
 ''' </summary>
-Public Class Checkbook
+Public Class CheckbookCommands
 
     ''' <summary>
     ''' Read All Checks from the specified user

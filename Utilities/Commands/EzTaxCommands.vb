@@ -3,7 +3,7 @@
 ''' <summary>
 ''' EzTax Expansion
 ''' </summary>
-Public Class EzTax
+Public Class EzTaxCommands
     Public Shared Function Breakdown(ID As String) As String
         'EZTBRK57174
         Return RawCommand("EZTBRK" + ID)

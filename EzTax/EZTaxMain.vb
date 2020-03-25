@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.EzTax
+﻿Imports VIBE__But_on_Visual_Studio_.EzTaxCommands
 Imports VIBE__But_on_Visual_Studio_.TaxCalc
 Imports System.ComponentModel
 Imports System.IO

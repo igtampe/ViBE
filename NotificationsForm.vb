@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Notif
+﻿Imports VIBE__But_on_Visual_Studio_.NotifCommands
 Imports System.ComponentModel
 
 Public Class NotificationsForm

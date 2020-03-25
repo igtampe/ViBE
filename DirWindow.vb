@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Core
+﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
 Public Class DirWindow
 
     Public sortcolumn
@@ -144,7 +144,7 @@ Public Class DirWindow
 
             Dim INFO() As String
 
-            INFO = Core.INFO(DirectoryView.SelectedItems(0).Text).Split(",")
+            INFO = CoreCommands.INFO(DirectoryView.SelectedItems(0).Text).Split(",")
 
             If INFO(0) = 1 Then UMSNBRButton.Enabled = True Else UMSNBRButton.Enabled = False
             If INFO(2) = 1 Then GBANKRButton.Enabled = True Else GBANKRButton.Enabled = False

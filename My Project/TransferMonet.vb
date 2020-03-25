@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Core
+﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
 Public Class TransferMonet
 
     Public ID As String

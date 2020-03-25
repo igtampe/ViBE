@@ -3,7 +3,7 @@
 ''' <summary>
 ''' Notifications Expansion
 ''' </summary>
-Public Class Notif
+Public Class NotifCommands
 
     ''' <summary>
     ''' Read All Notifications

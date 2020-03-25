@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Contractus
+﻿Imports VIBE__But_on_Visual_Studio_.ContractusCommands
 Public Class ConBid
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Select Case AddBid(ConMain.AllContracts(ConMain.SelectedAvailableContract).ID, NumericUpDown1.Value, ConMain.UserID, ConMain.UserName)

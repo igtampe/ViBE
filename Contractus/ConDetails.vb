@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Contractus
+﻿Imports VIBE__But_on_Visual_Studio_.ContractusCommands
 Public Class ConDetails
     Public ContractID As Integer
     Public ContractDetails As String
@@ -67,7 +67,7 @@ Public Class ConDetails
     End Sub
 
     Private Sub LoadDetails_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles LoadDetails.DoWork
-        ContractDetails = Contractus.ConDetails(ContractID)
+        ContractDetails = ContractusCommands.ConDetails(ContractID)
     End Sub
     Sub LoadDetailsDone() Handles LoadDetails.RunWorkerCompleted
         DetailsTXB.Text = ContractDetails

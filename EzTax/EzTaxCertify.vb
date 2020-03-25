@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Core
+﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
 Imports System.Drawing.Imaging
 Imports VIBE__But_on_Visual_Studio_.EZTaxMain
 Imports System.IO

@@ -3,7 +3,7 @@
 ''' <summary>
 ''' Handles the Core Functions of the ViBE Server
 ''' </summary>
-Public Class Core
+Public Class CoreCommands
 
     ''' <summary>
     ''' Checks A User's Credentials

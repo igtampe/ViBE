@@ -1,4 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.Checkbook
+﻿Imports VIBE__But_on_Visual_Studio_.CheckbookCommands
 Public Class CheckbookOutbox
     Private Sub DirectoryButton_Click(sender As Object, e As EventArgs) Handles DirectoryButton.Click
         DirWindow.ShowDialog()
