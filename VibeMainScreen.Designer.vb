@@ -272,7 +272,7 @@ Partial Class VibeMainScreen
         Me.GroupBox2.Location = New System.Drawing.Point(12, 92)
         Me.GroupBox2.Name = "GroupBox2"
         Me.HelpProvider1.SetShowHelp(Me.GroupBox2, True)
-        Me.GroupBox2.Size = New System.Drawing.Size(200, 89)
+        Me.GroupBox2.Size = New System.Drawing.Size(215, 89)
         Me.GroupBox2.TabIndex = 6
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Balances"
@@ -348,7 +348,7 @@ Partial Class VibeMainScreen
         'Button1
         '
         Me.HelpProvider1.SetHelpKeyword(Me.Button1, "This button is here to help you send money to OTHER bank accounts.")
-        Me.Button1.Location = New System.Drawing.Point(239, 111)
+        Me.Button1.Location = New System.Drawing.Point(244, 111)
         Me.Button1.Name = "Button1"
         Me.HelpProvider1.SetShowHelp(Me.Button1, True)
         Me.Button1.Size = New System.Drawing.Size(75, 23)
@@ -361,7 +361,7 @@ Partial Class VibeMainScreen
         '
         Me.HelpProvider1.SetHelpKeyword(Me.Button2, "This button is here to help you transfer your funds between your own bank account" &
         "s.")
-        Me.Button2.Location = New System.Drawing.Point(239, 140)
+        Me.Button2.Location = New System.Drawing.Point(244, 140)
         Me.Button2.Name = "Button2"
         Me.HelpProvider1.SetShowHelp(Me.Button2, True)
         Me.Button2.Size = New System.Drawing.Size(75, 23)
@@ -376,7 +376,7 @@ Partial Class VibeMainScreen
         'EZTaxButton
         '
         Me.HelpProvider1.SetHelpKeyword(Me.EZTaxButton, "Launch EzTax which can help you report your income to the UMS Government")
-        Me.EZTaxButton.Location = New System.Drawing.Point(320, 111)
+        Me.EZTaxButton.Location = New System.Drawing.Point(325, 111)
         Me.EZTaxButton.Name = "EZTaxButton"
         Me.HelpProvider1.SetShowHelp(Me.EZTaxButton, True)
         Me.EZTaxButton.Size = New System.Drawing.Size(75, 23)
@@ -400,7 +400,7 @@ Partial Class VibeMainScreen
         '
         'LNDViewBTN
         '
-        Me.LNDViewBTN.Location = New System.Drawing.Point(320, 140)
+        Me.LNDViewBTN.Location = New System.Drawing.Point(325, 140)
         Me.LNDViewBTN.Name = "LNDViewBTN"
         Me.LNDViewBTN.Size = New System.Drawing.Size(75, 23)
         Me.LNDViewBTN.TabIndex = 13
@@ -410,7 +410,7 @@ Partial Class VibeMainScreen
         '
         'Button6
         '
-        Me.Button6.Location = New System.Drawing.Point(401, 111)
+        Me.Button6.Location = New System.Drawing.Point(406, 111)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(75, 23)
         Me.Button6.TabIndex = 14
@@ -420,7 +420,7 @@ Partial Class VibeMainScreen
         '
         'Button7
         '
-        Me.Button7.Location = New System.Drawing.Point(401, 140)
+        Me.Button7.Location = New System.Drawing.Point(406, 140)
         Me.Button7.Name = "Button7"
         Me.Button7.Size = New System.Drawing.Size(75, 23)
         Me.Button7.TabIndex = 15

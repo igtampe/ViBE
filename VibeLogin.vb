@@ -30,7 +30,7 @@ Public Class VibeLogin
     ' ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝    ╚═╝     ╚═╝╚══════╝                       '
     '================================================================================================'
 
-    Public Shared VVer As Integer = 407
+    Public Shared VVer As Integer = 410
 
     Sub CheckforUpdates() Handles Me.Load
         Try

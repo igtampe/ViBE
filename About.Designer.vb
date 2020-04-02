@@ -31,6 +31,7 @@ Partial Class About
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -51,7 +52,7 @@ Partial Class About
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(246, 13)
         Me.Label2.TabIndex = 23
-        Me.Label2.Text = "Version 4.0, (C)2020 Igtampe, No Rights Reserved"
+        Me.Label2.Text = "Version 4.1, (C)2020 Igtampe, No Rights Reserved"
         '
         'Label3
         '
@@ -110,11 +111,22 @@ Partial Class About
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(232, 210)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(71, 13)
+        Me.LinkLabel1.TabIndex = 24
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "What's New?"
+        '
         'About
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(485, 240)
+        Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.TextBox1)
@@ -141,4 +153,5 @@ Partial Class About
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class
