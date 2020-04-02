@@ -422,7 +422,7 @@ Public Class EZTaxMain
 
     End Sub
 
-    Private Sub EZTaxMain_Load(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub EZTaxMain_Load() Handles Me.Shown
         Dim ourTaxCalc As TaxCalc = New TaxCalc
         EZTaxSplash.Show()
         SearchMode = False
@@ -432,7 +432,7 @@ Public Class EZTaxMain
         MoveWarning = False
         InitialBW.RunWorkerAsync()
 
-        DeleteToolStripMenuItem.Enabled = False
+        ViewDetailsToolStripMenuItem.Enabled = False
         ModifyToolStripMenuItem.Enabled = False
         DeleteToolStripMenuItem.Enabled = False
     End Sub
@@ -810,7 +810,10 @@ LabelNoDownload:
             File.Copy(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv",
                       My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv", True)
             File.Delete(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv")
-            RePopulateListView()
+            MsgBox("The IRF has been successfully downloaded. In order for changes to take effect, EzTax will now restart.", MsgBoxStyle.Information)
+            Hide()
+            Show()
+            EZTaxMain_Load()
         End If
     End Sub
 
