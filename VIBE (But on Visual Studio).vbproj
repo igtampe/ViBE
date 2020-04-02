@@ -201,11 +201,18 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EzTax\Utils\TaxCalc.vb" />
+    <Compile Include="LBL\LBLSender.designer.vb">
+      <DependentUpon>LBLSender.vb</DependentUpon>
+    </Compile>
+    <Compile Include="LBL\LBLSender.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utilities\Commands\BankCommands.vb" />
     <Compile Include="Utilities\Commands\CheckbookCommands.vb" />
     <Compile Include="Utilities\Commands\ContractusCommands.vb" />
     <Compile Include="Utilities\Commands\CoreCommands.vb" />
     <Compile Include="Utilities\Commands\EzTaxCommands.vb" />
+    <Compile Include="LBL\LBLClientTransfer.vb" />
     <Compile Include="Utilities\Commands\NotifCommands.vb" />
     <Compile Include="Utilities\ScreenCamera.vb" />
     <Compile Include="Utilities\ServerCommand.vb" />
@@ -482,6 +489,9 @@
     <EmbeddedResource Include="LandView\LandViewDownload.resx">
       <DependentUpon>LandViewDownload.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LBL\LBLSender.resx">
+      <DependentUpon>LBLSender.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
@@ -597,6 +607,7 @@
     <None Include="Resources\Hourglass.gif" />
     <None Include="EzTax\Resources\EzTaxApproved.png" />
     <None Include="EzTax\Resources\EzTaxDenied.png" />
+    <Content Include="Resources\FileOut.gif" />
     <Content Include="Resources\VIBE.gif" />
     <Content Include="Resources\VIBE.ico" />
   </ItemGroup>

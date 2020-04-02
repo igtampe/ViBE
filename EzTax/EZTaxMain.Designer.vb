@@ -31,9 +31,6 @@ Partial Class EZTaxMain
         Me.SearchBox = New System.Windows.Forms.TextBox()
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.NameColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.DetailsButton = New System.Windows.Forms.Button()
-        Me.RemoveItemButton = New System.Windows.Forms.Button()
-        Me.ModifyItemButton = New System.Windows.Forms.Button()
         Me.Quit = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.UpdatedTotalLabel = New System.Windows.Forms.Label()
@@ -47,22 +44,33 @@ Partial Class EZTaxMain
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.TaxBreakdownLink = New System.Windows.Forms.LinkLabel()
         Me.UpdatedTaxDueLabel = New System.Windows.Forms.Label()
         Me.TaxDueLabel = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.InitialBW = New System.ComponentModel.BackgroundWorker()
         Me.EzTaxLogo = New System.Windows.Forms.PictureBox()
-        Me.UpdateBTN = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.AddButton = New System.Windows.Forms.Button()
         Me.EzTaxTopLabel = New System.Windows.Forms.Label()
-        Me.TaxBreakdownLink = New System.Windows.Forms.LinkLabel()
+        Me.MainMenuStrip = New System.Windows.Forms.MenuStrip()
+        Me.ItemsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ViewDetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ModifyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SyncronyzationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DownloadIRFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UploadIRFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UpdateIncomeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.QuitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         IncomeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         CType(Me.EzTaxLogo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MainMenuStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'IncomeColumn
@@ -125,54 +133,19 @@ Partial Class EZTaxMain
         Me.NameColumn.Text = "Name"
         Me.NameColumn.Width = 340
         '
-        'DetailsButton
-        '
-        Me.DetailsButton.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTaxButton
-        Me.DetailsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.DetailsButton.Image = CType(resources.GetObject("DetailsButton.Image"), System.Drawing.Image)
-        Me.DetailsButton.Location = New System.Drawing.Point(93, 462)
-        Me.DetailsButton.Name = "DetailsButton"
-        Me.DetailsButton.Size = New System.Drawing.Size(75, 23)
-        Me.DetailsButton.TabIndex = 5
-        Me.DetailsButton.Text = "View Details"
-        Me.ToolTip1.SetToolTip(Me.DetailsButton, "Add a new item with the specified information")
-        Me.DetailsButton.UseVisualStyleBackColor = True
-        '
-        'RemoveItemButton
-        '
-        Me.RemoveItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.RemoveItemButton.Image = CType(resources.GetObject("RemoveItemButton.Image"), System.Drawing.Image)
-        Me.RemoveItemButton.Location = New System.Drawing.Point(255, 462)
-        Me.RemoveItemButton.Name = "RemoveItemButton"
-        Me.RemoveItemButton.Size = New System.Drawing.Size(75, 23)
-        Me.RemoveItemButton.TabIndex = 5
-        Me.RemoveItemButton.Text = "Remove"
-        Me.ToolTip1.SetToolTip(Me.RemoveItemButton, "Remove the selected item")
-        Me.RemoveItemButton.UseVisualStyleBackColor = True
-        '
-        'ModifyItemButton
-        '
-        Me.ModifyItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ModifyItemButton.Image = CType(resources.GetObject("ModifyItemButton.Image"), System.Drawing.Image)
-        Me.ModifyItemButton.Location = New System.Drawing.Point(174, 462)
-        Me.ModifyItemButton.Name = "ModifyItemButton"
-        Me.ModifyItemButton.Size = New System.Drawing.Size(75, 23)
-        Me.ModifyItemButton.TabIndex = 5
-        Me.ModifyItemButton.Text = "Modify"
-        Me.ToolTip1.SetToolTip(Me.ModifyItemButton, "Modify the selected item so that it has the specified information")
-        Me.ModifyItemButton.UseVisualStyleBackColor = True
-        '
         'Quit
         '
+        Me.Quit.BackColor = System.Drawing.Color.DarkBlue
         Me.Quit.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Quit.Image = CType(resources.GetObject("Quit.Image"), System.Drawing.Image)
-        Me.Quit.Location = New System.Drawing.Point(434, 462)
+        Me.Quit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Quit.ForeColor = System.Drawing.Color.White
+        Me.Quit.Location = New System.Drawing.Point(490, 0)
         Me.Quit.Name = "Quit"
-        Me.Quit.Size = New System.Drawing.Size(75, 23)
+        Me.Quit.Size = New System.Drawing.Size(35, 19)
         Me.Quit.TabIndex = 5
-        Me.Quit.Text = "Quit"
+        Me.Quit.Text = "X"
         Me.ToolTip1.SetToolTip(Me.Quit, "Quit EzTax")
-        Me.Quit.UseVisualStyleBackColor = True
+        Me.Quit.UseVisualStyleBackColor = False
         '
         'GroupBox2
         '
@@ -292,6 +265,16 @@ Partial Class EZTaxMain
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Tax Information"
         '
+        'TaxBreakdownLink
+        '
+        Me.TaxBreakdownLink.AutoSize = True
+        Me.TaxBreakdownLink.Location = New System.Drawing.Point(6, 79)
+        Me.TaxBreakdownLink.Name = "TaxBreakdownLink"
+        Me.TaxBreakdownLink.Size = New System.Drawing.Size(129, 13)
+        Me.TaxBreakdownLink.TabIndex = 1
+        Me.TaxBreakdownLink.TabStop = True
+        Me.TaxBreakdownLink.Text = "See Your Tax Breakdown"
+        '
         'UpdatedTaxDueLabel
         '
         Me.UpdatedTaxDueLabel.AutoSize = True
@@ -336,33 +319,9 @@ Partial Class EZTaxMain
         Me.EzTaxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.EzTaxLogo.Location = New System.Drawing.Point(434, 25)
         Me.EzTaxLogo.Name = "EzTaxLogo"
-        Me.EzTaxLogo.Size = New System.Drawing.Size(81, 115)
+        Me.EzTaxLogo.Size = New System.Drawing.Size(81, 116)
         Me.EzTaxLogo.TabIndex = 7
         Me.EzTaxLogo.TabStop = False
-        '
-        'UpdateBTN
-        '
-        Me.UpdateBTN.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.UpdateBTN.Image = CType(resources.GetObject("UpdateBTN.Image"), System.Drawing.Image)
-        Me.UpdateBTN.Location = New System.Drawing.Point(336, 462)
-        Me.UpdateBTN.Name = "UpdateBTN"
-        Me.UpdateBTN.Size = New System.Drawing.Size(92, 23)
-        Me.UpdateBTN.TabIndex = 5
-        Me.UpdateBTN.Text = "Update Income"
-        Me.ToolTip1.SetToolTip(Me.UpdateBTN, "Update your income")
-        Me.UpdateBTN.UseVisualStyleBackColor = True
-        '
-        'AddButton
-        '
-        Me.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.AddButton.Image = CType(resources.GetObject("AddButton.Image"), System.Drawing.Image)
-        Me.AddButton.Location = New System.Drawing.Point(12, 462)
-        Me.AddButton.Name = "AddButton"
-        Me.AddButton.Size = New System.Drawing.Size(75, 23)
-        Me.AddButton.TabIndex = 5
-        Me.AddButton.Text = "Add"
-        Me.ToolTip1.SetToolTip(Me.AddButton, "About EzTax")
-        Me.AddButton.UseVisualStyleBackColor = True
         '
         'EzTaxTopLabel
         '
@@ -376,33 +335,119 @@ Partial Class EZTaxMain
         Me.EzTaxTopLabel.Text = "EzTax"
         Me.EzTaxTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'TaxBreakdownLink
+        'MainMenuStrip
         '
-        Me.TaxBreakdownLink.AutoSize = True
-        Me.TaxBreakdownLink.Location = New System.Drawing.Point(6, 79)
-        Me.TaxBreakdownLink.Name = "TaxBreakdownLink"
-        Me.TaxBreakdownLink.Size = New System.Drawing.Size(129, 13)
-        Me.TaxBreakdownLink.TabIndex = 1
-        Me.TaxBreakdownLink.TabStop = True
-        Me.TaxBreakdownLink.Text = "See Your Tax Breakdown"
+        Me.MainMenuStrip.BackColor = System.Drawing.Color.DarkGray
+        Me.MainMenuStrip.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.MainMenuStrip.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MainMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ItemsToolStripMenuItem, Me.SyncronyzationToolStripMenuItem, Me.QuitToolStripMenuItem})
+        Me.MainMenuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow
+        Me.MainMenuStrip.Location = New System.Drawing.Point(0, 460)
+        Me.MainMenuStrip.Name = "MainMenuStrip"
+        Me.MainMenuStrip.Size = New System.Drawing.Size(525, 23)
+        Me.MainMenuStrip.TabIndex = 11
+        Me.MainMenuStrip.Text = "MainMenuStrip"
+        '
+        'ItemsToolStripMenuItem
+        '
+        Me.ItemsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem, Me.ViewDetailsToolStripMenuItem, Me.ModifyToolStripMenuItem, Me.DeleteToolStripMenuItem})
+        Me.ItemsToolStripMenuItem.Name = "ItemsToolStripMenuItem"
+        Me.ItemsToolStripMenuItem.Size = New System.Drawing.Size(44, 17)
+        Me.ItemsToolStripMenuItem.Text = "Items"
+        Me.ItemsToolStripMenuItem.ToolTipText = "Everything regarding item management"
+        '
+        'AddToolStripMenuItem
+        '
+        Me.AddToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
+        Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
+        Me.AddToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
+        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AddToolStripMenuItem.Text = "Add"
+        '
+        'ViewDetailsToolStripMenuItem
+        '
+        Me.ViewDetailsToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
+        Me.ViewDetailsToolStripMenuItem.Name = "ViewDetailsToolStripMenuItem"
+        Me.ViewDetailsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.D), System.Windows.Forms.Keys)
+        Me.ViewDetailsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ViewDetailsToolStripMenuItem.Text = "View Details"
+        '
+        'ModifyToolStripMenuItem
+        '
+        Me.ModifyToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
+        Me.ModifyToolStripMenuItem.Name = "ModifyToolStripMenuItem"
+        Me.ModifyToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.M), System.Windows.Forms.Keys)
+        Me.ModifyToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ModifyToolStripMenuItem.Text = "Modify"
+        '
+        'DeleteToolStripMenuItem
+        '
+        Me.DeleteToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
+        Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
+        Me.DeleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DeleteToolStripMenuItem.Text = "Delete"
+        '
+        'SyncronyzationToolStripMenuItem
+        '
+        Me.SyncronyzationToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DownloadIRFToolStripMenuItem, Me.UploadIRFToolStripMenuItem, Me.UpdateIncomeToolStripMenuItem})
+        Me.SyncronyzationToolStripMenuItem.Name = "SyncronyzationToolStripMenuItem"
+        Me.SyncronyzationToolStripMenuItem.Size = New System.Drawing.Size(91, 17)
+        Me.SyncronyzationToolStripMenuItem.Text = "Syncronyzation"
+        Me.SyncronyzationToolStripMenuItem.ToolTipText = "Everything regarding IRF and Income Synchronization"
+        '
+        'DownloadIRFToolStripMenuItem
+        '
+        Me.DownloadIRFToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
+        Me.DownloadIRFToolStripMenuItem.Name = "DownloadIRFToolStripMenuItem"
+        Me.DownloadIRFToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
+        Me.DownloadIRFToolStripMenuItem.Text = "Download IRF"
+        '
+        'UploadIRFToolStripMenuItem
+        '
+        Me.UploadIRFToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
+        Me.UploadIRFToolStripMenuItem.Name = "UploadIRFToolStripMenuItem"
+        Me.UploadIRFToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5
+        Me.UploadIRFToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
+        Me.UploadIRFToolStripMenuItem.Text = "Upload IRF"
+        '
+        'UpdateIncomeToolStripMenuItem
+        '
+        Me.UpdateIncomeToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
+        Me.UpdateIncomeToolStripMenuItem.Name = "UpdateIncomeToolStripMenuItem"
+        Me.UpdateIncomeToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
+        Me.UpdateIncomeToolStripMenuItem.Size = New System.Drawing.Size(182, 22)
+        Me.UpdateIncomeToolStripMenuItem.Text = "Update Income"
+        '
+        'QuitToolStripMenuItem
+        '
+        Me.QuitToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem})
+        Me.QuitToolStripMenuItem.Name = "QuitToolStripMenuItem"
+        Me.QuitToolStripMenuItem.Size = New System.Drawing.Size(41, 17)
+        Me.QuitToolStripMenuItem.Text = "Help"
+        Me.QuitToolStripMenuItem.ToolTipText = "Not much here"
+        '
+        'AboutToolStripMenuItem
+        '
+        Me.AboutToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
+        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
+        Me.AboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AboutToolStripMenuItem.Text = "About"
         '
         'EZTaxMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
-        Me.ClientSize = New System.Drawing.Size(525, 497)
+        Me.ClientSize = New System.Drawing.Size(525, 483)
+        Me.Controls.Add(Me.Quit)
         Me.Controls.Add(Me.EzTaxTopLabel)
         Me.Controls.Add(Me.EzTaxLogo)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.AddButton)
-        Me.Controls.Add(Me.Quit)
-        Me.Controls.Add(Me.UpdateBTN)
-        Me.Controls.Add(Me.RemoveItemButton)
-        Me.Controls.Add(Me.ModifyItemButton)
-        Me.Controls.Add(Me.DetailsButton)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.MainMenuStrip)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "EZTaxMain"
@@ -415,15 +460,15 @@ Partial Class EZTaxMain
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.EzTaxLogo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MainMenuStrip.ResumeLayout(False)
+        Me.MainMenuStrip.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents ListView1 As ListView
-    Friend WithEvents DetailsButton As Button
-    Friend WithEvents RemoveItemButton As Button
-    Friend WithEvents ModifyItemButton As Button
     Friend WithEvents Quit As Button
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents Label3 As Label
@@ -445,11 +490,21 @@ Partial Class EZTaxMain
     Friend WithEvents UpdatedTaxDueLabel As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents UpdateBTN As Button
     Friend WithEvents Label10 As Label
     Friend WithEvents SearchBox As TextBox
     Friend WithEvents HitLabel As Label
     Friend WithEvents EzTaxTopLabel As Label
-    Friend WithEvents AddButton As Button
     Friend WithEvents TaxBreakdownLink As LinkLabel
+    Friend WithEvents MainMenuStrip As MenuStrip
+    Friend WithEvents ItemsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AddToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ViewDetailsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ModifyToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DeleteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SyncronyzationToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DownloadIRFToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents UploadIRFToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents UpdateIncomeToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents QuitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
 End Class

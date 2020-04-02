@@ -29,7 +29,7 @@ Partial Class EzTaxAbout
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Quit = New System.Windows.Forms.Button()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.EzTaxTopLabel = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -49,9 +49,9 @@ Partial Class EzTaxAbout
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(86, 25)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(257, 25)
+        Me.Label1.Size = New System.Drawing.Size(197, 25)
         Me.Label1.TabIndex = 11
-        Me.Label1.Text = "EzTax for ITOS Machines"
+        Me.Label1.Text = "EzTax for Windows"
         '
         'Label2
         '
@@ -60,7 +60,7 @@ Partial Class EzTaxAbout
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(60, 13)
         Me.Label2.TabIndex = 12
-        Me.Label2.Text = "Version 5.0"
+        Me.Label2.Text = "Version 6.0"
         '
         'Label3
         '
@@ -74,42 +74,43 @@ Partial Class EzTaxAbout
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(86, 88)
+        Me.Label4.Location = New System.Drawing.Point(88, 86)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(297, 13)
+        Me.Label4.Size = New System.Drawing.Size(330, 39)
         Me.Label4.TabIndex = 12
-        Me.Label4.Text = "Interfacing with ViBE Server on UMSWEB (Igtnet-w.ddns.net)"
+        Me.Label4.Text = "Interfacing with ViBE Server on UMSWEB (Igtnet-w.ddns.net)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "This program isn't ac" &
+    "tually copyrighted, even if it says so on the front." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "It just looks cool" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'Quit
         '
         Me.Quit.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Quit.Image = CType(resources.GetObject("Quit.Image"), System.Drawing.Image)
-        Me.Quit.Location = New System.Drawing.Point(165, 119)
+        Me.Quit.Location = New System.Drawing.Point(341, 29)
         Me.Quit.Name = "Quit"
         Me.Quit.Size = New System.Drawing.Size(75, 23)
         Me.Quit.TabIndex = 13
         Me.Quit.Text = "OK"
         Me.Quit.UseVisualStyleBackColor = True
         '
-        'Label5
+        'EzTaxTopLabel
         '
-        Me.Label5.BackColor = System.Drawing.Color.Navy
-        Me.Label5.Font = New System.Drawing.Font("Arial Narrow", 12.0!)
-        Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(0, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(397, 19)
-        Me.Label5.TabIndex = 14
-        Me.Label5.Text = "About EzTax"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.EzTaxTopLabel.BackColor = System.Drawing.Color.Navy
+        Me.EzTaxTopLabel.Font = New System.Drawing.Font("Arial Narrow", 12.0!)
+        Me.EzTaxTopLabel.ForeColor = System.Drawing.Color.White
+        Me.EzTaxTopLabel.Location = New System.Drawing.Point(0, 0)
+        Me.EzTaxTopLabel.Name = "EzTaxTopLabel"
+        Me.EzTaxTopLabel.Size = New System.Drawing.Size(428, 19)
+        Me.EzTaxTopLabel.TabIndex = 14
+        Me.EzTaxTopLabel.Text = "About EzTax"
+        Me.EzTaxTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'EzTaxAbout
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
-        Me.ClientSize = New System.Drawing.Size(397, 154)
-        Me.Controls.Add(Me.Label5)
+        Me.ClientSize = New System.Drawing.Size(428, 141)
+        Me.Controls.Add(Me.EzTaxTopLabel)
         Me.Controls.Add(Me.Quit)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
@@ -133,5 +134,5 @@ Partial Class EzTaxAbout
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Quit As Button
-    Friend WithEvents Label5 As Label
+    Friend WithEvents EzTaxTopLabel As Label
 End Class

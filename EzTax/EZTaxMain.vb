@@ -29,6 +29,9 @@ Public Class EZTaxMain
     Public UpdatedTaxDue As Long
     Public UpdatedTaxBracket As String
 
+    ''' <summary>
+    ''' This has to do with the Move Warning about having moved your IRF
+    ''' </summary>
     Public MoveWarning As Boolean
 
     Public SearchMode As Boolean
@@ -257,7 +260,7 @@ Public Class EZTaxMain
         End Sub
     End Structure
 
-    Private Sub AddButton_click() Handles AddButton.Click
+    Private Sub AddButton_click() Handles AddToolStripMenuItem.Click
         Dim AddWindow As EZTaxWizard = New EZTaxWizard
 
         Hide()
@@ -269,9 +272,9 @@ Public Class EZTaxMain
         SearchBox.Text = ""
         PopulateListview()
 
-        DetailsButton.Enabled = False
-        ModifyItemButton.Enabled = False
-        RemoveItemButton.Enabled = False
+        ViewDetailsToolStripMenuItem.Enabled = False
+        ModifyToolStripMenuItem.Enabled = False
+        DeleteToolStripMenuItem.Enabled = False
 
     End Sub
 
@@ -300,16 +303,14 @@ Public Class EZTaxMain
         End Try
     End Sub
 
-    Private Sub ShowDetails() Handles DetailsButton.Click
-        Dim Detailswindow As EzTaxDetails = New EzTaxDetails With {
-            .myItem = SelectedItem
-        }
+    Private Sub ShowDetails() Handles ViewDetailsToolStripMenuItem.Click
+        Dim Detailswindow As EzTaxDetails = New EzTaxDetails With {.myItem = SelectedItem}
         Hide()
         Detailswindow.ShowDialog()
         Show()
     End Sub
 
-    Private Sub ModifyItemButton_Click() Handles ModifyItemButton.Click
+    Private Sub ModifyItemButton_Click() Handles ModifyToolStripMenuItem.Click
 
         Dim NewItemIndex As Integer
 
@@ -378,9 +379,9 @@ Public Class EZTaxMain
 
 
         RePopulateListView()
-        DetailsButton.Enabled = False
-        ModifyItemButton.Enabled = False
-        RemoveItemButton.Enabled = False
+        ViewDetailsToolStripMenuItem.Enabled = False
+        ModifyToolStripMenuItem.Enabled = False
+        DeleteToolStripMenuItem.Enabled = False
 
 
 
@@ -388,13 +389,13 @@ Public Class EZTaxMain
 
     End Sub
 
-    Private Sub RemoveItemButton_Click(sender As Object, e As EventArgs) Handles RemoveItemButton.Click
+    Private Sub RemoveItemButton_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
         Dim DeletePrompt = MsgBox("Are you sure you want to remove " & SelectedItem.Name & "?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "EzTax")
 
         If DeletePrompt = MsgBoxResult.Yes Then
-            DetailsButton.Enabled = False
-            ModifyItemButton.Enabled = False
-            RemoveItemButton.Enabled = False
+            ViewDetailsToolStripMenuItem.Enabled = False
+            ModifyToolStripMenuItem.Enabled = False
+            DeleteToolStripMenuItem.Enabled = False
 
 
             Dim NewItemIndex As Integer
@@ -431,9 +432,9 @@ Public Class EZTaxMain
         MoveWarning = False
         InitialBW.RunWorkerAsync()
 
-        DetailsButton.Enabled = False
-        ModifyItemButton.Enabled = False
-        RemoveItemButton.Enabled = False
+        DeleteToolStripMenuItem.Enabled = False
+        ModifyToolStripMenuItem.Enabled = False
+        DeleteToolStripMenuItem.Enabled = False
     End Sub
 
     Private Sub InitialBW_DoWork(sender As Object, e As DoWorkEventArgs) Handles InitialBW.DoWork
@@ -606,9 +607,9 @@ LabelNoDownload:
                 End Try
         End Select
 
-        DetailsButton.Enabled = True
-        ModifyItemButton.Enabled = True
-        RemoveItemButton.Enabled = True
+        ViewDetailsToolStripMenuItem.Enabled = True
+        ModifyToolStripMenuItem.Enabled = True
+        DeleteToolStripMenuItem.Enabled = True
     End Sub
 
 
@@ -631,16 +632,15 @@ LabelNoDownload:
 
     End Sub
 
-    Private Sub Update_Click(sender As Object, e As EventArgs) Handles UpdateBTN.Click
-        Dim UpdateWindow As EzTaxUpdateIncome = New EzTaxUpdateIncome With {
-            .AllIncomeItems = IncomeregistryArray
-        }
-
+    Private Sub Update_Click(sender As Object, e As EventArgs) Handles UpdateIncomeToolStripMenuItem.Click
+        Dim UpdateWindow As EzTaxUpdateIncome = New EzTaxUpdateIncome With {.AllIncomeItems = IncomeregistryArray}
         Hide()
         UpdateWindow.ShowDialog()
         Show()
 
     End Sub
+
+
 
     ''' <summary>
     ''' Populate the listview
@@ -767,7 +767,7 @@ LabelNoDownload:
         End If
     End Sub
 
-    Private Sub EzTaxLogoClick() Handles EzTaxLogo.Click
+    Private Sub EzTaxLogoClick() Handles EzTaxLogo.Click, AboutToolStripMenuItem.Click
         Hide()
         EzTaxAbout.ShowDialog()
         Show()
@@ -785,7 +785,56 @@ LabelNoDownload:
         Hide()
         THEBIGBOI.ShowDialog()
         Show()
-
-
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles UploadIRFToolStripMenuItem.Click
+        Dim LBLBackupWindow As LBLSender = New LBLSender With {.FileToSend = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv"}
+        LBLBackupWindow.Show()
+    End Sub
+
+    Private Sub DownloadTime() Handles DownloadIRFToolStripMenuItem.Click
+        Dim result As MsgBoxResult = MsgBox("EzTax can attempt to download a copy of your IRF from the server. Are you sure you want to do this? It will overwrite your current file! (we'll keep a backup just in case)", MsgBoxStyle.YesNo + MsgBoxStyle.Exclamation, "EzTax")
+        If result = MsgBoxResult.Yes Then
+            Try
+                If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv") Then File.Delete(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv")
+                My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/uploadedreports/" & ID & ".IncomeRegistry.csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv")
+            Catch ex As Exception
+                MsgBox("EzTax could not download your IRF. You probably haven't uploaded it!", MsgBoxStyle.OkOnly + MsgBoxStyle.Critical, "EzTax IRF Downloader")
+                Debug.Print(ex.Message & vbNewLine & vbNewLine & ex.StackTrace)
+                Return
+            End Try
+            If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv") Then
+                File.Copy(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv",
+                          My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & " BACKUP BEFORE DOWNLOADING.IncomeRegistry.csv", True)
+            End If
+            File.Copy(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv",
+                      My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv", True)
+            File.Delete(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv")
+            RePopulateListView()
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' This has to do with moving the window
+    ''' </summary>
+    Public WindowIsmoving As Boolean
+    Public DX As Integer
+    Public DY As Integer
+
+    Public Sub TimeToMove() Handles EzTaxTopLabel.MouseDown
+        WindowIsmoving = True
+        DX = Location.X - MousePosition.X
+        DY = Location.Y - MousePosition.Y
+    End Sub
+
+    Private Sub ImMoving(sender As Object, e As MouseEventArgs) Handles EzTaxTopLabel.MouseMove
+        If WindowIsmoving Then
+            Me.SetDesktopLocation(DX + MousePosition.X, DY + MousePosition.Y)
+        End If
+    End Sub
+
+    Public Sub OktimeToStop() Handles EzTaxTopLabel.MouseUp
+        WindowIsmoving = False
+    End Sub
+
 End Class

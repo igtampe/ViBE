@@ -30,6 +30,7 @@ Partial Class EzTaxUpdateIncome
         Me.OKButton = New System.Windows.Forms.Button()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.WaitForRender = New System.ComponentModel.BackgroundWorker()
+        Me.BackupButton = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -88,12 +89,25 @@ Partial Class EzTaxUpdateIncome
         'BackgroundWorker1
         '
         '
+        'BackupButton
+        '
+        Me.BackupButton.Enabled = False
+        Me.BackupButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.BackupButton.Image = CType(resources.GetObject("BackupButton.Image"), System.Drawing.Image)
+        Me.BackupButton.Location = New System.Drawing.Point(310, 63)
+        Me.BackupButton.Name = "BackupButton"
+        Me.BackupButton.Size = New System.Drawing.Size(75, 23)
+        Me.BackupButton.TabIndex = 18
+        Me.BackupButton.Text = "Upload IRF"
+        Me.BackupButton.UseVisualStyleBackColor = True
+        '
         'EzTaxUpdateIncome
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Silver
         Me.ClientSize = New System.Drawing.Size(397, 104)
+        Me.Controls.Add(Me.BackupButton)
         Me.Controls.Add(Me.SubtitleLBL)
         Me.Controls.Add(Me.TitleLBL)
         Me.Controls.Add(Me.PictureBox1)
@@ -119,4 +133,5 @@ Partial Class EzTaxUpdateIncome
     Friend WithEvents OKButton As Button
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents WaitForRender As System.ComponentModel.BackgroundWorker
+    Friend WithEvents BackupButton As Button
 End Class
