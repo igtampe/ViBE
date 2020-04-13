@@ -1,6 +1,8 @@
 ﻿Public Class TaxCalc
 
 
+    Public TaxInfoID As Integer = 0
+
     Public Structure TaxInformation
         Public Federal As TaxCalcResult
         Public Newpond As TaxCalcResult
@@ -21,10 +23,8 @@
 
         Public TotalTax As Long
 
-        ''' <summary>
-        ''' Creates and calculates tax information based on income
-        ''' </summary>
-        Public Sub New(ExtraIncome As Long, NewpondIncome As Long, UrbiaIncome As Long, ParadisusIncome As Long, LaertesIncome As Long, NorthOstenIncome As Long, SouthOstenIncome As Long, Category As Integer)
+        ''' <summary> Creates and calculates tax information based on income </summary>
+        Public Sub New(ExtraIncome As Long, NewpondIncome As Long, UrbiaIncome As Long, ParadisusIncome As Long, LaertesIncome As Long, NorthOstenIncome As Long, SouthOstenIncome As Long, Category As Integer, Calculator As TaxCalc)
 
             Me.NewpondIncome = NewpondIncome
             Me.UrbiaIncome = UrbiaIncome
@@ -37,42 +37,29 @@
             FederalIncome = ExtraIncome + NewpondIncome + UrbiaIncome + ParadisusIncome + LaertesIncome + NorthOstenIncome + SouthOstenIncome
             Dim Corporate As Boolean = False
             If Category = 1 Then Corporate = True
-            Federal = CalculateTax(FederalIncome, AllDistricts.Federal, Corporate)
-            Newpond = CalculateTax(NewpondIncome, AllDistricts.Newpond, Corporate)
-            Urbia = CalculateTax(UrbiaIncome, AllDistricts.Urbia, Corporate)
-            Paradisus = CalculateTax(ParadisusIncome, AllDistricts.Paradisus, Corporate)
-            Laertes = CalculateTax(LaertesIncome, AllDistricts.Laertes, Corporate)
-            NorthOsten = CalculateTax(NorthOstenIncome, AllDistricts.NorthOsten, Corporate)
-            SouthOsten = CalculateTax(SouthOstenIncome, AllDistricts.SouthOsten, Corporate)
+            Federal = Calculator.CalculateTax(FederalIncome, AllDistricts.Federal, Corporate)
+            Newpond = Calculator.CalculateTax(NewpondIncome, AllDistricts.Newpond, Corporate)
+            Urbia = Calculator.CalculateTax(UrbiaIncome, AllDistricts.Urbia, Corporate)
+            Paradisus = Calculator.CalculateTax(ParadisusIncome, AllDistricts.Paradisus, Corporate)
+            Laertes = Calculator.CalculateTax(LaertesIncome, AllDistricts.Laertes, Corporate)
+            NorthOsten = Calculator.CalculateTax(NorthOstenIncome, AllDistricts.NorthOsten, Corporate)
+            SouthOsten = Calculator.CalculateTax(SouthOstenIncome, AllDistricts.SouthOsten, Corporate)
             TotalTax = Federal.MoneyOwed + Newpond.MoneyOwed + Urbia.MoneyOwed + Paradisus.MoneyOwed + Laertes.MoneyOwed + NorthOsten.MoneyOwed + SouthOsten.MoneyOwed
 
         End Sub
     End Structure
 
     Public Structure TaxBracket
-        ''' <summary>
-        ''' Percent taken at this tax bracket
-        ''' </summary>
+        ''' <summary> Percent taken at this tax bracket</summary>
         Public Percent As Single
-
-        ''' <summary>
-        ''' Name of the Bracket
-        ''' </summary>
+        ''' <summary> Name of the Bracket </summary>
         Public Name As String
-
-        ''' <summary>
-        ''' Upper limit of the Bracket
-        ''' </summary>
+        ''' <summary> Upper limit of the Bracket</summary>
         Public UpperLimit As Long
-
-        ''' <summary>
-        ''' Lower Limit of the bracket
-        ''' </summary>
+        '''<summary> Lower Limit of the bracket </summary>
         Public LowerLimit As Long
 
-        ''' <summary>
-        ''' Creates a new Tax Bracket.
-        ''' </summary>
+        ''' <summary> Creates a new Tax Bracket. </summary>
         ''' <param name="N">Name of the Bracket</param>
         ''' <param name="P">Percent of the Bracket</param>
         ''' <param name="UL">Upper Limit of the Bracket</param>
@@ -89,9 +76,7 @@
     ''' A result from a tax calculation which includes the Tax Bracket and the Money owed 
     ''' </summary>
     Public Structure TaxCalcResult
-        ''' <summary>
-        ''' Bracket of the tax result
-        ''' </summary>
+        ''' <summary> Bracket of the tax result </summary>
         Public Bracket As TaxBracket
         Public MoneyOwed As Long
         Public Sub New(ReturnBracket As TaxBracket, TaxAmount As Long)
@@ -109,34 +94,22 @@
         NorthOsten = 5
         SouthOsten = 6
     End Enum
-
     Public Structure District
         Public AllBrackets() As TaxBracket
+        Public name As String
 
-
-        ''' <summary>
-        ''' Makes a new district
-        ''' </summary>
-        ''' <param name="DistrictBrakcets">
-        ''' An array of all the district brackets in string form. The format is:
-        ''' NAME,PERCENT (As Decimal), LOWER LIMIT, TOP LIMIT
-        ''' 
-        ''' You can leave the top limit blank to treat it as infinity, BUT PLS LEAVE THE COMMA
-        ''' </param>
-        Public Sub New(DistrictBrakcets As String())
-            Dim CurrentBracket() As String
-            For Each NewBracket As String In DistrictBrakcets
-                CurrentBracket = NewBracket.Split(",")
-                Dim toplimit As Long
-                If String.IsNullOrEmpty(CurrentBracket(3).Trim) Then toplimit = 2 ^ 62 Else toplimit = CurrentBracket(3).Trim
-
-                'This isn't the max a long value can hold but if someone makes more than 4 Quintillion they deserve the money.
-
-                AddBracket(CurrentBracket(0).Trim, CurrentBracket(1).Trim, toplimit, CurrentBracket(2).Trim)
-            Next
+        Public Sub New(Name As String)
+            Me.name = Name
         End Sub
 
-        Private Sub AddBracket(N As String, P As Single, UL As Long, LL As Long)
+        ''' <summary>
+        ''' Adds a new bracket
+        ''' </summary>
+        ''' <param name="N">Name</param>
+        ''' <param name="P">Percent (as decimal)</param>
+        ''' <param name="UL">Upper Limit</param>
+        ''' <param name="LL">Lower Limit</param>
+        Public Sub AddBracket(N As String, P As Single, LL As Long, UL As Long)
             If IsNothing(AllBrackets) Then
                 ReDim AllBrackets(0)
                 AllBrackets(0) = New TaxBracket(N, P, UL, LL)
@@ -145,54 +118,106 @@
                 AllBrackets(AllBrackets.Count - 1) = New TaxBracket(N, P, UL, LL)
             End If
         End Sub
+
+        Public Sub AddBracket(Line As String())
+            Dim N As String = Line(0)
+            Dim P As String = Line(1)
+            Dim LL As Long = Line(2)
+            Dim UL As Long
+            If String.IsNullOrWhiteSpace(Line(3)) Then UL = 2 ^ 62 Else UL = Line(3)
+            AddBracket(N, P, LL, UL)
+        End Sub
+
     End Structure
 
-    Public Shared Federal As District = New District({
-    "Personal Taxed  ,0.05,5000000,       ",
-    "Personal Untaxed,0.00,      0,5000000"})
+    Private Federal As District
+    Private FederalCorporate As District
+    Private Newpond As District
+    Private NewpondCorporate As District
+    Private Urbia As District
+    Private UrbiaCorporate As District
+    Private Paradisus As District
+    Private ParadisusCorporate As District
+    Private Laertes As District
+    Private LaertesCorporate As District
+    Private NOsten As District
+    Private NOstenCorporate As District
+    Private SOsten As District
+    Private SOstenCorporate As District
 
-    Public Shared FederalCorporate As District = New District({
-    "Corporate Taxed  ,0.02,500000000,       ",
-    "Corporate Untaxed,0.00,      0,500000000"})
+    Public Sub New(TaxFile As String)
 
-    Public Shared Newpond As District = New District({
-    "Newpond Untaxed,0,0,"})
+        FileOpen(1, TaxFile, OpenMode.Input)
 
-    Public Shared NewpondCorporate As District = New District({
-    "Newpond Corporate Untaxed,0,0,"})
-
-    Public Shared Urbia As District = New District({
-    "Urbia Untaxed,0,0,"})
-
-    Public Shared UrbiaCorporate As District = New District({
-    "Urbia Corporate Untaxed,0,0,"})
-
-    Public Shared Paradisus As District = New District({
-    "Paradisus Untaxed,0,0,"})
-
-    Public Shared ParadisusCorporate As District = New District({
-    "Paradisus Corporate Untaxed,0,0,"})
-
-    Public Shared Laertes As District = New District({
-    "Laertes Untaxed,0,0,"})
-
-    Public Shared LaertesCorporate As District = New District({
-    "Laertes Corporate Untaxed,0,0,"})
-
-    Public Shared NOsten As District = New District({
-    "North Osten Untaxed,0,0,"})
-
-    Public Shared NOstenCorporate As District = New District({
-    "North Osten Corporate Untaxed,0,0,"})
-
-    Public Shared SOsten As District = New District({
-    "South Osten Untaxed,0,0,"})
-
-    Public Shared SOstenCorporate As District = New District({
-    "South Osten Corporate Untaxed,0,0,"})
+        Federal = New District("Federal")
+        FederalCorporate = New District("Federal Corporate")
+        Newpond = New District("Newpond")
+        NewpondCorporate = New District("Newpond Corporate")
+        Urbia = New District("Urbia")
+        UrbiaCorporate = New District("Urbia Corporate")
+        Paradisus = New District("Paradisus")
+        ParadisusCorporate = New District("Paradisus Corporate")
+        Laertes = New District("Laertes")
+        LaertesCorporate = New District("Laertes Corporate")
+        NOsten = New District("North Osten")
+        NOstenCorporate = New District("North Osten Corporate")
+        SOsten = New District("South Osten")
+        SOstenCorporate = New District("South Osten Corporate")
 
 
-    Public Shared Function CalculateTax(Money As Long, District As AllDistricts, Corporate As Boolean) As TaxCalcResult
+        Dim SplitLine As String()
+        Dim tempStr As String
+
+        While Not EOF(1)
+            tempStr = LineInput(1)
+
+            If tempStr.StartsWith("'") Then
+                'It's a comment do nada
+
+            ElseIf String.IsNullOrWhiteSpace(TempStr) Then
+                'Empty Line, we can ignore it.
+            Else
+                'Assume it's algo
+                SplitLine = tempStr.Split(":")
+                Select Case SplitLine(0).ToUpper
+                    Case "FED"
+                        Federal.AddBracket(SplitLine(1).Split(","))
+                    Case "FCORP"
+                        FederalCorporate.AddBracket(SplitLine(1).Split(","))
+                    Case "NEW"
+                        Newpond.AddBracket(SplitLine(1).Split(","))
+                    Case "NCORP"
+                        NewpondCorporate.AddBracket(SplitLine(1).Split(","))
+                    Case "URB"
+                        Urbia.AddBracket(SplitLine(1).Split(","))
+                    Case "UCORP"
+                        UrbiaCorporate.AddBracket(SplitLine(1).Split(","))
+                    Case "PAR"
+                        Paradisus.AddBracket(SplitLine(1).Split(","))
+                    Case "PCORP"
+                        ParadisusCorporate.AddBracket(SplitLine(1).Split(","))
+                    Case "LAE"
+                        Laertes.AddBracket(SplitLine(1).Split(","))
+                    Case "LCORP"
+                        LaertesCorporate.AddBracket(SplitLine(1).Split(","))
+                    Case "NOSTEN"
+                        NOsten.AddBracket(SplitLine(1).Split(","))
+                    Case "NOCORP"
+                        NOstenCorporate.AddBracket(SplitLine(1).Split(","))
+                    Case "SOSTEN"
+                        SOsten.AddBracket(SplitLine(1).Split(","))
+                    Case "SOCORP"
+                        SOstenCorporate.AddBracket(SplitLine(1).Split(","))
+                    Case "ID"
+                        TaxInfoID = SplitLine(1)
+                End Select
+            End If
+        End While
+        Debug.WriteLine(ToString())
+        FileClose(1)
+    End Sub
+
+    Public Function CalculateTax(Money As Long, District As AllDistricts, Corporate As Boolean) As TaxCalcResult
         If Money = 0 Then
             Return New TaxCalcResult(New TaxBracket("N/A", 0, 0, 0), 0)
         End If
@@ -208,7 +233,7 @@
         Return New TaxCalcResult(New TaxBracket("Unknown", 0, 0, 0), 0)
     End Function
 
-    Private Shared Function EnumToDistrict(District As AllDistricts, Corporate As Boolean) As District
+    Private Function EnumToDistrict(District As AllDistricts, Corporate As Boolean) As District
         Select Case District
             Case AllDistricts.Federal
                 If Corporate Then Return FederalCorporate Else Return Federal
@@ -225,9 +250,37 @@
             Case AllDistricts.SouthOsten
                 If Corporate Then Return SOstenCorporate Else Return SOsten
             Case Else
-                Return New District({"UnknownDistrict,0,0,"})
+                Return Nothing
         End Select
+    End Function
 
+    Private Function DistrictArray() As District()
+        Return {Federal, FederalCorporate, Newpond, NewpondCorporate, Urbia, UrbiaCorporate, Paradisus, ParadisusCorporate, Laertes, LaertesCorporate, NOsten, NOstenCorporate, SOsten, SOstenCorporate}
+    End Function
+
+    Public Overrides Function ToString() As String
+        Dim ReturnString As String = "=====[TAX CALCULATOR V 2.0]=====" & vbNewLine & "Loaded TaxInfo file " & TaxInfoID
+        Dim totalbrackets As Integer = 0
+        For Each District As District In DistrictArray()
+            ReturnString &= vbNewLine & "::" & District.name & " (" & District.AllBrackets.Count & " Brackets)::"
+            For Each bracket As TaxBracket In District.AllBrackets
+                Dim UpperLimit As String = bracket.UpperLimit.ToString("N0") & "p"
+                If bracket.UpperLimit = 2 ^ 62 Then UpperLimit = "INF"
+                ReturnString &= vbNewLine & vbTab & bracket.Name & "(" & (bracket.Percent * 100) & "%) [From " & bracket.LowerLimit.ToString("N0") & "p to " & UpperLimit & "]"
+            Next
+            ReturnString &= vbNewLine
+            totalbrackets += District.AllBrackets.Count
+        Next
+        ReturnString &= vbNewLine & "=====[" & totalbrackets & " Brackets]====="
+        Return ReturnString
+    End Function
+
+    Public Function NumberOfBrackets() As Integer
+        Dim totalbrackets As Integer = 0
+        For Each District As District In DistrictArray()
+            totalbrackets += District.AllBrackets.Count
+        Next
+        Return totalbrackets
     End Function
 
 End Class

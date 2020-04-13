@@ -28,4 +28,10 @@ Public Class EzTaxCommands
         'EZTUPD57174,0,0,0,0,0,0
         Return RawCommand("EZTUPD" & VibeMainScreen.ID & "," & TotalIncome & "," & NewpondIncome & "," & Urbiaincome & "," & ParadisusIncome & "," & LaertesIncome & "," & NOIncome & "," & SOincome)
     End Function
+
+    Public Shared Function TaxFileOutOfDate(LocalTaxID As Integer) As Boolean
+        Dim ServerTaxID As Integer = RawCommand("IMEX,TAXVER")
+        Return ServerTaxID > LocalTaxID
+    End Function
+
 End Class

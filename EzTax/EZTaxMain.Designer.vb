@@ -65,6 +65,7 @@ Partial Class EZTaxMain
         Me.UpdateIncomeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.QuitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         IncomeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -253,6 +254,7 @@ Partial Class EZTaxMain
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.LinkLabel1)
         Me.GroupBox3.Controls.Add(Me.TaxBreakdownLink)
         Me.GroupBox3.Controls.Add(Me.UpdatedTaxDueLabel)
         Me.GroupBox3.Controls.Add(Me.TaxDueLabel)
@@ -342,9 +344,9 @@ Partial Class EZTaxMain
         Me.MainMenuStrip.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MainMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ItemsToolStripMenuItem, Me.SyncronyzationToolStripMenuItem, Me.QuitToolStripMenuItem})
         Me.MainMenuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow
-        Me.MainMenuStrip.Location = New System.Drawing.Point(0, 460)
+        Me.MainMenuStrip.Location = New System.Drawing.Point(0, 462)
         Me.MainMenuStrip.Name = "MainMenuStrip"
-        Me.MainMenuStrip.Size = New System.Drawing.Size(525, 23)
+        Me.MainMenuStrip.Size = New System.Drawing.Size(525, 21)
         Me.MainMenuStrip.TabIndex = 11
         Me.MainMenuStrip.Text = "MainMenuStrip"
         '
@@ -361,7 +363,7 @@ Partial Class EZTaxMain
         Me.AddToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
         Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
         Me.AddToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.N), System.Windows.Forms.Keys)
-        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.AddToolStripMenuItem.Text = "Add"
         '
         'ViewDetailsToolStripMenuItem
@@ -369,7 +371,7 @@ Partial Class EZTaxMain
         Me.ViewDetailsToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
         Me.ViewDetailsToolStripMenuItem.Name = "ViewDetailsToolStripMenuItem"
         Me.ViewDetailsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.D), System.Windows.Forms.Keys)
-        Me.ViewDetailsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ViewDetailsToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.ViewDetailsToolStripMenuItem.Text = "View Details"
         '
         'ModifyToolStripMenuItem
@@ -377,7 +379,7 @@ Partial Class EZTaxMain
         Me.ModifyToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
         Me.ModifyToolStripMenuItem.Name = "ModifyToolStripMenuItem"
         Me.ModifyToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.M), System.Windows.Forms.Keys)
-        Me.ModifyToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ModifyToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.ModifyToolStripMenuItem.Text = "Modify"
         '
         'DeleteToolStripMenuItem
@@ -385,7 +387,7 @@ Partial Class EZTaxMain
         Me.DeleteToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
         Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
         Me.DeleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete
-        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
         Me.DeleteToolStripMenuItem.Text = "Delete"
         '
         'SyncronyzationToolStripMenuItem
@@ -432,8 +434,18 @@ Partial Class EZTaxMain
         Me.AboutToolStripMenuItem.BackColor = System.Drawing.Color.DarkGray
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
         Me.AboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1
-        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(121, 22)
         Me.AboutToolStripMenuItem.Text = "About"
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(6, 92)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(85, 13)
+        Me.LinkLabel1.TabIndex = 2
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "See All Brackets"
         '
         'EZTaxMain
         '
@@ -507,4 +519,5 @@ Partial Class EZTaxMain
     Friend WithEvents UpdateIncomeToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents QuitToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class

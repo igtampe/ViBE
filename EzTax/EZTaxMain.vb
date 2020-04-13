@@ -2,6 +2,7 @@
 Imports VIBE__But_on_Visual_Studio_.TaxCalc
 Imports System.ComponentModel
 Imports System.IO
+Imports System.Security.Cryptography.X509Certificates
 
 Public Class EZTaxMain
 
@@ -28,6 +29,8 @@ Public Class EZTaxMain
     Public UpdatedTotal As Long
     Public UpdatedTaxDue As Long
     Public UpdatedTaxBracket As String
+
+    Public Calculator As TaxCalc
 
     ''' <summary>
     ''' This has to do with the Move Warning about having moved your IRF
@@ -423,7 +426,6 @@ Public Class EZTaxMain
     End Sub
 
     Private Sub EZTaxMain_Load() Handles Me.Shown
-        Dim ourTaxCalc As TaxCalc = New TaxCalc
         EZTaxSplash.Show()
         SearchMode = False
         IncomeregistryArray = Nothing
@@ -510,6 +512,31 @@ Public Class EZTaxMain
 
 LabelNoDownload:
 
+        'Retrieve TaxInfo.TXT
+        IWStatus = "Generating Tax Calculator..."
+        InitialBW.ReportProgress(I)
+
+        If File.Exists(Application.UserAppDataPath & "\ViBE\TaxInfo.txt") Then
+            Calculator = New TaxCalc(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
+        End If
+
+        IWStatus = "Comparing with Server's Tax Database"
+        InitialBW.ReportProgress(I)
+        Dim LocalID As Integer = 0
+        If Not IsNothing(Calculator) Then LocalID = Calculator.TaxInfoID
+        If TaxFileOutOfDate(LocalID) Then
+            'Download Tax File.
+            IWStatus = "Out of date! Downloading Tax Database..."
+            InitialBW.ReportProgress(I)
+            My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/TaxInfo.Txt", Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
+
+            IWStatus = "Regenerating Tax Calculator"
+            InitialBW.ReportProgress(I)
+            Calculator = New TaxCalc(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
+
+        End If
+
+
         'Retrieve Income
         Dim Servermsg As String
         Dim Incomes() As String
@@ -532,10 +559,10 @@ LabelNoDownload:
         Servermsg = Breakdown(ID)
         If Servermsg = "E" Then
             MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
-            ServerTaxInfo = New TaxInformation(EI, 0, 0, 0, 0, 0, 0, Category)
+            ServerTaxInfo = New TaxInformation(EI, 0, 0, 0, 0, 0, 0, Category, Calculator)
         Else
             Incomes = Servermsg.Split(",")
-            ServerTaxInfo = New TaxInformation(EI, Incomes(0), Incomes(1), Incomes(2), Incomes(3), Incomes(4), Incomes(5), Category)
+            ServerTaxInfo = New TaxInformation(EI, Incomes(0), Incomes(1), Incomes(2), Incomes(3), Incomes(4), Incomes(5), Category, Calculator)
         End If
 
         Income = ServerTaxInfo.FederalIncome - EI
@@ -739,7 +766,7 @@ LabelNoDownload:
         UpdatedLabel.Text = IRTI.ToString("N0") & "p"
         UpdatedTotal = IRTI + EI
 
-        LocalTaxInfo = New TaxInformation(EI, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome, Category)
+        LocalTaxInfo = New TaxInformation(EI, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome, Category, Calculator)
 
         UpdatedTaxDue = LocalTaxInfo.TotalTax
 
@@ -815,6 +842,14 @@ LabelNoDownload:
             Show()
             EZTaxMain_Load()
         End If
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        Dim AllBracketWindow As EzTaxAllBrackets = New EzTaxAllBrackets()
+        AllBracketWindow.MainTXB.Text = Calculator.ToString()
+        Hide()
+        AllBracketWindow.ShowDialog()
+        Show()
     End Sub
 
     ''' <summary>
