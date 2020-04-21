@@ -29,8 +29,8 @@ Partial Class EzTaxCertify
         Me.SubtitleLBL = New System.Windows.Forms.Label()
         Me.OKButton = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.SaveBTN = New System.Windows.Forms.Button()
+        Me.CopyBTN = New System.Windows.Forms.Button()
         Me.DetailsTXB = New System.Windows.Forms.TextBox()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.DetailsButton = New System.Windows.Forms.Button()
@@ -94,8 +94,8 @@ Partial Class EzTaxCertify
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Button2)
-        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.SaveBTN)
+        Me.GroupBox1.Controls.Add(Me.CopyBTN)
         Me.GroupBox1.Controls.Add(Me.DetailsTXB)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 108)
         Me.GroupBox1.Name = "GroupBox1"
@@ -104,27 +104,27 @@ Partial Class EzTaxCertify
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Details"
         '
-        'Button2
+        'SaveBTN
         '
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Button2.Image = CType(resources.GetObject("Button2.Image"), System.Drawing.Image)
-        Me.Button2.Location = New System.Drawing.Point(292, 16)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 20
-        Me.Button2.Text = "Save"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.SaveBTN.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.SaveBTN.Image = CType(resources.GetObject("SaveBTN.Image"), System.Drawing.Image)
+        Me.SaveBTN.Location = New System.Drawing.Point(292, 16)
+        Me.SaveBTN.Name = "SaveBTN"
+        Me.SaveBTN.Size = New System.Drawing.Size(75, 23)
+        Me.SaveBTN.TabIndex = 20
+        Me.SaveBTN.Text = "Save"
+        Me.SaveBTN.UseVisualStyleBackColor = True
         '
-        'Button1
+        'CopyBTN
         '
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(292, 45)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 19
-        Me.Button1.Text = "Copy"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.CopyBTN.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.CopyBTN.Image = CType(resources.GetObject("CopyBTN.Image"), System.Drawing.Image)
+        Me.CopyBTN.Location = New System.Drawing.Point(292, 45)
+        Me.CopyBTN.Name = "CopyBTN"
+        Me.CopyBTN.Size = New System.Drawing.Size(75, 23)
+        Me.CopyBTN.TabIndex = 19
+        Me.CopyBTN.Text = "Copy"
+        Me.CopyBTN.UseVisualStyleBackColor = True
         '
         'DetailsTXB
         '
@@ -203,8 +203,8 @@ Partial Class EzTaxCertify
     Friend WithEvents DetailsTXB As TextBox
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents DetailsButton As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents SaveBTN As Button
+    Friend WithEvents CopyBTN As Button
     Friend WithEvents WaitForRender As System.ComponentModel.BackgroundWorker
     Friend WithEvents ReportLabel As Label
 End Class

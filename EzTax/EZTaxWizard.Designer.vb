@@ -28,7 +28,7 @@ Partial Class EZTaxWizard
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Quit = New System.Windows.Forms.Button()
         Me.AddItemButton = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.ShowSummaryButton = New System.Windows.Forms.Button()
         Me.EzTaxTopLabel = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -145,18 +145,18 @@ Partial Class EZTaxWizard
         Me.ToolTip1.SetToolTip(Me.AddItemButton, "Add a new item with the specified information")
         Me.AddItemButton.UseVisualStyleBackColor = True
         '
-        'Button1
+        'ShowSummaryButton
         '
-        Me.Button1.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTaxButton
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
-        Me.Button1.Location = New System.Drawing.Point(65, 365)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(96, 23)
-        Me.Button1.TabIndex = 18
-        Me.Button1.Text = "Show Summary"
-        Me.ToolTip1.SetToolTip(Me.Button1, "Add a new item with the specified information")
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.ShowSummaryButton.BackgroundImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.EzTaxButton
+        Me.ShowSummaryButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ShowSummaryButton.Image = CType(resources.GetObject("ShowSummaryButton.Image"), System.Drawing.Image)
+        Me.ShowSummaryButton.Location = New System.Drawing.Point(65, 365)
+        Me.ShowSummaryButton.Name = "ShowSummaryButton"
+        Me.ShowSummaryButton.Size = New System.Drawing.Size(96, 23)
+        Me.ShowSummaryButton.TabIndex = 18
+        Me.ShowSummaryButton.Text = "Show Summary"
+        Me.ToolTip1.SetToolTip(Me.ShowSummaryButton, "Add a new item with the specified information")
+        Me.ShowSummaryButton.UseVisualStyleBackColor = True
         '
         'EzTaxTopLabel
         '
@@ -756,7 +756,7 @@ Partial Class EZTaxWizard
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.DetailsTXB)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.ShowSummaryButton)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.AddItemButton)
         Me.Controls.Add(Me.ItemNameTXB)
@@ -848,7 +848,7 @@ Partial Class EZTaxWizard
     Friend WithEvents Label16 As Label
     Friend WithEvents AddItemButton As Button
     Friend WithEvents Cancel As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents ShowSummaryButton As Button
     Friend WithEvents DetailsTXB As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label

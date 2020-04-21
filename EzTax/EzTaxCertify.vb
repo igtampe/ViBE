@@ -1,63 +1,51 @@
 ﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
 Imports System.Drawing.Imaging
-Imports VIBE__But_on_Visual_Studio_.EZTaxMain
 Imports System.IO
 
+''' <summary>Form used to send and display an EzTax certification request</summary>
 Public Class EzTaxCertify
-    Public ItemToCertify As IncomeRegistryItem
-    Public ServerMSG
-    Public ItemName As String
-    Public ItemIncome As Long
-    Public HasToReport As Boolean
 
-    Private Sub ThePreShow(sender As Object, e As EventArgs) Handles Me.Shown
+    '--------------------------------[Variables]--------------------------------
+
+    Private ReadOnly Item As IncomeRegistryItem
+    Private ReadOnly HasToReport As Boolean
+    Private ServerMSG As String
+
+    '--------------------------------[Initialization]--------------------------------
+
+    Public Sub New(Item As IncomeRegistryItem, Optional MustReport As Boolean = False)
+        InitializeComponent()
+        Me.Item = Item
+        HasToReport = MustReport
+
+        DetailsTXB.Text = Item.ToString
+
+    End Sub
+
+    Private Sub ThePreShow() Handles Me.Shown
         Size = MinimumSize
-        ItemName = ItemToCertify.Name
-        ItemIncome = ItemToCertify.TotalIncome
         BackgroundWorker1.RunWorkerAsync()
     End Sub
+
+    '--------------------------------[Buttons]--------------------------------
 
     Private Sub DrawTheCurtain() Handles OKButton.Click
         Close()
     End Sub
 
-    Private Sub ExecuteThePlay(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        ServerMSG = Certify(ItemName & " HAS INCOME " & ItemIncome.ToString("N0") & "p (" & ItemToCertify.Apartment.Income & " + " & ItemToCertify.Hotel.Income & " + " & ItemToCertify.Business.Income & " + " & ItemToCertify.MiscIncome & ")")
+    Private Sub ShowBackstage() Handles DetailsButton.Click
+        If Size = MinimumSize Then
+            Size = MaximumSize
+        Else
+            Size = MinimumSize
+        End If
     End Sub
 
-    Private Sub TakeABow() Handles BackgroundWorker1.RunWorkerCompleted
-
-        Select Case ServerMSG
-            Case "S"
-
-                If HasToReport Then
-                    TitleLBL.Text = "Item Certified!"
-                    ReportLabel.Text = "Please send the copied screenshot to the SDC"
-
-                Else
-                    TitleLBL.Text = "Item Re-Certified!"
-                    ReportLabel.Text = "You do not need to re-report this income"
-                End If
-
-                SubtitleLBL.Text = ItemName & " Has a calculated income of " & ItemIncome.ToString("N0") & "p"
-
-                OKButton.Enabled = True
-                DetailsButton.Enabled = True
-                PictureBox1.Image = My.Resources.EzTaxApproved
-                WaitForRender.RunWorkerAsync()
-
-            Case "E"
-                MsgBox("Something happened... I do not know what happened.", MsgBoxStyle.Critical, "Please Help")
-                Close()
-        End Select
-
-    End Sub
-
-    Private Sub PostShowPhoto() Handles Button1.Click
+    Private Sub PostShowPhoto() Handles CopyBTN.Click
         ScreenCamera.TakeScreenshot(Width, Height, Location.X, Location.Y, Size)
     End Sub
 
-    Private Sub ThatsAKeeper() Handles Button2.Click
+    Private Sub ThatsAKeeper() Handles SaveBTN.Click
         Dim bmpScreenShot As Bitmap
         Dim gfxScreenshot As Graphics
 
@@ -89,6 +77,41 @@ Public Class EzTaxCertify
 
     End Sub
 
+    '--------------------------------[Background Worker]--------------------------------
+
+    Private Sub ExecuteThePlay(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+        ServerMSG = Certify(Item.Name & " HAS INCOME " & Item.TotalIncome.ToString("N0") & "p (" & Item.Apartment.Income & " + " & Item.Hotel.Income & " + " & Item.Business.Income & " + " & Item.MiscIncome & ")")
+    End Sub
+
+    Private Sub TakeABow() Handles BackgroundWorker1.RunWorkerCompleted
+
+        Select Case ServerMSG
+            Case "S"
+
+                If HasToReport Then
+                    TitleLBL.Text = "Item Certified!"
+                    ReportLabel.Text = "Please send the copied screenshot to the SDC"
+
+                Else
+                    TitleLBL.Text = "Item Re-Certified!"
+                    ReportLabel.Text = "You do not need to re-report this income"
+                End If
+
+                SubtitleLBL.Text = Item.Name & " Has a calculated income of " & Item.TotalIncome.ToString("N0") & "p"
+
+                OKButton.Enabled = True
+                DetailsButton.Enabled = True
+                PictureBox1.Image = My.Resources.EzTaxApproved
+                WaitForRender.RunWorkerAsync()
+
+            Case "E"
+                MsgBox("Something happened... I do not know what happened.", MsgBoxStyle.Critical, "Please Help")
+                Close()
+        End Select
+
+    End Sub
+
+
     Private Sub WaitForIt(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles WaitForRender.DoWork
         Threading.Thread.Sleep(50)
     End Sub
@@ -97,17 +120,8 @@ Public Class EzTaxCertify
         ScreenCamera.TakeScreenshot(Width, Height, Location.X, Location.Y, Size)
     End Sub
 
-    Private Sub DetailsButton_Click(sender As Object, e As EventArgs) Handles DetailsButton.Click
-        If Size = MinimumSize Then
-            Size = MaximumSize
-        Else
-            Size = MinimumSize
-        End If
-    End Sub
+    '--------------------------------[Window Moving Functions]--------------------------------
 
-    ''' <summary>
-    ''' This has to do with moving the window
-    ''' </summary>
     Public WindowIsmoving As Boolean
     Public DX As Integer
     Public DY As Integer

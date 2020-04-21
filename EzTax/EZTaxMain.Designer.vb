@@ -44,6 +44,7 @@ Partial Class EZTaxMain
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.TaxBreakdownLink = New System.Windows.Forms.LinkLabel()
         Me.UpdatedTaxDueLabel = New System.Windows.Forms.Label()
         Me.TaxDueLabel = New System.Windows.Forms.Label()
@@ -65,7 +66,6 @@ Partial Class EZTaxMain
         Me.UpdateIncomeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.QuitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         IncomeColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -121,8 +121,10 @@ Partial Class EZTaxMain
         Me.ListView1.BackColor = System.Drawing.Color.White
         Me.ListView1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.NameColumn, IncomeColumn})
+        Me.ListView1.FullRowSelect = True
         Me.ListView1.HideSelection = False
         Me.ListView1.Location = New System.Drawing.Point(6, 39)
+        Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(497, 264)
         Me.ListView1.TabIndex = 0
@@ -266,6 +268,16 @@ Partial Class EZTaxMain
         Me.GroupBox3.TabIndex = 6
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Tax Information"
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(6, 92)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(85, 13)
+        Me.LinkLabel1.TabIndex = 2
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "See All Brackets"
         '
         'TaxBreakdownLink
         '
@@ -436,16 +448,6 @@ Partial Class EZTaxMain
         Me.AboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1
         Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(121, 22)
         Me.AboutToolStripMenuItem.Text = "About"
-        '
-        'LinkLabel1
-        '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Location = New System.Drawing.Point(6, 92)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(85, 13)
-        Me.LinkLabel1.TabIndex = 2
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "See All Brackets"
         '
         'EZTaxMain
         '

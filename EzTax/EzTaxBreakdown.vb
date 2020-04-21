@@ -1,22 +1,19 @@
-﻿Imports VIBE__But_on_Visual_Studio_.EZTaxMain
-Imports VIBE__But_on_Visual_Studio_.TaxCalc
+﻿Imports VIBE__But_on_Visual_Studio_.TaxCalc
 Public Class EzTaxBreakdown
-    Public ItemCompleteDetails As String = ""
-    Public ServerInformation As TaxInformation
-    Public LocalInformation As TaxInformation
 
-    Private Sub OKBTN_Click(sender As Object, e As EventArgs) Handles OKBTN.Click
-        Close()
-    End Sub
+    '--------------------------------[Initialization]--------------------------------
 
-    Private Sub EzTaxDetails_Load(sender As Object, e As EventArgs) Handles Me.Shown
-        LocalTaxLBL.Text = LocalInformation.TotalTax.ToString("N0") & "p"
-        ServerTaxLBL.Text = ServerInformation.TotalTax.ToString("N0") & "p"
+    Public Sub New(ServerInfo As TaxInformation, LocalInfo As TaxInformation)
+        InitializeComponent()
 
-        LocalDetailsTXB.Text = PrepareDetailsTextbox(LocalInformation)
-        ServerDetailsTXB.Text = PrepareDetailsTextbox(ServerInformation)
+        LocalTaxLBL.Text = LocalInfo.TotalTax.ToString("N0") & "p"
+        ServerTaxLBL.Text = ServerInfo.TotalTax.ToString("N0") & "p"
+
+        LocalDetailsTXB.Text = PrepareDetailsTextbox(LocalInfo)
+        ServerDetailsTXB.Text = PrepareDetailsTextbox(ServerInfo)
 
     End Sub
+
 
     Private Function PrepareDetailsTextbox(TT As TaxInformation) As String
         Return String.Join(vbNewLine & vbNewLine, {"-{TAX REPORT}-----------------------------",
@@ -64,6 +61,14 @@ Public Class EzTaxBreakdown
         PrepareSection &= "   Tax Owed: " & Result.MoneyOwed.ToString("N0") & "p"
 
     End Function
+
+    '--------------------------------[The One Button]--------------------------------
+
+    Private Sub OKBTN_Click(sender As Object, e As EventArgs) Handles OKBTN.Click
+        Close()
+    End Sub
+
+    '--------------------------------[Window Moving Functions]--------------------------------
 
     ''' <summary>
     ''' This has to do with moving the window

@@ -1,11 +1,18 @@
-﻿Imports VIBE__But_on_Visual_Studio_.EZTaxMain
-
+﻿''' <summary>Verifies, and then updates the income of a user</summary>
 Public Class EzTaxUpdateIncome
-    Public AllIncomeItems() As IncomeRegistryItem
-    Public TotalIncome As Long
-    Public ServerMSG
+    Private ReadOnly AllIncomeItems() As IncomeRegistryItem
+    Private ReadOnly UserID As String
 
-    Private Sub ThePreShow(sender As Object, e As EventArgs) Handles Me.Shown
+    Private TotalIncome As Long
+    Private ServerMSG As String
+
+    Public Sub New(AllItems As IncomeRegistryItem(), UserID As String)
+        InitializeComponent()
+        AllIncomeItems = AllItems
+        Me.UserID = UserID
+    End Sub
+
+    Private Sub ThePreShow() Handles Me.Shown
         Size = MinimumSize
         OKButton.Enabled = False
         BackupButton.Enabled = False
@@ -16,10 +23,8 @@ Public Class EzTaxUpdateIncome
         Close()
     End Sub
 
-    Private Sub ExecuteThePlay(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        'EZTax UPDATE Message:
-        'ID,Total,NewpondIncome,UrbiaIncome,ParadisusIncome,LaertesIncome,NOIncome,SOIncome
-        'EZTUPD57174,0,0,0,0,0,0asd
+    Private Sub ExecuteThePlay() Handles BackgroundWorker1.DoWork
+
         Dim NewpondIncome As Long = 0
         Dim UrbiaIncome As Long = 0
         Dim ParadisusIncome As Long = 0
@@ -29,21 +34,14 @@ Public Class EzTaxUpdateIncome
 
         Dim Send As Boolean = True
 
-        'Newpond
-        'Paradisus
-        'Urbia
-        'Laertes
-        'South Osten
-        'North Osten
-
         If IsNothing(AllIncomeItems) Then
             ServerMSG = "You have no income items"
-            Send = False
             Exit Sub
         End If
 
         For Each Current As IncomeRegistryItem In AllIncomeItems
             TotalIncome += Current.TotalIncome
+
             Select Case Current.Location.ToUpper
                 Case "NEWPOND"
                     NewpondIncome += Current.TotalIncome
@@ -64,7 +62,7 @@ Public Class EzTaxUpdateIncome
             End Select
         Next
 
-        If Send Then ServerMSG = EzTaxCommands.UpdateIncome(VibeMainScreen.CurrentUser.ID, TotalIncome, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome)
+        If Send Then ServerMSG = EzTaxCommands.UpdateIncome(UserID, TotalIncome, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome)
 
     End Sub
 
@@ -95,7 +93,7 @@ Public Class EzTaxUpdateIncome
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BackupButton.Click
-        Dim LBLBackupWindow As LBLSender = New LBLSender(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & EZTaxMain.ID & ".IncomeRegistry.csv")
+        Dim LBLBackupWindow As LBLSender = New LBLSender(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & UserID & ".IncomeRegistry.csv")
         LBLBackupWindow.Show()
         Close()
     End Sub

@@ -1,321 +1,89 @@
 ﻿Imports VIBE__But_on_Visual_Studio_.EzTaxCommands
 Imports VIBE__But_on_Visual_Studio_.TaxCalc
-Imports System.ComponentModel
+Imports VIBE__But_on_Visual_Studio_.IncomeRegistryItem
 Imports System.IO
 
 Public Class EZTaxMain
 
-    Public LocalTaxInfo As TaxInformation
-    Public ServerTaxInfo As TaxInformation
+    '--------------------------------[Variables]--------------------------------
 
-    Public Income As Long
-    Public IRTI As Long
+    Private ReadOnly MyUser As User
 
-    Public EI As Long
+    Private LocalTaxInfo As TaxInformation
+    Private ServerTaxInfo As TaxInformation
 
-    Public TaxBracket As String
-    Public Tax As Long
+    Private InitializationResult
+    Private IWStatus As String
 
-    Public Total As Long
-    Public InitializationResult
-    Public ID As String
-    Public IWStatus As String
-    Public Category As Integer
-    Public SelectedItem As IncomeRegistryItem
-    Public Shared IncomeregistryArray() As IncomeRegistryItem
-    Public Shared SearchIncomeArray() As IncomeRegistryItem
+    Private SelectedItem As IncomeRegistryItem
+    Private IncomeregistryArray() As IncomeRegistryItem
+    Private SearchIncomeArray() As IncomeRegistryItem
 
-    Public UpdatedTotal As Long
-    Public UpdatedTaxDue As Long
-    Public UpdatedTaxBracket As String
+    Private Calculator As TaxCalc
 
-    Public Calculator As TaxCalc
+    ''' <summary>This has to do with the Move Warning about having moved your IRF</summary>
+    Private MoveWarning As Boolean
 
-    ''' <summary>
-    ''' This has to do with the Move Warning about having moved your IRF
-    ''' </summary>
-    Public MoveWarning As Boolean
+    ''' <summary>Indicates wether we're in search mode</summary>
+    Private SearchMode As Boolean
 
-    Public SearchMode As Boolean
+    '--------------------------------[Initialization]--------------------------------
 
+    Public Sub New(User As User)
+        InitializeComponent()
+        MyUser = User
 
-    ''' <summary>
-    ''' The structure for each Income Registry Item
-    ''' </summary>
-    Public Structure IncomeRegistryItem
+    End Sub
 
-        ''' <summary>
-        ''' Name of the Item
-        ''' </summary>
-        Public Name As String
+    Private Sub Showtime() Handles Me.Shown
+        EZTaxSplash.Show()
 
-        ''' <summary>
-        ''' Total income of the item (Calculated)
-        ''' </summary>
-        Public TotalIncome As Long
-
-        ''' <summary>
-        ''' The Item's real location on the IncomeRegistry Array (Used by Search Results)
-        ''' </summary>
-        Public RealItemLocation As Integer
-
-        ''' <summary>
-        ''' Apartment details of the item
-        ''' </summary>
-        Public Apartment As ApartmentDetails
-
-        ''' <summary>
-        ''' Hotel Details of the Item
-        ''' </summary>
-        Public Hotel As HotelDetails
-
-        ''' <summary>
-        ''' Business Details of the Item
-        ''' </summary>
-        Public Business As BusinessDetails
-
-        ''' <summary>
-        ''' Item Miscelaneuous Income
-        ''' </summary>
-        Public MiscIncome As Long
-
-        ''' <summary>
-        ''' Location of the Item
-        ''' </summary>
-        Public Location As String
-
-        ''' <summary>
-        ''' Makes a new IncomeRegistryItem
-        ''' </summary>
-        ''' <param name="N">Name of the Item</param>
-        ''' <param name="A">Apartment Details of the item</param>
-        ''' <param name="H">Hotel Details of the item</param>
-        ''' <param name="B">Business Details of the Item</param>
-        ''' <param name="MI">Misc Income of the item</param>
-        ''' <param name="L">District of the item</param>
-        Public Sub New(N As String, A As ApartmentDetails, H As HotelDetails, B As BusinessDetails, MI As Long, L As String)
-            Name = N
-            Apartment = A
-            Hotel = H
-            Business = B
-            MiscIncome = MI
-            Location = L
-
-            TotalIncome = Apartment.Income + Hotel.Income + Business.Income + MiscIncome
-
-        End Sub
-
-        ''' <summary>
-        ''' Makes a new legacy IncomeRegistryItem
-        ''' </summary>
-        ''' <param name="N">Name</param>
-        ''' <param name="TI">Total INcome</param>
-        Public Sub New(N As String, TI As Long)
-            Name = N
-            Apartment = New ApartmentDetails(0, 0, 0, 0, 0, 500, 750, 1000, 1250, 1250)
-            Hotel = New HotelDetails(0, 0, 200, 400, 0)
-            Business = New BusinessDetails(0, 0, 0, 0)
-            MiscIncome = TI
-            Location = "Unselected"
-            TotalIncome = TI
-        End Sub
-
-        ''' <summary>
-        ''' Makes a new IncomeRegistryItem that is an exact copy of the one specified
-        ''' </summary>
-        ''' <param name="ItemToCopy">The item to copy</param>
-        Public Sub New(ItemToCopy As IncomeRegistryItem)
-            Name = ItemToCopy.Name
-            Apartment = ItemToCopy.Apartment
-            Hotel = ItemToCopy.Hotel
-            Business = ItemToCopy.Business
-            MiscIncome = ItemToCopy.MiscIncome
-            Location = ItemToCopy.Location
-            TotalIncome = ItemToCopy.TotalIncome
-        End Sub
-
-    End Structure
-
-    ''' <summary>
-    ''' Holds details for an apartment building
-    ''' </summary>
-    Public Structure ApartmentDetails
-        Public StudioUnits As Integer
-        Public BR1Units As Integer
-        Public BR2Units As Integer
-        Public BR3Units As Integer
-        Public PHUnits As Integer
-
-        Public StudioRent As Integer
-        Public BR1Rent As Integer
-        Public BR2Rent As Integer
-        Public BR3Rent As Integer
-        Public PHRent As Integer
-
-        ''' <summary>
-        ''' Total Apartment Income
-        ''' </summary>
-        Public Income As Long
-
-        ''' <summary>
-        ''' Creates a new Apartment details
-        ''' </summary>
-        ''' <param name="S">Studio units</param>
-        ''' <param name="BR1">1 Bedroom units</param>
-        ''' <param name="BR2">2 Bedroom units</param>
-        ''' <param name="BR3">3 Bedroom Units</param>
-        ''' <param name="PH">Penthouse units</param>
-        ''' <param name="SRent">Studio rent rate PER MONTH</param>
-        ''' <param name="BR1Rent">1 Bedroom rent rate PER MONTH</param>
-        ''' <param name="BR2Rent">2 Bedroom rent rate PER MONTH</param>
-        ''' <param name="BR3Rent">3 Bedroom rent rate PER MONTH</param>
-        ''' <param name="PHRent">Penthouse rent rate PER MONTH</param>
-        Public Sub New(S As Integer, BR1 As Integer, BR2 As Integer, BR3 As Integer, PH As Integer, SRent As Integer, BR1Rent As Integer, BR2Rent As Integer, BR3Rent As Integer, PHRent As Integer)
-            StudioUnits = S
-            BR1Units = BR1
-            BR2Units = BR2
-            BR3Units = BR3
-            PHUnits = PH
-
-            StudioRent = SRent
-            Me.BR1Rent = BR1Rent
-            Me.BR2Rent = BR2Rent
-            Me.BR3Rent = BR3Rent
-            Me.PHRent = PHRent
-
-            Income = (SRent * S) + (BR1Rent * BR1) + (BR2Rent * BR2) + (BR3Rent * BR3) + (PHRent * PH)
-
-        End Sub
-    End Structure
-
-    ''' <summary>
-    ''' A structure that holds details of a Hotel
-    ''' </summary>
-    Public Structure HotelDetails
-        Public Rooms As Integer
-        Public Suites As Integer
-        Public RoomRate As Integer
-        Public SuiteRate As Integer
-
-        ''' <summary>
-        ''' Hotel Miscelaneous income (provided by other services)
-        ''' </summary>
-        Public MiscIncome As Integer
-
-        ''' <summary>
-        ''' Total Hotel Income 
-        ''' </summary>
-        Public Income As Long
-
-        ''' <summary>
-        ''' Creates a new HotelDetails
-        ''' </summary>
-        ''' <param name="R">Rooms in the hotel</param>
-        ''' <param name="S">Suites in the hotel</param>
-        ''' <param name="RR">Room Rate per Night</param>
-        ''' <param name="SR">Suite rate per night</param>
-        ''' <param name="MI">Misc Income from other facilities</param>
-        Public Sub New(R As Integer, S As Integer, RR As Integer, SR As Integer, MI As Integer)
-            Rooms = R
-            Suites = S
-            RoomRate = RR
-            SuiteRate = SR
-            MiscIncome = MI
-
-            Dim MonthlyHotelRoomIncome As Integer = ((((RR) / 2) * 365) / 12)
-            Dim MonthlyHotelSuiteIncome As Integer = ((((SR) / 2) * 365) / 12)
-
-            Income = (MonthlyHotelRoomIncome * R) + (MonthlyHotelSuiteIncome * S) + MI
-
-        End Sub
-    End Structure
-
-    ''' <summary>
-    ''' A structure that holds details of a standard business (store/restaurant)
-    ''' </summary>
-    Public Structure BusinessDetails
-        Public Chairs As Integer
-        Public AvgSpend As Integer
-        Public CustomersPerHour As Integer
-        Public HoursOpen As Integer
-
-        ''' <summary>
-        ''' Total Business Income
-        ''' </summary>
-        Public Income As Long
-
-        ''' <summary>
-        ''' Creates a Business Details for Income Items
-        ''' </summary>
-        ''' <param name="C">Chairs in the establishment</param>
-        ''' <param name="A">Average Spending per Customer</param>
-        ''' <param name="CH">Customers Per Hour PER SEAT</param>
-        ''' <param name="HO">Hours Open</param>
-        Public Sub New(C As Integer, A As Integer, CH As Integer, HO As Integer)
-            Chairs = C
-            AvgSpend = A
-            CustomersPerHour = CH
-            HoursOpen = HO
-
-            Income = (((A / 2) * CH * HO) * C) * 30
-
-        End Sub
-    End Structure
-
-    Private Sub AddButton_click() Handles AddToolStripMenuItem.Click
-        Dim AddWindow As EZTaxWizard = New EZTaxWizard
-
-        Hide()
-        AddWindow.ShowDialog()
-
-        Show()
-        AddWindow.Dispose()
-
-        SearchBox.Text = ""
-        PopulateListview()
+        'Clear stuff (Primarily for when we reload)
+        SearchMode = False
+        IncomeregistryArray = Nothing
+        MoveWarning = False
 
         ViewDetailsToolStripMenuItem.Enabled = False
         ModifyToolStripMenuItem.Enabled = False
         DeleteToolStripMenuItem.Enabled = False
 
+        InitialBW.RunWorkerAsync()
+
     End Sub
 
-    Public Shared Sub AddToIncomeRegistry(NewItem As IncomeRegistryItem)
+    '--------------------------------[Buttons]--------------------------------
 
-        Dim NewItemIndex As Integer
+    Private Sub Additem() Handles AddToolStripMenuItem.Click
+        Dim AddWindow As EZTaxWizard = New EZTaxWizard(EZTaxWizard.Mode.Add)
+        Hide()
+        AddWindow.ShowDialog()
+        Show()
 
+        If AddWindow.commit Then AddToIncomeRegistry(AddWindow.MyItem)
+
+        AddWindow.Dispose()
+
+        SearchBox.Text = ""
+        PopulateListview()
+
+    End Sub
+
+    Private Sub ItemDoubleClick() Handles ListView1.DoubleClick
         Try
-            NewItemIndex = IncomeregistryArray.Count
-        Catch
-        End Try
-
-        ReDim Preserve IncomeregistryArray(NewItemIndex)
-        IncomeregistryArray(NewItemIndex) = NewItem
-
-    End Sub
-
-    Public Shared Sub ModifyItemInIncomeRegistry(NewItem As IncomeRegistryItem, ItemIndex As Integer)
-        IncomeregistryArray(ItemIndex) = NewItem
-    End Sub
-
-    Private Sub EzTaxDoubleClick() Handles ListView1.DoubleClick
-        Try
-            ModifyItemButton_Click()
+            ModifyItem()
         Catch
         End Try
     End Sub
 
     Private Sub ShowDetails() Handles ViewDetailsToolStripMenuItem.Click
-        Dim Detailswindow As EzTaxDetails = New EzTaxDetails With {.myItem = SelectedItem}
-        Hide()
-        Detailswindow.ShowDialog()
-        Show()
+        Dim Detailswindow As EzTaxDetails = New EzTaxDetails(SelectedItem)
+        Detailswindow.Show()
     End Sub
 
-    Private Sub ModifyItemButton_Click() Handles ModifyToolStripMenuItem.Click
+    Private Sub ModifyItem() Handles ModifyToolStripMenuItem.Click
 
+        'Get the location of the item
         Dim NewItemIndex As Integer
-
         Try
             NewItemIndex = ListView1.SelectedIndices(0)
         Catch
@@ -323,71 +91,24 @@ Public Class EZTaxMain
             Exit Sub
         End Try
 
+        'make sure to adjust it if we're searching
         If SearchMode = True Then
             NewItemIndex = SearchIncomeArray(NewItemIndex + 1).RealItemLocation
         End If
 
-        Dim ModWindow As EZTaxWizard = New EZTaxWizard With {
-            .WindowMode = EZTaxWizard.Mode.Modify
-        }
-        ModWindow.AddItemButton.Text = "Modify"
-        ModWindow.SelectedItemIndex = NewItemIndex
-
-        'General Setup
-        ModWindow.ItemName = SelectedItem.Name
-        ModWindow.ItemNameTXB.Text = SelectedItem.Name
-        ModWindow.TotalIncome.Text = SelectedItem.TotalIncome.ToString("N0") & "p"
-        ModWindow.DistrictBox.Text = SelectedItem.Location
-
-
-
-        'Apartments
-        ''Apartment Units
-        ModWindow.StudioUnits.Value = SelectedItem.Apartment.StudioUnits
-        ModWindow.OneBRUnits.Value = SelectedItem.Apartment.BR1Units
-        ModWindow.TwoBRUnits.Value = SelectedItem.Apartment.BR2Units
-        ModWindow.ThreeBRUnits.Value = SelectedItem.Apartment.BR3Units
-        ModWindow.PHUnits.Value = SelectedItem.Apartment.PHUnits
-
-        ''Apartment Rents
-        ModWindow.StudioRent.Value = SelectedItem.Apartment.StudioRent
-        ModWindow.OneBRRent.Value = SelectedItem.Apartment.BR1Rent
-        ModWindow.TwoBRRent.Value = SelectedItem.Apartment.BR2Rent
-        ModWindow.ThreeBRRent.Value = SelectedItem.Apartment.BR3Rent
-        ModWindow.PHRent.Value = SelectedItem.Apartment.PHRent
-
-        'Hotel
-        ModWindow.HotelRooms.Value = SelectedItem.Hotel.Rooms
-        ModWindow.HotelSuites.Value = SelectedItem.Hotel.Suites
-        ModWindow.HotelRoomRate.Value = SelectedItem.Hotel.RoomRate
-        ModWindow.HotelSuitesRate.Value = SelectedItem.Hotel.SuiteRate
-        ModWindow.HotelMiscIncome.Value = SelectedItem.Hotel.MiscIncome
-
-        'Business
-        ModWindow.StoreChairs.Value = SelectedItem.Business.Chairs
-        ModWindow.StoreAvgSpending.Value = SelectedItem.Business.AvgSpend
-        ModWindow.StoreCustomersPerHour.Value = SelectedItem.Business.CustomersPerHour
-        ModWindow.StoreHoursOpen.Value = SelectedItem.Business.HoursOpen
-
-        'MiscINcome
-        ModWindow.MiscIncome.Value = SelectedItem.MiscIncome
-
+        'Get the window and show it
+        Dim ModWindow As EZTaxWizard = New EZTaxWizard(EZTaxWizard.Mode.Modify, SelectedItem)
         Hide()
         ModWindow.ShowDialog()
-
         Show()
+
+        'If it's time to commit, commit.
+        If ModWindow.commit Then
+            ModifyItemInIncomeRegistry(ModWindow.MyItem, NewItemIndex)
+        End If
+
         ModWindow.Dispose()
-
-
-
         RePopulateListView()
-        ViewDetailsToolStripMenuItem.Enabled = False
-        ModifyToolStripMenuItem.Enabled = False
-        DeleteToolStripMenuItem.Enabled = False
-
-
-
-
 
     End Sub
 
@@ -424,34 +145,116 @@ Public Class EZTaxMain
 
     End Sub
 
-    Private Sub EZTaxMain_Load() Handles Me.Shown
-        EZTaxSplash.Show()
-        SearchMode = False
-        IncomeregistryArray = Nothing
-        ID = VibeLogin.LogonID.Text
-        Category = VibeMainScreen.CurrentUser.Category
-        MoveWarning = False
-        InitialBW.RunWorkerAsync()
-
-        ViewDetailsToolStripMenuItem.Enabled = False
-        ModifyToolStripMenuItem.Enabled = False
-        DeleteToolStripMenuItem.Enabled = False
+    Private Sub UpdateIncome() Handles UpdateIncomeToolStripMenuItem.Click
+        Dim UpdateWindow As EzTaxUpdateIncome = New EzTaxUpdateIncome(IncomeregistryArray, MyUser.ID)
+        UpdateWindow.ShowDialog()
     End Sub
 
-    Private Sub InitialBW_DoWork(sender As Object, e As DoWorkEventArgs) Handles InitialBW.DoWork
+    Private Sub ShowAbout() Handles EzTaxLogo.Click, AboutToolStripMenuItem.Click
+        EzTaxAbout.Show()
+    End Sub
 
-        Threading.Thread.Sleep(250)
+    Private Sub QuitIt() Handles Quit.Click
+        Close()
+    End Sub
+
+    Private Sub ShowBreakdown() Handles TaxBreakdownLink.LinkClicked
+        Dim THEBIGBOI As EzTaxBreakdown = New EzTaxBreakdown(ServerTaxInfo, LocalTaxInfo)
+        THEBIGBOI.Show()
+    End Sub
+
+    Private Sub UploadIRF() Handles UploadIRFToolStripMenuItem.Click
+        Dim LBLBackupWindow As LBLSender = New LBLSender(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry.csv")
+        LBLBackupWindow.Show()
+    End Sub
+
+    Private Sub DownloadTime() Handles DownloadIRFToolStripMenuItem.Click
+
+        'Make sure the user wants to
+        Dim result As MsgBoxResult = MsgBox("EzTax can attempt to download a copy of your IRF from the server. Are you sure you want to do this? It will overwrite your current file! (we'll keep a backup just in case)", MsgBoxStyle.YesNo + MsgBoxStyle.Exclamation, "EzTax")
+        If result = MsgBoxResult.Yes Then
+
+            'Try to download the file.
+            Try
+                If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry2.csv") Then File.Delete(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry2.csv")
+                My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/uploadedreports/" & MyUser.ID & ".IncomeRegistry.csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry2.csv")
+            Catch ex As Exception
+                'Catch it just in case
+                MsgBox("EzTax could not download your IRF. You probably haven't uploaded it!", MsgBoxStyle.OkOnly + MsgBoxStyle.Critical, "EzTax IRF Downloader")
+                Debug.Print(ex.Message & vbNewLine & vbNewLine & ex.StackTrace)
+                Return
+            End Try
+
+            'If the file exists
+            If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry.csv") Then
+
+                'Backup the original file
+                File.Copy(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry.csv",
+                          My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & " BACKUP BEFORE DOWNLOADING.IncomeRegistry.csv", True)
+
+                'Overwrite the file
+                File.Copy(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry2.csv",
+                      My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry.csv", True)
+
+                'Delete the temporary download file
+                File.Delete(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry2.csv")
+
+                'Do some reset stuff for show
+                MsgBox("The IRF has been successfully downloaded. In order for changes to take effect, EzTax will now restart.", MsgBoxStyle.Information)
+                Hide()
+                Show()
+                Showtime()
+
+            End If
+        End If
+    End Sub
+
+    Private Sub ShowAllBrackets() Handles LinkLabel1.LinkClicked
+        Dim AllBracketWindow As EzTaxAllBrackets = New EzTaxAllBrackets(Calculator)
+        AllBracketWindow.Show()
+    End Sub
+
+    Private Sub ClickedAnItem() Handles ListView1.SelectedIndexChanged
+
+        Dim Selectedindex As Integer
+
+        Try
+            Selectedindex = ListView1.SelectedIndices(0)
+        Catch
+            Exit Sub
+        End Try
+
+        If SearchMode Then
+            Try
+                SelectedItem = SearchIncomeArray(ListView1.SelectedIndices(0) + 1)
+            Catch
+            End Try
+        Else
+            Try
+                SelectedItem = IncomeregistryArray(ListView1.SelectedIndices(0))
+            Catch
+            End Try
+        End If
+
+        ViewDetailsToolStripMenuItem.Enabled = True
+        ModifyToolStripMenuItem.Enabled = True
+        DeleteToolStripMenuItem.Enabled = True
+    End Sub
+
+    '--------------------------------[Background Worker]--------------------------------
+
+    Private Sub GetEverything() Handles InitialBW.DoWork
 
         InitializationResult = 0
 
         'Try to access the IncomeRegistry
-
         IWStatus = "Opening File..."
         InitialBW.ReportProgress(1)
 
         Try
 
-            If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & ID & ".IncomeRegistry.csv") Then
+            'If we find the file in the original directory, move it to the new directory
+            If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & MyUser.ID & ".IncomeRegistry.csv") Then
                 'Flag that we moved stuff
                 MoveWarning = True
 
@@ -459,25 +262,30 @@ Public Class EZTaxMain
                 If Not Directory.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX") Then Directory.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX")
 
                 'move the coso
-                File.Move(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & ID & ".IncomeRegistry.csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv")
+                File.Move(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\" & MyUser.ID & ".IncomeRegistry.csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry.csv")
             End If
+
             'Open the file
-            FileOpen(1, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv", OpenMode.Input)
+            FileOpen(1, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry.csv", OpenMode.Input)
+
         Catch EE As Exception
+
+            'oopsie
             Console.Write(EE.ToString)
             InitializationResult = 2
             GoTo LabelNoDownload
+
         End Try
 
         IWStatus = "Preparing to Process..."
         InitialBW.ReportProgress(2)
 
         Dim I As Integer = 0
-        Dim RecordsAdded As Boolean
+        Dim RecordsAdded As Boolean = False
         Dim currentline() As String
-        RecordsAdded = False
 
         While Not EOF(1)
+
             IWStatus = "Processing Record " & I
             InitialBW.ReportProgress(I)
 
@@ -515,15 +323,17 @@ LabelNoDownload:
         IWStatus = "Generating Tax Calculator..."
         InitialBW.ReportProgress(I)
 
-        If File.Exists(Application.UserAppDataPath & "\ViBE\TaxInfo.txt") Then
-            Calculator = New TaxCalc(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
-        End If
+        'Create the taxcalc if we have the file
+        If File.Exists(Application.UserAppDataPath & "\ViBE\TaxInfo.txt") Then Calculator = New TaxCalc(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
 
         IWStatus = "Comparing with Server's Tax Database"
         InitialBW.ReportProgress(I)
         Dim LocalID As Integer = 0
         If Not IsNothing(Calculator) Then LocalID = Calculator.TaxInfoID
+
+        'Check if the file is out of date
         If TaxFileOutOfDate(LocalID) Then
+
             'Download Tax File.
             IWStatus = "Out of date! Downloading Tax Database..."
             InitialBW.ReportProgress(I)
@@ -535,48 +345,51 @@ LabelNoDownload:
 
         End If
 
-
         'Retrieve Income
         Dim Servermsg As String
         Dim Incomes() As String
+        Dim EI As Long
 
         IWStatus = "Retrieving Income From Server"
         InitialBW.ReportProgress(I)
 
-
-        Servermsg = Info(ID)
+        'Get the legacy info just for EI.
+        Servermsg = Info(MyUser.ID)
         If Servermsg = "E" Then
             MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
-            Income = 0
             EI = 0
         Else
             EI = Servermsg.Split(",")(1)
         End If
 
+        'Get Income Breakdown
         IWStatus = "Retrieving Income Breakdown"
         InitialBW.ReportProgress(I)
-        Servermsg = Breakdown(ID)
+        Servermsg = Breakdown(MyUser.ID)
+
+        'Parse it
         If Servermsg = "E" Then
             MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
-            ServerTaxInfo = New TaxInformation(EI, 0, 0, 0, 0, 0, 0, Category, Calculator)
+            ServerTaxInfo = New TaxInformation(EI, 0, 0, 0, 0, 0, 0, MyUser.Category, Calculator)
         Else
             Incomes = Servermsg.Split(",")
-            ServerTaxInfo = New TaxInformation(EI, Incomes(0), Incomes(1), Incomes(2), Incomes(3), Incomes(4), Incomes(5), Category, Calculator)
+            ServerTaxInfo = New TaxInformation(EI, Incomes(0), Incomes(1), Incomes(2), Incomes(3), Incomes(4), Incomes(5), MyUser.Category, Calculator)
         End If
-
-        Income = ServerTaxInfo.FederalIncome - EI
-        Total = ServerTaxInfo.FederalIncome
-        Tax = ServerTaxInfo.TotalTax
 
     End Sub
 
-    Private Sub InitialBW_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles InitialBW.RunWorkerCompleted
+    Private Sub GettingEverything() Handles InitialBW.ProgressChanged
+        EZTaxSplash.StatusLabel.Text = IWStatus
+    End Sub
 
-        IncomeLabel.Text = Income.ToString("N0") & "p"
+    Private Sub GotEverything() Handles InitialBW.RunWorkerCompleted
+
+        'Update the labels
+        IncomeLabel.Text = (ServerTaxInfo.FederalIncome - ServerTaxInfo.ExtraIncome).ToString("N0") & "p"
         UpdatedLabel.Text = "0p"
-        EILabel.Text = EI.ToString("N0") & "p"
-        TotalLabel.Text = Total.ToString("N0") & "p"
-        TaxDueLabel.Text = Tax.ToString("N0") & "p"
+        EILabel.Text = ServerTaxInfo.ExtraIncome.ToString("N0") & "p"
+        TotalLabel.Text = ServerTaxInfo.FederalIncome.ToString("N0") & "p"
+        TaxDueLabel.Text = ServerTaxInfo.TotalTax.ToString("N0") & "p"
 
         If MoveWarning = True Then
             MsgBox("Your Income Registry file was successfully moved to the EzTAX Folder", MsgBoxStyle.Information, "EzTAX")
@@ -606,42 +419,12 @@ LabelNoDownload:
 
     End Sub
 
-    Private Sub InitialBW_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles InitialBW.ProgressChanged
-        EZTaxSplash.StatusLabel.Text = IWStatus
-    End Sub
+    '--------------------------------[Other Functions]--------------------------------
 
-    Private Sub ListView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListView1.SelectedIndexChanged
+    ''' <summary>Animates the window shrinking when closing</summary>
+    Private Sub ClosingAnimation() Handles Me.Closing
 
-        Dim Selectedindex As Integer
-
-        Try
-            Selectedindex = ListView1.SelectedIndices(0)
-        Catch
-            Exit Sub
-        End Try
-
-        Select Case SearchMode
-            Case True
-                Try
-                    SelectedItem = SearchIncomeArray(ListView1.SelectedIndices(0) + 1)
-                Catch
-                End Try
-            Case False
-                Try
-                    SelectedItem = IncomeregistryArray(ListView1.SelectedIndices(0))
-                Catch
-                End Try
-        End Select
-
-        ViewDetailsToolStripMenuItem.Enabled = True
-        ModifyToolStripMenuItem.Enabled = True
-        DeleteToolStripMenuItem.Enabled = True
-    End Sub
-
-
-    Private Sub EZTaxMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-
-        Me.Size = (New Drawing.Size(525, 390))
+        Size = New Size(525, 390)
 
         Dim X As Integer = 525
         Dim y As Integer = 390
@@ -650,7 +433,7 @@ LabelNoDownload:
 
             X -= 10
             If Not y < 15 Then y -= 10
-            Me.Size = (New Drawing.Size(X, y))
+            Size = New Size(X, y)
             Threading.Thread.Sleep(3)
 
         End While
@@ -658,28 +441,38 @@ LabelNoDownload:
 
     End Sub
 
-    Private Sub Update_Click(sender As Object, e As EventArgs) Handles UpdateIncomeToolStripMenuItem.Click
-        Dim UpdateWindow As EzTaxUpdateIncome = New EzTaxUpdateIncome With {.AllIncomeItems = IncomeregistryArray}
-        Hide()
-        UpdateWindow.ShowDialog()
-        Show()
+    Private Sub AddToIncomeRegistry(NewItem As IncomeRegistryItem)
+
+        Dim NewItemIndex As Integer
+
+        Try
+            NewItemIndex = IncomeregistryArray.Count
+        Catch
+        End Try
+
+        ReDim Preserve IncomeregistryArray(NewItemIndex)
+        IncomeregistryArray(NewItemIndex) = NewItem
 
     End Sub
 
+    Private Sub ModifyItemInIncomeRegistry(NewItem As IncomeRegistryItem, ItemIndex As Integer)
+        IncomeregistryArray(ItemIndex) = NewItem
+    End Sub
 
-
-    ''' <summary>
-    ''' Populate the listview
-    ''' </summary>
+    ''' <summary>Populate the listview</summary>
     ''' <param name="SearchItem"> find this item or items containing this </param>
     Public Sub PopulateListview(Optional ByVal SearchItem As String = "")
 
+        ViewDetailsToolStripMenuItem.Enabled = False
+        ModifyToolStripMenuItem.Enabled = False
+        DeleteToolStripMenuItem.Enabled = False
 
         Dim I As Integer
         Dim Hits As Integer
-        IRTI = 0
+        Dim IRTI As Long = 0
         Hits = 0
 
+        'Totals
         Dim NewpondIncome As Long = 0
         Dim UrbiaIncome As Long = 0
         Dim ParadisusIncome As Long = 0
@@ -688,18 +481,11 @@ LabelNoDownload:
         Dim SOIncome As Long = 0
 
 
-        'Set up Listview
-        ListView1.Clear()
-        ListView1.View = View.Details
-        ListView1.Columns.Add("Name")
-        ListView1.Columns.Item(0).Width = 340
-        ListView1.Columns.Add("Income")
-        ListView1.Columns.Item(1).Width = 150
-        ListView1.MultiSelect = False
-        ListView1.FullRowSelect = True
-        ListView1.HideSelection = False
+        'Clear Listview items
+        ListView1.Items.Clear()
 
-        FileOpen(2, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv", OpenMode.Output)
+        'Open the IRF to save it
+        FileOpen(2, My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry.csv", OpenMode.Output)
 
         For I = 0 To IncomeregistryArray.Count - 1
 
@@ -709,78 +495,80 @@ LabelNoDownload:
             If Not String.IsNullOrEmpty(SearchItem) Then
                 'For Searching
                 If IncomeregistryArray(I).Name.ToLower.Contains(SearchItem.ToLower) Then
-                    CLVI = New ListViewItem With {
-                .Text = IncomeregistryArray(I).Name
-            }
+
+                    'Create the LVI
+                    CLVI = New ListViewItem With {.Text = IncomeregistryArray(I).Name}
                     CLVI.SubItems.Add(IncomeregistryArray(I).TotalIncome.ToString("N0") & "p")
+
+                    'Add the LVI
                     ListView1.Items.Add(CLVI)
+
+                    'Update Hits
                     Hits += 1
                     HitsCounter(Hits)
 
+                    'Add to the SearchIncome Directory
                     ReDim Preserve SearchIncomeArray(Hits)
-                    SearchIncomeArray(Hits) = New IncomeRegistryItem(IncomeregistryArray(I)) With {
-                        .RealItemLocation = I
-                    }
-
+                    SearchIncomeArray(Hits) = New IncomeRegistryItem(IncomeregistryArray(I)) With {.RealItemLocation = I}
 
                 End If
             Else
                 'For Regular
-                CLVI = New ListViewItem With {
-                .Text = IncomeregistryArray(I).Name
-            }
+
+                'Create LVI
+                CLVI = New ListViewItem With {.Text = IncomeregistryArray(I).Name}
                 CLVI.SubItems.Add(IncomeregistryArray(I).TotalIncome.ToString("N0") & "p")
+
+                'AddLVI
                 ListView1.Items.Add(CLVI)
+
+                'Update Hits
                 Hits += 1
                 HitsCounter(Hits)
+
             End If
 
             'Save the item
             PrintLine(2, IncomeregistryArray(I).Name & "," & IncomeregistryArray(I).TotalIncome & "," & IncomeregistryArray(I).Apartment.StudioUnits & "," & IncomeregistryArray(I).Apartment.BR1Units & "," & IncomeregistryArray(I).Apartment.BR2Units & "," & IncomeregistryArray(I).Apartment.BR3Units & "," & IncomeregistryArray(I).Apartment.PHUnits & "," & IncomeregistryArray(I).Apartment.StudioRent & "," & IncomeregistryArray(I).Apartment.BR1Rent & "," & IncomeregistryArray(I).Apartment.BR2Rent & "," & IncomeregistryArray(I).Apartment.BR3Rent & "," & IncomeregistryArray(I).Apartment.PHRent & "," & IncomeregistryArray(I).Hotel.Rooms & "," & IncomeregistryArray(I).Hotel.Suites & "," & IncomeregistryArray(I).Hotel.RoomRate & "," & IncomeregistryArray(I).Hotel.SuiteRate & "," & IncomeregistryArray(I).Hotel.MiscIncome & "," & IncomeregistryArray(I).Business.Chairs & "," & IncomeregistryArray(I).Business.AvgSpend & "," & IncomeregistryArray(I).Business.CustomersPerHour & "," & IncomeregistryArray(I).Business.HoursOpen & "," & IncomeregistryArray(I).MiscIncome & "," & IncomeregistryArray(I).Location)
 
+            'Update the IncomeRegistry Local Total
             IRTI += IncomeregistryArray(I).TotalIncome
 
-            Dim Current As IncomeRegistryItem = IncomeregistryArray(I)
-
-            Select Case Current.Location.ToUpper
+            'Update the totals for the respective district
+            Select Case IncomeregistryArray(I).Location.ToUpper
                 Case "NEWPOND"
-                    NewpondIncome += Current.TotalIncome
+                    NewpondIncome += IncomeregistryArray(I).TotalIncome
                 Case "URBIA"
-                    UrbiaIncome += Current.TotalIncome
+                    UrbiaIncome += IncomeregistryArray(I).TotalIncome
                 Case "PARADISUS"
-                    ParadisusIncome += Current.TotalIncome
+                    ParadisusIncome += IncomeregistryArray(I).TotalIncome
                 Case "LAERTES"
-                    LaertesIncome += Current.TotalIncome
+                    LaertesIncome += IncomeregistryArray(I).TotalIncome
                 Case "NORTH OSTEN"
-                    NOIncome += Current.TotalIncome
+                    NOIncome += IncomeregistryArray(I).TotalIncome
                 Case "SOUTH OSTEN"
-                    SOIncome += Current.TotalIncome
-                Case Else
+                    SOIncome += IncomeregistryArray(I).TotalIncome
             End Select
 
         Next
 
+        'Close the file
         FileClose(2)
 
+        'Update the label
         UpdatedLabel.Text = IRTI.ToString("N0") & "p"
-        UpdatedTotal = IRTI + EI
 
-        LocalTaxInfo = New TaxInformation(EI, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome, Category, Calculator)
+        'Create local tax info
+        LocalTaxInfo = New TaxInformation(ServerTaxInfo.ExtraIncome, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome, MyUser.Category, Calculator)
 
-        UpdatedTaxDue = LocalTaxInfo.TotalTax
-
-        UpdatedTotalLabel.Text = UpdatedTotal.ToString("N0") & "p"
-        UpdatedTaxDueLabel.Text = UpdatedTaxDue.ToString("N0") & "p"
+        UpdatedTotalLabel.Text = (IRTI + ServerTaxInfo.ExtraIncome).ToString("N0") & "p"
+        UpdatedTaxDueLabel.Text = LocalTaxInfo.TotalTax.ToString("N0") & "p"
         If Hits = 0 Then HitsCounter(0)
 
     End Sub
 
     Public Sub HitsCounter(hits As Integer)
-        If hits = 1 Then
-            HitLabel.Text = "1 entry"
-        Else
-            HitLabel.Text = hits & " entries"
-        End If
+        If hits = 1 Then HitLabel.Text = "1 entry" Else HitLabel.Text = hits & " entries"
     End Sub
 
     Public Sub RePopulateListView() Handles SearchBox.TextChanged
@@ -793,67 +581,8 @@ LabelNoDownload:
         End If
     End Sub
 
-    Private Sub EzTaxLogoClick() Handles EzTaxLogo.Click, AboutToolStripMenuItem.Click
-        Hide()
-        EzTaxAbout.ShowDialog()
-        Show()
-    End Sub
-    Private Sub QuitIt() Handles Quit.Click
-        Close()
-    End Sub
+    '--------------------------------[Window Moving Functions]--------------------------------
 
-    Private Sub TaxBreakdownLink_LinkClicked() Handles TaxBreakdownLink.LinkClicked
-        Dim THEBIGBOI As EzTaxBreakdown = New EzTaxBreakdown With {
-         .LocalInformation = LocalTaxInfo,
-         .ServerInformation = ServerTaxInfo
-        }
-
-        Hide()
-        THEBIGBOI.ShowDialog()
-        Show()
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles UploadIRFToolStripMenuItem.Click
-        Dim LBLBackupWindow As LBLSender = New LBLSender(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv")
-        LBLBackupWindow.Show()
-    End Sub
-
-    Private Sub DownloadTime() Handles DownloadIRFToolStripMenuItem.Click
-        Dim result As MsgBoxResult = MsgBox("EzTax can attempt to download a copy of your IRF from the server. Are you sure you want to do this? It will overwrite your current file! (we'll keep a backup just in case)", MsgBoxStyle.YesNo + MsgBoxStyle.Exclamation, "EzTax")
-        If result = MsgBoxResult.Yes Then
-            Try
-                If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv") Then File.Delete(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv")
-                My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/uploadedreports/" & ID & ".IncomeRegistry.csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv")
-            Catch ex As Exception
-                MsgBox("EzTax could not download your IRF. You probably haven't uploaded it!", MsgBoxStyle.OkOnly + MsgBoxStyle.Critical, "EzTax IRF Downloader")
-                Debug.Print(ex.Message & vbNewLine & vbNewLine & ex.StackTrace)
-                Return
-            End Try
-            If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv") Then
-                File.Copy(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv",
-                          My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & " BACKUP BEFORE DOWNLOADING.IncomeRegistry.csv", True)
-            End If
-            File.Copy(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv",
-                      My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv", True)
-            File.Delete(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry2.csv")
-            MsgBox("The IRF has been successfully downloaded. In order for changes to take effect, EzTax will now restart.", MsgBoxStyle.Information)
-            Hide()
-            Show()
-            EZTaxMain_Load()
-        End If
-    End Sub
-
-    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
-        Dim AllBracketWindow As EzTaxAllBrackets = New EzTaxAllBrackets()
-        AllBracketWindow.MainTXB.Text = Calculator.ToString()
-        Hide()
-        AllBracketWindow.ShowDialog()
-        Show()
-    End Sub
-
-    ''' <summary>
-    ''' This has to do with moving the window
-    ''' </summary>
     Public WindowIsmoving As Boolean
     Public DX As Integer
     Public DY As Integer

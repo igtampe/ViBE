@@ -1,13 +1,15 @@
-﻿Public Class EzTaxAllBrackets
-    Public ItemCompleteDetails As String = ""
+﻿''' <summary>Displays all tax brackets stored in a certain tax calculator</summary>
+Public Class EzTaxAllBrackets
+
+    Public Sub New(Calc As TaxCalc)
+        InitializeComponent()
+        MainTXB.Text = Calc.ToString
+    End Sub
 
     Private Sub OKBTN_Click(sender As Object, e As EventArgs) Handles OKBTN.Click
         Close()
     End Sub
 
-    ''' <summary>
-    ''' This has to do with moving the window
-    ''' </summary>
     Public WindowIsmoving As Boolean
     Public DX As Integer
     Public DY As Integer

@@ -78,7 +78,7 @@ Public Class VibeMainScreen
 
     Private Sub LaunchEzTax() Handles EZTaxButton.Click
         'EzTax is something we should instantiate
-        Dim MyEzTax As EZTaxMain = New EZTaxMain
+        Dim MyEzTax As EZTaxMain = New EZTaxMain(CurrentUser)
         MyEzTax.Show()
     End Sub
 

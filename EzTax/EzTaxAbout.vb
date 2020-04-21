@@ -1,11 +1,14 @@
-﻿Public Class EzTaxAbout
-    Private Sub Quit_Click(sender As Object, e As EventArgs) Handles Quit.Click
+﻿''' <summary>Shows EzTax About page</summary>
+Public Class EzTaxAbout
+
+    '--------------------------------[Buttons]--------------------------------
+
+    Private Sub Quit_Click() Handles Quit.Click
         Close()
     End Sub
 
-    ''' <summary>
-    ''' This has to do with moving the window
-    ''' </summary>
+    '--------------------------------[Window Moving Functions]--------------------------------
+
     Public WindowIsmoving As Boolean
     Public DX As Integer
     Public DY As Integer

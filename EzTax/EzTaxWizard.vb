@@ -1,19 +1,95 @@
-﻿Imports VIBE__But_on_Visual_Studio_.EZTaxMain
+﻿Imports VIBE__But_on_Visual_Studio_.IncomeRegistryItem
 
 Public Class EZTaxWizard
 
-    Public SelectedItemIndex As Integer
-    Public ItemName As String
-    Public ItemIncome As Long
-    Public NameClicked As Boolean
-    Public ItemCompleteDetails As String
+    '--------------------------------[Variables]--------------------------------
+
+    Public commit As Boolean = False
+    Public MyItem As IncomeRegistryItem
+
+    Private ItemName As String
+    Private ItemIncome As Long
+    Private NameClicked As Boolean
+    Private ItemCompleteDetails As String
+
     Public Enum Mode
         Add
         Modify
     End Enum
-    Public WindowMode As Mode = Mode.Add
 
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles StoreType.SelectedIndexChanged
+    Private ReadOnly WindowMode As Mode
+
+    '--------------------------------[Initialization]--------------------------------
+
+    Public Sub New(Mode As Mode, Optional SelectedItem As IncomeRegistryItem = Nothing)
+        InitializeComponent()
+
+        WindowMode = Mode
+        If WindowMode = Mode.Modify Then
+            If IsNothing(SelectedItem) Then Throw New ArgumentException("I need an incomeregistry item to modify!")
+
+            AddItemButton.Text = "Modify"
+
+            ItemName = SelectedItem.Name
+            ItemIncome = SelectedItem.TotalIncome
+
+            'General Setup
+            ItemNameTXB.Text = SelectedItem.Name
+            TotalIncome.Text = SelectedItem.TotalIncome.ToString("N0") & "p"
+            DistrictBox.Text = SelectedItem.Location
+
+            'Apartments
+            ''Apartment Units
+            StudioUnits.Value = SelectedItem.Apartment.StudioUnits
+            OneBRUnits.Value = SelectedItem.Apartment.BR1Units
+            TwoBRUnits.Value = SelectedItem.Apartment.BR2Units
+            ThreeBRUnits.Value = SelectedItem.Apartment.BR3Units
+            PHUnits.Value = SelectedItem.Apartment.PHUnits
+
+            ''Apartment Rents
+            StudioRent.Value = SelectedItem.Apartment.StudioRent
+            OneBRRent.Value = SelectedItem.Apartment.BR1Rent
+            TwoBRRent.Value = SelectedItem.Apartment.BR2Rent
+            ThreeBRRent.Value = SelectedItem.Apartment.BR3Rent
+            PHRent.Value = SelectedItem.Apartment.PHRent
+
+            'Hotel
+            HotelRooms.Value = SelectedItem.Hotel.Rooms
+            HotelSuites.Value = SelectedItem.Hotel.Suites
+            HotelRoomRate.Value = SelectedItem.Hotel.RoomRate
+            HotelSuitesRate.Value = SelectedItem.Hotel.SuiteRate
+            HotelMiscIncome.Value = SelectedItem.Hotel.MiscIncome
+
+            'Business
+            StoreChairs.Value = SelectedItem.Business.Chairs
+            StoreAvgSpending.Value = SelectedItem.Business.AvgSpend
+            StoreCustomersPerHour.Value = SelectedItem.Business.CustomersPerHour
+            StoreHoursOpen.Value = SelectedItem.Business.HoursOpen
+
+            'MiscINcome
+            MiscIncome.Value = SelectedItem.MiscIncome
+
+        End If
+
+    End Sub
+
+    '--------------------------------[Buttons]--------------------------------
+
+    Private Sub ShowHideSummary() Handles ShowSummaryButton.Click
+        If Size = MinimumSize Then
+            Size = MaximumSize
+            Quit.Location = New Point(481, 0)
+        Else
+            Size = MinimumSize
+            Quit.Location = New Point(207, 0)
+        End If
+    End Sub
+
+    Private Sub Nevermind() Handles Cancel.Click, Quit.Click
+        Close()
+    End Sub
+
+    Private Sub StoreTypeChanged() Handles StoreType.SelectedIndexChanged
         Select Case StoreType.SelectedIndex
             Case 0
                 'Restaurant
@@ -29,12 +105,7 @@ Public Class EZTaxWizard
         End Select
     End Sub
 
-
-    Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click, Quit.Click
-        Close()
-    End Sub
-
-    Private Sub AddItemButton_Click_1(sender As Object, e As EventArgs) Handles AddItemButton.Click
+    Private Sub ActionClick() Handles AddItemButton.Click
 
         If DistrictBox.SelectedIndex = -1 Then
             MsgBox("Please select a district.", MsgBoxStyle.Exclamation)
@@ -46,204 +117,57 @@ Public Class EZTaxWizard
             Exit Sub
         End If
 
-        RegenerateItemCompleteDetails()
+        UpdateItem()
+
+        If WindowMode = Mode.Add Then
+            Dim CertifyWindow As EzTaxCertify = New EzTaxCertify(MyItem, True)
+
+            CertifyWindow.ShowDialog()
+            CertifyWindow.Dispose()
+
+        End If
+
+        commit = True
+        Close()
+    End Sub
+
+    Private Sub ItemNameChanged() Handles ItemNameTXB.TextChanged
+        ItemName = ItemNameTXB.Text
+        UpdateItem()
+    End Sub
+
+    ''' <summary>Updates income item, and then updates visual elements</summary>
+    Private Sub Recalculate() Handles StudioUnits.ValueChanged, OneBRUnits.ValueChanged, TwoBRUnits.ValueChanged, ThreeBRUnits.ValueChanged, PHUnits.ValueChanged, HotelRooms.ValueChanged, HotelSuites.ValueChanged, HotelRoomRate.ValueChanged, HotelSuitesRate.ValueChanged, HotelMiscIncome.ValueChanged, StoreChairs.ValueChanged, StoreAvgSpending.ValueChanged, StoreCustomersPerHour.ValueChanged, StoreHoursOpen.ValueChanged, HotelMiscIncome.ValueChanged, StudioRent.ValueChanged, OneBRRent.ValueChanged, TwoBRRent.ValueChanged, ThreeBRRent.ValueChanged, PHRent.ValueChanged, MiscIncome.ValueChanged, DistrictBox.TextChanged
+
+        UpdateItem()
+
+        TotalIncome.Text = ItemIncome.ToString("N0") & "p"
+        DetailsTXB.Text = ItemCompleteDetails
+
+    End Sub
+
+    '--------------------------------[Other Functions]--------------------------------
+
+    ''' <summary>Updates myItem</summary>
+    Private Sub UpdateItem()
+
+        'Since this is run rather frequently, we should do this to free-up memory.
+        If Not IsNothing(MyItem) Then MyItem.Dispose()
+        MyItem = Nothing
 
         Dim ItemApartmentDetails As ApartmentDetails = New ApartmentDetails(StudioUnits.Value, OneBRUnits.Value, TwoBRUnits.Value, ThreeBRUnits.Value, PHUnits.Value, StudioRent.Value, OneBRRent.Value, TwoBRRent.Value, ThreeBRRent.Value, PHRent.Value)
         Dim ItemHotelDetails As HotelDetails = New HotelDetails(HotelRooms.Value, HotelSuites.Value, HotelRoomRate.Value, HotelSuitesRate.Value, HotelMiscIncome.Value)
         Dim ItemBusinessDetails As BusinessDetails = New BusinessDetails(StoreChairs.Value, StoreAvgSpending.Value, StoreCustomersPerHour.Value, StoreHoursOpen.Value)
         Dim ItemMiscIncome As Long = MiscIncome.Value
+        MyItem = New IncomeRegistryItem(ItemName, ItemApartmentDetails, ItemHotelDetails, ItemBusinessDetails, ItemMiscIncome, DistrictBox.Text)
 
-        Dim ItemAsIncomeRegistryItem As IncomeRegistryItem = New IncomeRegistryItem(ItemName, ItemApartmentDetails, ItemHotelDetails, ItemBusinessDetails, ItemMiscIncome, DistrictBox.Text)
-
-        If WindowMode = Mode.Add Then
-            Dim CertifyWindow As EzTaxCertify = New EzTaxCertify With {
-                .ItemToCertify = ItemAsIncomeRegistryItem
-            }
-            CertifyWindow.DetailsTXB.Text = ItemCompleteDetails
-
-            AddToIncomeRegistry(ItemAsIncomeRegistryItem)
-
-            CertifyWindow.HasToReport = True
-            CertifyWindow.ShowDialog()
-            CertifyWindow.Dispose()
-
-        ElseIf WindowMode = Mode.Modify Then
-            ModifyItemInIncomeRegistry(ItemAsIncomeRegistryItem, SelectedItemIndex)
-        End If
-
-
-
-        Close()
-    End Sub
-
-    Private Sub ItemNameTXB_TextChanged(sender As Object, e As EventArgs) Handles ItemNameTXB.TextChanged
-        ItemName = ItemNameTXB.Text
-        RegenerateItemCompleteDetails()
-    End Sub
-
-    Private Sub StudioUnits_ValueChanged(sender As Object, e As EventArgs) Handles StudioUnits.ValueChanged, OneBRUnits.ValueChanged, TwoBRUnits.ValueChanged, ThreeBRUnits.ValueChanged, PHUnits.ValueChanged, HotelRooms.ValueChanged, HotelSuites.ValueChanged, HotelRoomRate.ValueChanged, HotelSuitesRate.ValueChanged, HotelMiscIncome.ValueChanged, StoreChairs.ValueChanged, StoreAvgSpending.ValueChanged, StoreCustomersPerHour.ValueChanged, StoreHoursOpen.ValueChanged, HotelMiscIncome.ValueChanged, StudioRent.ValueChanged, OneBRRent.ValueChanged, TwoBRRent.ValueChanged, ThreeBRRent.ValueChanged, PHRent.ValueChanged, MiscIncome.ValueChanged, DistrictBox.TextChanged
-
-
-        Dim ApartmentIncome As Long
-        Dim HotelIncome As Long
-        Dim StoreIncome As Long
-        Dim MiscIncome As Long
-
-        ApartmentIncome = (StudioRent.Value * StudioUnits.Value) + (OneBRRent.Value * OneBRUnits.Value) + (TwoBRRent.Value * TwoBRUnits.Value) + (ThreeBRRent.Value * ThreeBRUnits.Value) + (PHRent.Value * PHUnits.Value)
-
-        Dim MonthlyHotelRoomIncome As Long
-        Dim MonthlyHotelSuiteIncome As Long
-
-        MonthlyHotelRoomIncome = (((HotelRoomRate.Value) / 2) * 365) / 12
-        MonthlyHotelSuiteIncome = (((HotelSuitesRate.Value) / 2) * 365) / 12
-
-        HotelIncome = (MonthlyHotelRoomIncome * HotelRooms.Value) + (MonthlyHotelSuiteIncome * HotelSuites.Value) + HotelMiscIncome.Value
-
-        StoreIncome = 30 * ((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value
-
-        MiscIncome = Me.MiscIncome.Value
-
-        ItemIncome = ApartmentIncome + HotelIncome + StoreIncome + MiscIncome
-        TotalIncome.Text = ItemIncome.ToString("N0") & "p"
-        RegenerateItemCompleteDetails()
+        ItemIncome = MyItem.TotalIncome
+        ItemCompleteDetails = MyItem.ToString
 
     End Sub
 
-    Sub RegenerateItemCompleteDetails()
-        ItemCompleteDetails = Nothing
-        ItemCompleteDetails = ItemCompleteDetails & "-{" & ItemName & "}--------------" & vbNewLine & "Located in: " & DistrictBox.Text
+    '--------------------------------[Window Moving Functions]--------------------------------
 
-        If StudioUnits.Value = 0 And
-            OneBRUnits.Value = 0 And
-            TwoBRUnits.Value = 0 And
-            ThreeBRUnits.Value = 0 And
-            PHUnits.Value = 0 Then
-            'do nothing
-        Else
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "-[Apartments]---------"
-
-            'Apartments
-
-            If Not StudioUnits.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Studio Units        : " & StudioUnits.Value
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Studio Rent         : " & StudioRent.Value.ToString("N0") & "p"
-            End If
-
-            If Not OneBRUnits.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "One Bedroom Units   : " & OneBRUnits.Value
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "One Bedroom Rent    : " & OneBRRent.Value.ToString("N0") & "p"
-            End If
-
-            If Not TwoBRUnits.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Two Bedroom Units   : " & TwoBRUnits.Value
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Two Bedroom Rent    : " & TwoBRRent.Value.ToString("N0") & "p"
-            End If
-
-            If Not ThreeBRUnits.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Three Bedroom Units : " & ThreeBRUnits.Value
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Three Bedroom Rent  : " & ThreeBRRent.Value.ToString("N0") & "p"
-            End If
-
-            If Not PHUnits.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Penthouse Units     : " & PHUnits.Value
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Penthouse Rent      : " & PHRent.Value.ToString("N0") & "p"
-            End If
-
-        End If
-
-        If HotelRooms.Value = 0 And
-            HotelSuites.Value = 0 And
-            HotelMiscIncome.Value = 0 Then
-            'do nothing
-        Else
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "-[Hotel]--------------"
-
-            'Hotel
-
-            If Not HotelRooms.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Hotel Rooms         : " & HotelRooms.Value
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Hotel Room Rate     : " & HotelRoomRate.Value.ToString("N0") & "p"
-            End If
-
-            If Not HotelSuites.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Hotel Suites        : " & HotelSuites.Value
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Hotel Suites Rate   : " & HotelSuitesRate.Value.ToString("N0") & "p"
-            End If
-
-            If Not HotelMiscIncome.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Hotel Misc Income   : " & HotelMiscIncome.Value.ToString("N0") & "p"
-            End If
-
-        End If
-
-        If Not (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value) = 0 Then
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "-[Business]-----------"
-            'Stores
-
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Chairs              : " & StoreChairs.Value
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Average Spending    : " & StoreAvgSpending.Value
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Customers Per Hour  : " & StoreCustomersPerHour.Value
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Hours Open          : " & StoreHoursOpen.Value
-        End If
-
-        Dim MonthlyHotelRoomIncome As Long = (((HotelRoomRate.Value) / 2) * 365) / 12
-        Dim MonthlyHotelSuiteIncome As Long = (((HotelSuitesRate.Value) / 2) * 365) / 12
-
-        If MiscIncome.Value = 0 Then
-            'do nothing
-        Else
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "-[Misc. Income]-------"
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Income              : " & MiscIncome.Value.ToString("N0") & "p"
-        End If
-
-
-        If (StudioRent.Value * StudioUnits.Value) + (OneBRRent.Value * OneBRUnits.Value) + (TwoBRRent.Value * TwoBRUnits.Value) + (ThreeBRRent.Value * ThreeBRUnits.Value) + (PHRent.Value * PHUnits.Value) = 0 And
-            ((MonthlyHotelRoomIncome * HotelRooms.Value) + (MonthlyHotelSuiteIncome * HotelSuites.Value) + HotelMiscIncome.Value) = 0 And
-            (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value) = 0 And
-            MiscIncome.Value = 0 Then
-            'do nothing
-        Else
-            ItemCompleteDetails = ItemCompleteDetails & vbNewLine & vbNewLine & "-[Totals]-------------"
-            If Not (StudioRent.Value * StudioUnits.Value) + (OneBRRent.Value * OneBRUnits.Value) + (TwoBRRent.Value * TwoBRUnits.Value) + (ThreeBRRent.Value * ThreeBRUnits.Value) + (PHRent.Value * PHUnits.Value) = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Apartment Total     : " & ((StudioRent.Value * StudioUnits.Value) + (OneBRRent.Value * OneBRUnits.Value) + (TwoBRRent.Value * TwoBRUnits.Value) + (ThreeBRRent.Value * ThreeBRUnits.Value) + (PHRent.Value * PHUnits.Value)).ToString("N0") & "p"
-            End If
-
-            If Not ((MonthlyHotelRoomIncome * HotelRooms.Value) + (MonthlyHotelSuiteIncome * HotelSuites.Value) + HotelMiscIncome.Value) = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Hotel Total         : " & ((MonthlyHotelRoomIncome * HotelRooms.Value) + (MonthlyHotelSuiteIncome * HotelSuites.Value) + HotelMiscIncome.Value).ToString("N0") & "p"
-            End If
-
-            If Not 30 * (((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value) = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Business Total      : " & (30 * ((StoreAvgSpending.Value / 2) * StoreCustomersPerHour.Value * StoreHoursOpen.Value) * StoreChairs.Value).ToString("N0") & "p"
-            End If
-
-            If Not MiscIncome.Value = 0 Then
-                ItemCompleteDetails = ItemCompleteDetails & vbNewLine & "Misc. Total         : " & (MiscIncome.Value).ToString("N0") & "p"
-            End If
-
-        End If
-
-
-        DetailsTXB.Text = ItemCompleteDetails
-    End Sub
-
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If Size = MinimumSize Then
-            Size = MaximumSize
-            Quit.Location = New Point(481, 0)
-        Else
-            Size = MinimumSize
-            Quit.Location = New Point(207, 0)
-        End If
-        'Normal
-
-        'Extended
-
-    End Sub
-
-    ''' <summary>
-    ''' This has to do with moving the window
-    ''' </summary>
     Public WindowIsmoving As Boolean
     Public DX As Integer
     Public DY As Integer
@@ -256,7 +180,7 @@ Public Class EZTaxWizard
 
     Private Sub ImMoving(sender As Object, e As MouseEventArgs) Handles EzTaxTopLabel.MouseMove
         If WindowIsmoving Then
-            Me.SetDesktopLocation(DX + MousePosition.X, DY + MousePosition.Y)
+            SetDesktopLocation(DX + MousePosition.X, DY + MousePosition.Y)
         End If
     End Sub
 
