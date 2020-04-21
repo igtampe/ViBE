@@ -25,8 +25,8 @@ Partial Class ConAdd
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ConAdd))
         Me.NameTXB = New System.Windows.Forms.TextBox()
         Me.DetailsTXB = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.SendBTN = New System.Windows.Forms.Button()
+        Me.CancelBTN = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -55,23 +55,23 @@ Partial Class ConAdd
         Me.DetailsTXB.TabIndex = 1
         Me.DetailsTXB.Text = "(Details)"
         '
-        'Button1
+        'SendBTN
         '
-        Me.Button1.Location = New System.Drawing.Point(140, 332)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Send"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.SendBTN.Location = New System.Drawing.Point(140, 332)
+        Me.SendBTN.Name = "SendBTN"
+        Me.SendBTN.Size = New System.Drawing.Size(75, 23)
+        Me.SendBTN.TabIndex = 2
+        Me.SendBTN.Text = "Send"
+        Me.SendBTN.UseVisualStyleBackColor = True
         '
-        'Button2
+        'CancelBTN
         '
-        Me.Button2.Location = New System.Drawing.Point(221, 332)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 3
-        Me.Button2.Text = "Cancel"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.CancelBTN.Location = New System.Drawing.Point(221, 332)
+        Me.CancelBTN.Name = "CancelBTN"
+        Me.CancelBTN.Size = New System.Drawing.Size(75, 23)
+        Me.CancelBTN.TabIndex = 3
+        Me.CancelBTN.Text = "Cancel"
+        Me.CancelBTN.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -149,8 +149,8 @@ Partial Class ConAdd
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(308, 367)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.CancelBTN)
+        Me.Controls.Add(Me.SendBTN)
         Me.Controls.Add(Me.NameTXB)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -166,8 +166,8 @@ Partial Class ConAdd
 
     Friend WithEvents NameTXB As TextBox
     Friend WithEvents DetailsTXB As TextBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents SendBTN As Button
+    Friend WithEvents CancelBTN As Button
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label3 As Label

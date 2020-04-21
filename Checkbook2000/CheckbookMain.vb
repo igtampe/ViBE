@@ -1,5 +1,4 @@
 ﻿Imports VIBE__But_on_Visual_Studio_.CheckbookCommands
-Imports System.ComponentModel
 
 ''' <summary>Main form of Checkbook 2000</summary>
 Public Class CheckbookMain

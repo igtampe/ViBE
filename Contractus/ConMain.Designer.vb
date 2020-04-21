@@ -98,8 +98,10 @@ Partial Class ConMain
         'AvConLVIEW
         '
         Me.AvConLVIEW.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ItemName, Me.From, Me.TopBid, Me.TopBidFrom})
+        Me.AvConLVIEW.FullRowSelect = True
         Me.AvConLVIEW.HideSelection = False
         Me.AvConLVIEW.Location = New System.Drawing.Point(6, 19)
+        Me.AvConLVIEW.MultiSelect = False
         Me.AvConLVIEW.Name = "AvConLVIEW"
         Me.AvConLVIEW.Size = New System.Drawing.Size(416, 146)
         Me.AvConLVIEW.TabIndex = 11
@@ -177,8 +179,10 @@ Partial Class ConMain
         'AcConLVIEW
         '
         Me.AcConLVIEW.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.NameActive, Me.FromActive, Me.Amount})
+        Me.AcConLVIEW.FullRowSelect = True
         Me.AcConLVIEW.HideSelection = False
         Me.AcConLVIEW.Location = New System.Drawing.Point(6, 19)
+        Me.AcConLVIEW.MultiSelect = False
         Me.AcConLVIEW.Name = "AcConLVIEW"
         Me.AcConLVIEW.Size = New System.Drawing.Size(416, 146)
         Me.AcConLVIEW.TabIndex = 10

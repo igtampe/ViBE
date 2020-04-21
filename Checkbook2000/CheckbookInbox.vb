@@ -1,6 +1,5 @@
 ﻿Imports VIBE__But_on_Visual_Studio_.CheckbookCommands
 Imports VIBE__But_on_Visual_Studio_.CoreCommands
-Imports System.ComponentModel
 
 ''' <summary>Displays and manages a Checkbook inbox</summary>
 Public Class CheckbookInbox

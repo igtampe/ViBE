@@ -127,7 +127,8 @@ Public Class VibeMainScreen
     End Sub
 
     Private Sub ShowContractus() Handles ContractusBTN.Click
-        ConMain.Show()
+        Dim NewContractus As ConMain = New ConMain(CurrentUser)
+        NewContractus.Show()
     End Sub
 
     Private Sub SwitchUserKeyRing() Handles KeyringButton.Click

@@ -1,98 +1,102 @@
 ﻿Imports VIBE__But_on_Visual_Studio_.ContractusCommands
+
+''' <summary>Shows details for a Contractus Contract</summary>
 Public Class ConDetails
-    Public ContractID As Integer
-    Public ContractDetails As String
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles OKBtn.Click
-        Close()
-    End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles PlaceBidBTN.Click
-        ConBid.ShowDialog()
-    End Sub
+    '--------------------------------[Variables]--------------------------------
 
-    Sub HelloDetailsTime() Handles Me.Shown
+    Private ReadOnly MyUser As User
+    Private ReadOnly MyContract As Contract
+    Private ReadOnly FormMode As DetailsFormMode
+    Private ContractDetails As String
+
+    Public Enum DetailsFormMode
+        Available = 0
+        Active = 1
+    End Enum
+
+    '--------------------------------[Initialization]--------------------------------
+
+    Public Sub New(User As User, Contract As Contract, FormMode As DetailsFormMode)
+        InitializeComponent()
+        MyUser = User
+        MyContract = Contract
+        Me.FormMode = FormMode
+
         NameTXB.Text = ""
         DetailsTXB.Text = ""
-        RefreshNotice.Show()
-        LoadDetails.RunWorkerAsync()
 
     End Sub
 
+    Private Sub LoadingTime() Handles Me.Load
 
-    Private Sub ConDetails_Load(sender As Object, e As EventArgs) Handles Me.Load
+        NameTXB.Text = MyContract.Name
+        FromLBL.Text = MyContract.FromName & " (" & MyContract.FromID & ")"
 
-        If ConMain.DetailsMode = 0 Then
+        If MyContract.TopBid = -1 Then
+            TopBidLBL.Text = " - "
+            TopBidderLBL.Text = " - "
+        Else
+            TopBidLBL.Text = MyContract.TopBid
+            TopBidderLBL.Text = MyContract.TopBidName & " (" & MyContract.TopBidID & ")"
+        End If
+
+        If FormMode = DetailsFormMode.Available Then
             'Available
-            NameTXB.Text = ConMain.AllContracts(ConMain.SelectedAvailableContract).Name
-            FromLBL.Text = ConMain.AllContracts(ConMain.SelectedAvailableContract).FromName & " (" & ConMain.AllContracts(ConMain.SelectedAvailableContract).FromID & ")"
-
-            If ConMain.AllContracts(ConMain.SelectedAvailableContract).TopBid = -1 Then
-                TopBidLBL.Text = " - "
-                TopBidderLBL.Text = " - "
-            Else
-                TopBidLBL.Text = ConMain.AllContracts(ConMain.SelectedAvailableContract).TopBid
-                TopBidderLBL.Text = ConMain.AllContracts(ConMain.SelectedAvailableContract).TopBidName & " (" & ConMain.AllContracts(ConMain.SelectedAvailableContract).TopBidID & ")"
-            End If
-            ContractID = ConMain.AllContracts(ConMain.SelectedAvailableContract).ID
-
-
-            If ConMain.AllContracts(ConMain.SelectedAvailableContract).FromID = ConMain.UserID Then
-                EndAuctionBTN.Visible = True
-                PlaceBidBTN.Enabled = False
-
-            Else
-                EndAuctionBTN.Visible = False
-                PlaceBidBTN.Enabled = True
-
-            End If
-
-
-        ElseIf ConMain.DetailsMode = 1 Then
-            'Active
-            NameTXB.Text = ConMain.UserContracts(ConMain.SelectedActiveContract).Name
-            FromLBL.Text = ConMain.UserContracts(ConMain.SelectedActiveContract).FromName & " (" & ConMain.UserContracts(ConMain.SelectedActiveContract).FromID & ")"
-            TopBidLBL.Text = ConMain.UserContracts(ConMain.SelectedActiveContract).TopBid
-            TopBidderLBL.Text = ConMain.UserContracts(ConMain.SelectedActiveContract).TopBidName & " (" & ConMain.UserContracts(ConMain.SelectedActiveContract).TopBidID & ")"
-            ContractID = ConMain.UserContracts(ConMain.SelectedActiveContract).ID
-
-            EndAuctionBTN.Visible = False
-            PlaceBidBTN.Enabled = False
+            EndAuctionBTN.Visible = (MyContract.FromID = MyUser.ID)
+            PlaceBidBTN.Enabled = Not (MyContract.FromID = MyUser.ID)
 
         Else
-            MsgBox("I have no idea what you want me to show the details of", vbInformation)
-            Close()
+            'Active
+            EndAuctionBTN.Visible = False
+            PlaceBidBTN.Enabled = False
         End If
 
 
     End Sub
 
-    Private Sub LoadDetails_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles LoadDetails.DoWork
-        ContractDetails = ContractusCommands.ConDetails(ContractID)
+    Sub HelloDetailsTime() Handles Me.Shown
+        RefreshNotice.Show()
+        LoadDetails.RunWorkerAsync()
     End Sub
-    Sub LoadDetailsDone() Handles LoadDetails.RunWorkerCompleted
+
+    '--------------------------------[Buttons]--------------------------------
+
+    Private Sub ClickOKtoOk() Handles OKBtn.Click
+        Close()
+    End Sub
+
+    Private Sub PlaceBid() Handles PlaceBidBTN.Click
+        Dim AddBid As ConBid = New ConBid(MyUser, MyContract)
+        AddBid.ShowDialog()
+        Close()
+    End Sub
+
+    Private Sub EndAuction() Handles EndAuctionBTN.Click
+
+        If MsgBox("Are you sure you wish to end the auction?", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes And FormMode = DetailsFormMode.Available Then
+            Select Case MoveToUser(MyContract.ID, MyContract.TopBidID)
+                Case "E"
+                    MsgBox("A serverside error occurred", vbInformation)
+                Case "S"
+                    MsgBox(MyContract.TopBidID & " Has been awarded the contract. It is now in their active contracts, and they shall send you a bill upon its completion", vbInformation)
+                    Close()
+            End Select
+        Else
+            MsgBox("The lemon has prevented this transaction", vbInformation)
+        End If
+
+    End Sub
+
+    '--------------------------------[Background Worker]--------------------------------
+
+    Private Sub GetDetails() Handles LoadDetails.DoWork
+        ContractDetails = ContractusCommands.ConDetails(MyContract.ID)
+    End Sub
+
+    Sub GotDetails() Handles LoadDetails.RunWorkerCompleted
         DetailsTXB.Text = ContractDetails
         RefreshNotice.Close()
     End Sub
 
-    Private Sub EndAuctionBTN_Click(sender As Object, e As EventArgs) Handles EndAuctionBTN.Click
-        Select Case MsgBox("Are you sure you wish to end the auction?", MsgBoxStyle.YesNo)
-            Case DialogResult.Yes
-                If ConMain.DetailsMode = 0 Then
-                    'Available
-
-                    'ContractID;User
-                    Select Case MoveToUser(ContractID, ConMain.AllContracts(ConMain.SelectedAvailableContract).FromID)
-                        Case "E"
-                            MsgBox("A serverside error occurred", vbInformation)
-                        Case "S"
-                            MsgBox(ConMain.AllContracts(ConMain.SelectedAvailableContract).FromID & " Has been awarded the contract. It is now in their active contracts, and they shall send you a bill upon its completion", vbInformation)
-                            Close()
-                    End Select
-
-                Else
-                    MsgBox("The lemon has prevented this transaction", vbInformation)
-                    Close()
-                End If
-        End Select
-    End Sub
 End Class
