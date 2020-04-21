@@ -1,17 +1,29 @@
 ﻿Imports VIBE__But_on_Visual_Studio_.CheckbookCommands
 Imports System.ComponentModel
 
+''' <summary>Main form of Checkbook 2000</summary>
 Public Class CheckbookMain
 
-    Public Tips(10) As String
-    Public ID As String
-    Public Servermsg As String
-    Public bwerror As String
+    '--------------------------------[Variables]--------------------------------
 
-    Public Shared MessageItem() As Inbox
+    Public Tips As String() = {
+     "Does anyone actually read these?",
+     "Outbox helps you send items like checks, bills, and more things in the future!",
+     "The inbox system was made with the same technology as the notification system for ViBE",
+     "This program took way too long to make because I actually downloaded a copy of Windows 2000 and Office 2000 to make sure this looked correct.",
+     "Multiple banks? No problem! You now only need to specify user from the directory, and away you go!",
+     "All you have to do is download Adobe Reader",
+     "Stuck? CHOPO is always available on #Assistance. Send him a mention!",
+     "ViBE has a sensitive ego. Don't insult it or it might crash.",
+     "DO WHAT YOU WANT CAUSE A PIRATE IS FREE. YOU ARE A PIRATE!",
+     "You still haven't WOKEN UP"}
 
+    Private ReadOnly MyUser As User
+    Private bwerror As String
 
-    Public Structure Inbox
+    Private Inbox() As InboxItem
+
+    Public Structure InboxItem
         Public Type As Integer
         Public Time As String
         Public FromName As String
@@ -21,47 +33,59 @@ Public Class CheckbookMain
         Public Subtype As Integer
     End Structure
 
+    Private Coso As New Random
 
-    Shared Coso As New Random
+    '--------------------------------[Initialization]--------------------------------
 
+    Public Sub New(User As User)
+        InitializeComponent()
+        MyUser = User
+    End Sub
 
-    Private Sub CheckbookMain_Load(sender As Object, e As EventArgs) Handles Me.Load
-        ID = VibeLogin.LogonID.Text
-
-        Tips(0) = "Does anyone actually read these?"
-        Tips(1) = "Outbox helps you send items like checks, bills, and more things in the future!"
-        Tips(2) = "The inbox system was made with the same technology as the notification system for ViBE"
-        Tips(3) = "This program took way too long to make because I actually downloaded a copy of Windows 2000 and Office 2000 to make sure this looked correct."
-        Tips(4) = "Multiple banks? No problem! You now only need to specify user from the directory, and away you go!"
-        Tips(5) = "All you have to do is download Adobe Reader"
-        Tips(6) = "Stuck? CHOPO is always available on #UMSWEB-TECHNICAL-SUPPORT. Send him a mention!"
-        Tips(7) = "ViBE has a sensitive ego. Don't insult it or it might crash."
-        Tips(8) = "DO WHAT YOU WANT CAUSE A PIRATE IS FREE. YOU ARE A PIRATE!"
-        Tips(9) = "You still haven't WOKEN UP"
-
+    Private Sub LoadingTime() Handles Me.Load
         Try
             TipLBL.Text = Tips(Coso.Next(0, 9))
         Catch ex As Exception
-            TipLBL.Text = "Bonjour Bitch the tip failed to load" & vbNewLine & vbNewLine & ex.ToString
+            TipLBL.Text = "Oopsie the tip failed to load" & vbNewLine & vbNewLine & ex.ToString
         End Try
+
         InboxButton.Enabled = False
-
     End Sub
 
-    Private Sub CheckbookMain_splash() Handles Me.Shown
+    Private Sub Showtime() Handles Me.Shown
         CheckbookSplash.Show()
+        Enabled = False
         BackgroundWorker1.RunWorkerAsync()
-
-
     End Sub
 
-    Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
+    '--------------------------------[Buttons]--------------------------------
+
+    Private Sub ExitButton_Click() Handles ExitButton.Click
         Close()
     End Sub
 
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+    Private Sub MakeNewCheck() Handles OutboxButton.Click
+        Dim NewCheckOut As CheckbookOutbox = New CheckbookOutbox(MyUser)
+        NewCheckOut.Show()
+
+    End Sub
+
+    Private Sub SeeAvailableChecks() Handles InboxButton.Click
+        Dim InboxWindow As CheckbookInbox = New CheckbookInbox(MyUser, Inbox)
+        InboxWindow.ShowDialog()
+
+        Inbox = InboxWindow.Inbox
+
+        If IsNothing(Inbox) Then InboxButton.Enabled = False
+
+    End Sub
+
+    '--------------------------------[Background Worker]--------------------------------
+
+    Private Sub GetInboxItems() Handles BackgroundWorker1.DoWork
         bwerror = "ono"
-        Dim Servermsg = ReadChecks(ID)
+
+        Dim Servermsg = ReadChecks(MyUser.ID)
         If Servermsg = "N" Or Servermsg = "E" Or Servermsg = "F" Then
             bwerror = Servermsg
             Exit Sub
@@ -74,27 +98,28 @@ Public Class CheckbookMain
         Dim SubtypeProcessor As String
 
         Do
-            ReDim Preserve MessageItem(N)
+            ReDim Preserve Inbox(N)
             I += 1
-            MessageItem(N).Type = Doot(I)
+            Inbox(N).Type = Doot(I)
             I += 1
-            MessageItem(N).Time = Doot(I)
+            Inbox(N).Time = Doot(I)
             I += 1
-            MessageItem(N).FromName = Doot(I)
+            Inbox(N).FromName = Doot(I)
             I += 1
-            MessageItem(N).FromBank = Doot(I)
+            Inbox(N).FromBank = Doot(I)
             I += 1
-            MessageItem(N).Amount = Doot(I)
+            Inbox(N).Amount = Doot(I)
             I += 1
-            MessageItem(N).Comment = Doot(I)
+            Inbox(N).Comment = Doot(I)
 
-            If MessageItem(N).Comment.StartsWith("::") Then
-                SubtypeProcessor = MessageItem(N).Comment.Remove(5, MessageItem(N).Comment.Length - 5)
-                MessageItem(N).Subtype = CInt(SubtypeProcessor.Replace(":", ""))
-                MessageItem(N).Comment = MessageItem(N).Comment.Replace(SubtypeProcessor, "")
+            'Indicates Colored check
+            If Inbox(N).Comment.StartsWith("::") Then
+                SubtypeProcessor = Inbox(N).Comment.Remove(5, Inbox(N).Comment.Length - 5)
+                Inbox(N).Subtype = CInt(SubtypeProcessor.Replace(":", ""))
+                Inbox(N).Comment = Inbox(N).Comment.Replace(SubtypeProcessor, "")
 
             Else
-                MessageItem(N).Subtype = 0
+                Inbox(N).Subtype = 0
             End If
 
             N += 1
@@ -102,13 +127,15 @@ Public Class CheckbookMain
             If I = Doot.Count - 1 Then Exit Do
         Loop
 
-
     End Sub
 
-    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+    Private Sub DoneGettingChecks() Handles BackgroundWorker1.RunWorkerCompleted
+        CheckbookSplash.Close()
+        Activate()
+        Enabled = True
+
         If bwerror = "N" Then
             InboxButton.Enabled = False
-            CheckbookSplash.Close()
             Exit Sub
         ElseIf bwerror = "F" Then
             InboxButton.Enabled = False
@@ -120,18 +147,13 @@ Public Class CheckbookMain
         End If
 
         InboxButton.Enabled = True
-        CheckbookSplash.Close()
-
-
 
     End Sub
 
-    Private Sub OutboxButton_Click(sender As Object, e As EventArgs) Handles OutboxButton.Click
-        CheckbookOutbox.ShowDialog()
+    '--------------------------------[Other Functions]--------------------------------
 
+    Public Sub TimeToClose() Handles Me.Closing
+        VibeMainScreen.RefreshMe()
     End Sub
 
-    Private Sub InboxButton_Click(sender As Object, e As EventArgs) Handles InboxButton.Click
-        CheckbookInbox.ShowDialog()
-    End Sub
 End Class

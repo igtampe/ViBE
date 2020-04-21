@@ -2,7 +2,6 @@
 Imports VIBE__But_on_Visual_Studio_.TaxCalc
 Imports System.ComponentModel
 Imports System.IO
-Imports System.Security.Cryptography.X509Certificates
 
 Public Class EZTaxMain
 
@@ -430,7 +429,7 @@ Public Class EZTaxMain
         SearchMode = False
         IncomeregistryArray = Nothing
         ID = VibeLogin.LogonID.Text
-        Category = VibeMainScreen.Category
+        Category = VibeMainScreen.CurrentUser.Category
         MoveWarning = False
         InitialBW.RunWorkerAsync()
 
@@ -815,7 +814,7 @@ LabelNoDownload:
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles UploadIRFToolStripMenuItem.Click
-        Dim LBLBackupWindow As LBLSender = New LBLSender With {.FileToSend = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv"}
+        Dim LBLBackupWindow As LBLSender = New LBLSender(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & ID & ".IncomeRegistry.csv")
         LBLBackupWindow.Show()
     End Sub
 

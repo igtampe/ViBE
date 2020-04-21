@@ -64,7 +64,7 @@ Public Class EzTaxUpdateIncome
             End Select
         Next
 
-        If Send Then ServerMSG = EzTaxCommands.UpdateIncome(VibeMainScreen.ID, TotalIncome, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome)
+        If Send Then ServerMSG = EzTaxCommands.UpdateIncome(VibeMainScreen.CurrentUser.ID, TotalIncome, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome)
 
     End Sub
 
@@ -95,7 +95,7 @@ Public Class EzTaxUpdateIncome
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BackupButton.Click
-        Dim LBLBackupWindow As LBLSender = New LBLSender With {.FileToSend = My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & EZTaxMain.ID & ".IncomeRegistry.csv"}
+        Dim LBLBackupWindow As LBLSender = New LBLSender(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & EZTaxMain.ID & ".IncomeRegistry.csv")
         LBLBackupWindow.Show()
         Close()
     End Sub

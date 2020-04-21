@@ -1,28 +1,35 @@
-﻿Imports System.ComponentModel
-Imports System.IO
+﻿Imports System.IO
 Imports VIBE__But_on_Visual_Studio_.CoreCommands
 
+''' <summary>The ViBE Main Screen</summary>
 Public Class VibeMainScreen
 
+    '--------------------------------[Variables]--------------------------------
+
+    ''' <summary>Server Reply for cross communication after BackgroundWorker runs</summary>
     Public ServerMSG As String
 
-    ''' <summary>
-    ''' Currently Logged in ViBE Login ID
-    ''' </summary>
-    Public Shared ID As String
-    Public LogoutExit As Boolean = False
-    Public Category As Integer
+    ''' <summary>The Currently Logged In user</summary>
+    Public Shared CurrentUser As User
 
-    ''' <summary>
-    ''' Currently Logged ViBE Username
-    ''' </summary>
-    Public Shared Username As String
+    ''' <summary>ID of the current user</summary>
+    Private ID As String
 
-    Public SwitchID As String
-    Public SwitchPIN As String
+    'Even though currentuser holds ID, this is neccessary for the backgroundworker, which doesn't have access to the vibe login window
 
-    Private Sub LoadValuesFromTemp() Handles Me.Shown
-        Me.BackgroundImage = Nothing
+    ''' <summary>Used for switching IDs with the keyring</summary>
+    Private SwitchID As String
+    Private SwitchPIN As String
+
+    '--------------------------------[Initialization]--------------------------------
+
+    ''' <summary>Clears and loads the form</summary>
+    Private Sub LoadingTime() Handles Me.Shown
+
+        'I would instantiate this form, but there should only be one instance of this form, regardless of whatever happens, so no.
+
+        'Clear the main window
+        BackgroundImage = Nothing
         NameLabel.Text = ""
         UMSNBBLabel.Text = ""
         GBANKBLabel.Text = ""
@@ -31,216 +38,103 @@ Public Class VibeMainScreen
         UMSNBCheck.Checked = False
         GBANKCheck.Checked = False
         RIVERCheck.Checked = False
+        Enabled = False
 
-        AllButtonsEnabled(False)
+        'Set our title
+        Text = "Visual Basic Economy (Build ID:" & VibeLogin.VVer & ")"
+
+        'Save the ID for the backgroundworker
         ID = VibeLogin.LogonID.Text
-        Me.Text = "Visual Basic Economy (Build ID:" & VibeLogin.VVer & ")"
-        RefreshNotice.Show()
-        Call RefreshBW.RunWorkerAsync()
-    End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        If File.Exists(Application.UserAppDataPath & "\ViBE\Login.dat") Then
-            File.Delete(Application.UserAppDataPath & "\ViBE\Login.dat")
-        End If
-        LogoutExit = True
-        Close()
-    End Sub
-
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        VibeChangePin.ShowDialog()
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        TransferMonet.ShowDialog()
-        RefreshButton_Click()
-    End Sub
-
-    Private Sub LaunchEzTax(Sender As Object, e As EventArgs) Handles EZTaxButton.Click
-        EZTaxMain.Show()
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        SendMonet.ShowDialog()
-        RefreshButton_Click()
-    End Sub
-
-    Private Sub ToQuitonQuit(sender As Object, e As EventArgs) Handles Me.Closing
-        If LogoutExit = True Then
-            VibeLogin.Show()
-            VibeLogin.LogonID.Text = ""
-            VibeLogin.LogonPIN.Text = ""
-        Else
-            VibeLogin.Close()
-        End If
-
-    End Sub
-
-    Private Sub RefreshButton_Click() Handles RefreshButton.Click
-        AllButtonsEnabled(False)
+        'Show the refreshnotice and get us this user's information
         RefreshNotice.Show()
         RefreshBW.RunWorkerAsync()
     End Sub
 
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles RefreshBW.DoWork
-        ServerMSG = INFO(ID)
+    '--------------------------------[Buttons]--------------------------------
+
+    Private Sub LogoutTime() Handles LogOutButton.Click
+        'Clear the local RememberMe file.
+        If File.Exists(Application.UserAppDataPath & "\ViBE\Login.dat") Then File.Delete(Application.UserAppDataPath & "\ViBE\Login.dat")
+
+        'Close while indicating we mean to logout
+        Close(True)
     End Sub
 
-    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles RefreshBW.RunWorkerCompleted
-        Dim TotalBalance As Long
-
-        Dim UMSNB As Boolean
-        Dim GBANK As Boolean
-        Dim RIVER As Boolean
-        Dim UMSNBBalance As Long
-        Dim GBANKBalance As Long
-        Dim RIVERBalance As Long
-        Dim SplitValues() As String
-
-        SplitValues = ServerMSG.Split(",")
-
-        If SplitValues(0) = 1 Then UMSNB = True Else UMSNB = False
-        UMSNBBalance = SplitValues(1)
-        If SplitValues(2) = 1 Then GBANK = True Else GBANK = False
-        GBANKBalance = SplitValues(3)
-        If SplitValues(4) = 1 Then RIVER = True Else RIVER = False
-        RIVERBalance = SplitValues(5)
-        Username = SplitValues(6)
-
-        If Username.EndsWith(" (Corp.)") Then
-            Category = 1
-            Me.BackgroundImage = My.Resources.Corporate
-            Username = Username.Replace(" (Corp.)", "")
-        ElseIf Username.EndsWith(" (Gov.)") Then
-            Me.BackgroundImage = My.Resources.Government
-            Category = 2
-            Username = Username.Replace(" (Gov.)", "")
-        Else
-            Me.BackgroundImage = Nothing
-            Category = 0
-        End If
-
-        UMSNBCheck.Checked = UMSNB
-        GBANKCheck.Checked = GBANK
-        RIVERCheck.Checked = RIVER
-
-        UMSNBBLabel.Text = UMSNBBalance.ToString("N0") & "p"
-        GBANKBLabel.Text = GBANKBalance.ToString("N0") & "p"
-        RIVERBLabel.Text = RIVERBalance.ToString("N0") & "p"
-
-        TotalBalance = UMSNBBalance + GBANKBalance + RIVERBalance
-        TotalBLabel.Text = TotalBalance.ToString("N0") & "p"
-
-        NameLabel.Text = Username & " (" & ID & ")"
-
-        RefreshNotice.Close()
-
-        AllButtonsEnabled(True)
-        If Category = 2 Then EZTaxButton.Enabled = False
-
-        NotifButton.Text = SplitValues(7)
-        If SplitValues(7) > 9 Then
-            NotifButton.Font = New Font("Microsoft Sans Serif", 6)
-        Else
-            NotifButton.Font = New Font("Microsoft Sans Serif", 8)
-        End If
-
-        If SplitValues(7) = 0 Then
-            NotifButton.Enabled = False
-        Else
-            NotifButton.Enabled = True
-        End If
-
-        If Not File.Exists(Application.UserAppDataPath & "\ViBE\WhatsNew.temp") Then
-            WhatsNew.Show()
-            If Not Directory.Exists(Application.UserAppDataPath & "\ViBE") Then
-                Directory.CreateDirectory(Application.UserAppDataPath & "\ViBE")
-            End If
-            File.Create(Application.UserAppDataPath & "\ViBE\WhatsNew.temp")
-        End If
-
-        Try
-            VibeLogin.Hide()
-        Catch
-        End Try
+    Private Sub ShowChangePin() Handles ChangePinButton.Click
+        Dim ChangePinWindow As VibeChangePin = New VibeChangePin()
+        ChangePinWindow.ShowDialog()
     End Sub
 
-    Private Sub UMSNBLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles UMSNBLink.LinkClicked
-        'UMSNB
-        BANKTXB.Text = "UMSNB"
-        BankWindow.ShowDialog()
-        Call RefreshButton_Click()
+    Private Sub ShowSendMoney() Handles SendMoneyBTN.Click
+        Dim NewSendMoneyWindow As SendMonet = New SendMonet(CurrentUser)
+        NewSendMoneyWindow.Show()
     End Sub
 
-    Private Sub GBANKLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles GBANKLink.LinkClicked
-        'GBANK
-        BANKTXB.Text = "GBANK"
-        BankWindow.ShowDialog()
-        Call RefreshButton_Click()
+    Private Sub ShowTransferMoney() Handles TransferMoneyBTN.Click
+        Dim NewTransferMoneyWindow As TransferMonet = New TransferMonet(CurrentUser)
+        NewTransferMoneyWindow.Show()
     End Sub
 
-    Private Sub RIVERLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles RIVERLink.LinkClicked
-        'RIVER
-        BANKTXB.Text = "RIVER"
-        BankWindow.ShowDialog()
-        Call RefreshButton_Click()
+    Private Sub LaunchEzTax() Handles EZTaxButton.Click
+        'EzTax is something we should instantiate
+        Dim MyEzTax As EZTaxMain = New EZTaxMain
+        MyEzTax.Show()
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+    ''' <summary>Initiates a refresh</summary>
+    Public Sub RefreshMe() Handles RefreshButton.Click
+
+        'Make sure we don't ask the form to refresh while it's already refreshing
+        If Not Enabled Then Return
+
+        Enabled = False
+        RefreshNotice.Show()
+        RefreshBW.RunWorkerAsync()
+    End Sub
+
+    Private Sub OpenUMSNBWindow() Handles UMSNBLink.LinkClicked
+        Dim UMSNBBankWindow As New BankWindow(CurrentUser, "UMSNB")
+        UMSNBBankWindow.Show()
+    End Sub
+
+    Private Sub OpenGBANKWindow() Handles GBANKLink.LinkClicked
+        Dim UMSNBBankWindow As New BankWindow(CurrentUser, "GBANK")
+        UMSNBBankWindow.Show()
+    End Sub
+
+    Private Sub OpenRIVERWindow() Handles RIVERLink.LinkClicked
+        Dim UMSNBBankWindow As New BankWindow(CurrentUser, "RIVER")
+        UMSNBBankWindow.Show()
+    End Sub
+
+    Private Sub ShowAbout() Handles AboutButton.Click
         About.Show()
     End Sub
 
-    Private Sub NotifButton_Click(sender As Object, e As EventArgs) Handles NotifButton.Click
-        If NotifButton.Text = "0" Then
-            MsgBox("There are no notifications, dummy!", vbInformation)
-        Else
-            NotificationsForm.ShowDialog()
-            Call RefreshButton_Click()
-        End If
+    Private Sub ShowNotifs() Handles NotifButton.Click
+        Dim MyNotifForm As NotificationsForm = New NotificationsForm(ID)
+        MyNotifForm.ShowDialog()
     End Sub
 
-    Private Sub LNDViewBTN_Click(sender As Object, e As EventArgs) Handles LNDViewBTN.Click
+    Private Sub ShowLandview() Handles LNDViewBTN.Click
         LandView.Show()
     End Sub
 
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        CheckbookMain.ShowDialog()
-        Call RefreshButton_Click()
+    Private Sub ShowCheckbook() Handles CheckBookBTN.Click
+        Dim NewCheckbook As CheckbookMain = New CheckbookMain(CurrentUser)
+        NewCheckbook.Show()
     End Sub
 
-    Sub AllButtonsEnabled(Value As Boolean)
-
-        RefreshButton.Enabled = Value
-        Button1.Enabled = Value
-        Button2.Enabled = Value
-        Button3.Enabled = Value
-        Button4.Enabled = Value
-        Button5.Enabled = Value
-        Button6.Enabled = Value
-        EZTaxButton.Enabled = Value
-        NotifButton.Enabled = Value
-        LNDViewBTN.Enabled = Value
-        RIVERLink.Enabled = Value
-        UMSNBLink.Enabled = Value
-        GBANKLink.Enabled = Value
-        Button7.Enabled = Value
-        KeyringButton.Enabled = Value
-
-    End Sub
-
-    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+    Private Sub ShowContractus() Handles ContractusBTN.Click
         ConMain.Show()
     End Sub
 
-    Private Sub TakeScreenshot() Handles CaptureScreenshot.Click
-        ScreenCamera.TakeScreenshot(Width, Height, Location.X, Location.Y, Size)
-    End Sub
-
     Private Sub SwitchUserKeyRing() Handles KeyringButton.Click
-        Dim SwitchUserForm As New KeyringForm() With {
-        .CurrentFormMode = 1
-        }
-        Me.Hide()
+
+        'create and launch a keyringform.
+        Dim SwitchUserForm As New KeyringForm() With {.CurrentFormMode = 1}
+        Hide()
         SwitchUserForm.ShowDialog()
 
         If SwitchUserForm.ReturnValue.CommitAction = True Then
@@ -253,16 +147,94 @@ Public Class VibeMainScreen
             RefreshNotice.Show()
             SwitchUserBW.RunWorkerAsync()
         Else
-            Me.Show()
+            SwitchUserForm.Dispose()
+            Show()
         End If
 
     End Sub
 
-    Private Sub SwitchUserBW_DoWork(sender As Object, e As DoWorkEventArgs) Handles SwitchUserBW.DoWork
+    '--------------------------------[Background Workers]--------------------------------
+
+    ''' <summary>Gets user information</summary>
+    Private Sub GetInfo() Handles RefreshBW.DoWork
+        'update current user
+        CurrentUser = Nothing
+
+        Try
+            CurrentUser = New User(ID)
+        Catch ex As Exception
+            Debug.Print(ex.StackTrace)
+            MsgBox("Could not get user " & VibeLogin.LogonID.Text, MsgBoxStyle.Critical)
+        End Try
+    End Sub
+
+    ''' <summary>Pareses the received information</summary>
+    Private Sub ProcessInfo() Handles RefreshBW.RunWorkerCompleted
+
+        'The form deactivates for some reason I'm not sure of, so this re-activates it.
+        Activate()
+
+        'If we couldn't get the user, logout
+        If IsNothing(CurrentUser) Then Close(True)
+
+        'Check for this user's category
+        Select Case CurrentUser.Category
+            Case User.UserCategory.Corporate
+                BackgroundImage = My.Resources.Corporate
+            Case User.UserCategory.Government
+                BackgroundImage = My.Resources.Government
+            Case User.UserCategory.Normal
+                BackgroundImage = Nothing
+        End Select
+
+        'Populate the form
+        UMSNBCheck.Checked = CurrentUser.UMSNB
+        GBANKCheck.Checked = CurrentUser.GBANK
+        RIVERCheck.Checked = CurrentUser.RIVER
+
+        UMSNBBLabel.Text = CurrentUser.UMSNBBalance.ToString("N0") & "p"
+        GBANKBLabel.Text = CurrentUser.GBANKBalance.ToString("N0") & "p"
+        RIVERBLabel.Text = CurrentUser.RIVERBalance.ToString("N0") & "p"
+        TotalBLabel.Text = CurrentUser.TotalBalance.ToString("N0") & "p"
+
+        NameLabel.Text = CurrentUser.ToString
+
+        'Enable the form
+        RefreshNotice.Close()
+        Enabled = True
+
+        'Update the notification button
+        NotifButton.Text = CurrentUser.Notifications
+        NotifButton.Enabled = (CurrentUser.Notifications > 0)
+
+        'Make sure the font fits
+        If CurrentUser.Notifications > 9 Then
+            NotifButton.Font = New Font("Microsoft Sans Serif", 6)
+        Else
+            NotifButton.Font = New Font("Microsoft Sans Serif", 8)
+        End If
+
+        'Check to make sure if we need to show WhatsNew
+        If Not File.Exists(Application.UserAppDataPath & "\ViBE\WhatsNew.temp") Then
+
+            WhatsNew.Show()
+
+            'Make sure the folder exists, and then make the file that marks that we have, indeed, shown WhatsNew
+            If Not Directory.Exists(Application.UserAppDataPath & "\ViBE") Then Directory.CreateDirectory(Application.UserAppDataPath & "\ViBE")
+            File.Create(Application.UserAppDataPath & "\ViBE\WhatsNew.temp")
+        End If
+
+        'Hide the login window, if it's not already hidden.
+        VibeLogin.Hide()
+    End Sub
+
+    ''' <summary>Verifies we can switch to the user specified by the keyring</summary>
+    Private Sub VerifyNewKeyringUser() Handles SwitchUserBW.DoWork
         ServerMSG = CU(SwitchID, SwitchPIN)
     End Sub
 
-    Private Sub SwitchUserBW_Complete() Handles SwitchUserBW.RunWorkerCompleted
+    ''' <summary>Processes the return from the server</summary>
+    Private Sub ProcessKeyRingUserResult() Handles SwitchUserBW.RunWorkerCompleted
         RefreshNotice.Close()
         Select Case ServerMSG
             Case 1
@@ -277,13 +249,37 @@ Public Class VibeMainScreen
                 Exit Select
 
             Case 3
-                ID = SwitchID
                 VibeLogin.LogonID.Text = SwitchID
                 VibeLogin.LogonPIN.Text = SwitchPIN
+                ID = VibeLogin.LogonID.Text
+                SwitchID = ""
                 SwitchPIN = ""
-                Me.Show()
-                LoadValuesFromTemp()
+                Show()
+                LoadingTime()
         End Select
     End Sub
+
+    '--------------------------------[Closing Up]--------------------------------
+
+    ''' <summary>Handles the actual closing of the form (Like from the X)</summary>
+    Public Sub CloseUpShop() Handles Me.Closing
+        'If the vibelogin window hasn't been reset, then its time to close up for good.
+        If Not VibeLogin.LogonID.Text = "" Then VibeLogin.Close()
+    End Sub
+
+    ''' <summary>Overloads close for a little more precision</summary>
+    ''' <param name="LogoutExit">Specify wether to close the form and show the ViBE login screen or not.</param>
+    Public Overloads Sub Close(LogoutExit As Boolean)
+
+        If LogoutExit Then
+            'Reset the login form
+            VibeLogin.Show()
+            VibeLogin.LogonID.Text = ""
+            VibeLogin.LogonPIN.Text = ""
+        End If
+
+        Close()
+    End Sub
+
 
 End Class

@@ -27,12 +27,12 @@ Partial Class CheckbookOutbox
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.BalanceLabel = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.CancelBTN = New System.Windows.Forms.Button()
+        Me.SendBTN = New System.Windows.Forms.Button()
         Me.CheckVariantCombobox = New System.Windows.Forms.ComboBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.ItemTypeCMB = New System.Windows.Forms.ComboBox()
+        Me.ItemCommentTXB = New System.Windows.Forms.TextBox()
+        Me.ItemValueUD = New System.Windows.Forms.NumericUpDown()
         Me.DirectoryButton = New System.Windows.Forms.Button()
         Me.ToBank = New System.Windows.Forms.TextBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
@@ -59,7 +59,7 @@ Partial Class CheckbookOutbox
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CheckWordAmount = New System.Windows.Forms.Label()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ItemValueUD, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -69,12 +69,12 @@ Partial Class CheckbookOutbox
         '
         Me.GroupBox2.Controls.Add(Me.BalanceLabel)
         Me.GroupBox2.Controls.Add(Me.Label5)
-        Me.GroupBox2.Controls.Add(Me.Button2)
-        Me.GroupBox2.Controls.Add(Me.Button1)
+        Me.GroupBox2.Controls.Add(Me.CancelBTN)
+        Me.GroupBox2.Controls.Add(Me.SendBTN)
         Me.GroupBox2.Controls.Add(Me.CheckVariantCombobox)
-        Me.GroupBox2.Controls.Add(Me.ComboBox1)
-        Me.GroupBox2.Controls.Add(Me.TextBox1)
-        Me.GroupBox2.Controls.Add(Me.NumericUpDown1)
+        Me.GroupBox2.Controls.Add(Me.ItemTypeCMB)
+        Me.GroupBox2.Controls.Add(Me.ItemCommentTXB)
+        Me.GroupBox2.Controls.Add(Me.ItemValueUD)
         Me.GroupBox2.Controls.Add(Me.DirectoryButton)
         Me.GroupBox2.Controls.Add(Me.ToBank)
         Me.GroupBox2.Controls.Add(Me.GroupBox3)
@@ -107,23 +107,23 @@ Partial Class CheckbookOutbox
         Me.Label5.TabIndex = 15
         Me.Label5.Text = "Funds"
         '
-        'Button2
+        'CancelBTN
         '
-        Me.Button2.Location = New System.Drawing.Point(455, 125)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 13
-        Me.Button2.Text = "Cancel"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.CancelBTN.Location = New System.Drawing.Point(455, 125)
+        Me.CancelBTN.Name = "CancelBTN"
+        Me.CancelBTN.Size = New System.Drawing.Size(75, 23)
+        Me.CancelBTN.TabIndex = 13
+        Me.CancelBTN.Text = "Cancel"
+        Me.CancelBTN.UseVisualStyleBackColor = True
         '
-        'Button1
+        'SendBTN
         '
-        Me.Button1.Location = New System.Drawing.Point(536, 125)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 13
-        Me.Button1.Text = "Send"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.SendBTN.Location = New System.Drawing.Point(536, 125)
+        Me.SendBTN.Name = "SendBTN"
+        Me.SendBTN.Size = New System.Drawing.Size(75, 23)
+        Me.SendBTN.TabIndex = 13
+        Me.SendBTN.Text = "Send"
+        Me.SendBTN.UseVisualStyleBackColor = True
         '
         'CheckVariantCombobox
         '
@@ -134,30 +134,30 @@ Partial Class CheckbookOutbox
         Me.CheckVariantCombobox.Size = New System.Drawing.Size(122, 21)
         Me.CheckVariantCombobox.TabIndex = 12
         '
-        'ComboBox1
+        'ItemTypeCMB
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Check", "Bill"})
-        Me.ComboBox1.Location = New System.Drawing.Point(301, 103)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(122, 21)
-        Me.ComboBox1.TabIndex = 12
+        Me.ItemTypeCMB.FormattingEnabled = True
+        Me.ItemTypeCMB.Items.AddRange(New Object() {"Check", "Bill"})
+        Me.ItemTypeCMB.Location = New System.Drawing.Point(301, 103)
+        Me.ItemTypeCMB.Name = "ItemTypeCMB"
+        Me.ItemTypeCMB.Size = New System.Drawing.Size(122, 21)
+        Me.ItemTypeCMB.TabIndex = 12
         '
-        'TextBox1
+        'ItemCommentTXB
         '
-        Me.TextBox1.Location = New System.Drawing.Point(258, 35)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(353, 57)
-        Me.TextBox1.TabIndex = 11
+        Me.ItemCommentTXB.Location = New System.Drawing.Point(258, 35)
+        Me.ItemCommentTXB.Multiline = True
+        Me.ItemCommentTXB.Name = "ItemCommentTXB"
+        Me.ItemCommentTXB.Size = New System.Drawing.Size(353, 57)
+        Me.ItemCommentTXB.TabIndex = 11
         '
-        'NumericUpDown1
+        'ItemValueUD
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(70, 128)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {705032704, 1, 0, 0})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(160, 20)
-        Me.NumericUpDown1.TabIndex = 10
+        Me.ItemValueUD.Location = New System.Drawing.Point(70, 128)
+        Me.ItemValueUD.Maximum = New Decimal(New Integer() {705032704, 1, 0, 0})
+        Me.ItemValueUD.Name = "ItemValueUD"
+        Me.ItemValueUD.Size = New System.Drawing.Size(160, 20)
+        Me.ItemValueUD.TabIndex = 10
         '
         'DirectoryButton
         '
@@ -441,7 +441,7 @@ Partial Class CheckbookOutbox
         Me.Text = "Outbox"
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ItemValueUD, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -473,11 +473,11 @@ Partial Class CheckbookOutbox
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Label1 As Label
     Friend WithEvents DirectoryButton As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents NumericUpDown1 As NumericUpDown
+    Friend WithEvents CancelBTN As Button
+    Friend WithEvents SendBTN As Button
+    Friend WithEvents ItemTypeCMB As ComboBox
+    Friend WithEvents ItemCommentTXB As TextBox
+    Friend WithEvents ItemValueUD As NumericUpDown
     Friend WithEvents Label2 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label

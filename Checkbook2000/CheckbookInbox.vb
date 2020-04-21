@@ -2,52 +2,51 @@
 Imports VIBE__But_on_Visual_Studio_.CoreCommands
 Imports System.ComponentModel
 
+''' <summary>Displays and manages a Checkbook inbox</summary>
 Public Class CheckbookInbox
 
-    Public ID As String
-    Private Sub CheckbookInbox_Load(sender As Object, e As EventArgs) Handles Me.Load
-        ID = VibeLogin.LogonID.Text
-        Populatelistview()
+    '--------------------------------[Variables]--------------------------------
 
+    Private ReadOnly MyUser As User
+    Public Inbox() As CheckbookMain.InboxItem
+    Private BWError As String
 
-        UMSNBRButton.Enabled = VibeMainScreen.UMSNBCheck.Checked
-        GBANKRbutton.Enabled = VibeMainScreen.GBANKCheck.Checked
-        RIVERRButton.Enabled = VibeMainScreen.RIVERCheck.Checked
+    '--------------------------------[Initialization]--------------------------------
 
+    Public Sub New(User As User, Inbox As CheckbookMain.InboxItem())
+        InitializeComponent()
+        MyUser = User
+        Me.Inbox = Inbox
+
+        UMSNBRButton.Enabled = User.UMSNB
+        GBANKRbutton.Enabled = User.GBANK
+        RIVERRButton.Enabled = User.RIVER
 
     End Sub
 
-    Sub Populatelistview()
+    Private Sub LoadingTime() Handles Me.Load
+        Populatelistview()
+    End Sub
+
+    Private Sub Populatelistview()
         UpdateGraphic(-1)
         ActionBTN.Enabled = False
         DELETTHIS.Enabled = False
 
 
-        ListView1.Clear()
-        ListView1.View = View.Details
-        ListView1.Columns.Add("Date and Time")
-        ListView1.Columns.Add("Type")
-        ListView1.Columns.Add("From")
-        ListView1.Columns.Add("Amount")
-        ListView1.Columns.Item(0).Width = 136
-        ListView1.Columns.Item(1).Width = 50
-        ListView1.Columns.Item(2).Width = 245
-        ListView1.Columns.Item(3).Width = 160
+        ListView1.Items.Clear()
         ListView1.MultiSelect = False
         ListView1.FullRowSelect = True
         ListView1.HideSelection = False
 
         Dim itemtype As String
 
-
-        For I = 0 To CheckbookMain.MessageItem.Count - 1
+        For I = 0 To Inbox.Count - 1
 
             Dim CLVI As ListViewItem
-            CLVI = New ListViewItem With {
-                .Text = CheckbookMain.MessageItem(I).Time
-            }
+            CLVI = New ListViewItem With {.Text = Inbox(I).Time}
 
-            Select Case CheckbookMain.MessageItem(I).Type
+            Select Case Inbox(I).Type
                 Case 0
                     itemtype = "Check"
                 Case 1
@@ -57,14 +56,16 @@ Public Class CheckbookInbox
             End Select
 
             CLVI.SubItems.Add(itemtype)
-            CLVI.SubItems.Add(CheckbookMain.MessageItem(I).FromName)
-            CLVI.SubItems.Add(CheckbookMain.MessageItem(I).Amount.ToString("N0") & "p")
+            CLVI.SubItems.Add(Inbox(I).FromName)
+            CLVI.SubItems.Add(Inbox(I).Amount.ToString("N0") & "p")
             ListView1.Items.Add(CLVI)
 
         Next
     End Sub
 
-    Private Sub ListView1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListView1.SelectedIndexChanged
+    '--------------------------------[Buttons]--------------------------------
+
+    Private Sub SelectedChanged() Handles ListView1.SelectedIndexChanged
         Dim I As Integer
 
         Try
@@ -73,42 +74,214 @@ Public Class CheckbookInbox
             ActionBTN.Enabled = False
             DELETTHIS.Enabled = False
             Exit Sub
-
         End Try
 
         UpdateGraphic(-1)
 
-        Select Case CheckbookMain.MessageItem(I).Type
+        Select Case Inbox(I).Type
             Case 0
-                UpdateGraphic(CheckbookMain.MessageItem(I).Type, CheckbookMain.MessageItem(I).Subtype)
-                CheckAmount.Text = CheckbookMain.MessageItem(I).Amount.ToString("N0") & "p"
-                CheckWordAmount.Text = NumberToText(CheckbookMain.MessageItem(I).Amount) & " Pecunia"
-                CheckComment.Text = CheckbookMain.MessageItem(I).Comment
-                CheckDate.Text = CheckbookMain.MessageItem(I).Time
-                CheckName.Text = CheckbookMain.MessageItem(I).FromName
-                CheckFrom.Text = CheckbookMain.MessageItem(I).FromBank
+                UpdateGraphic(Inbox(I).Type, Inbox(I).Subtype)
+                CheckAmount.Text = Inbox(I).Amount.ToString("N0") & "p"
+                CheckWordAmount.Text = NumberToText(Inbox(I).Amount) & " Pecunia"
+                CheckComment.Text = Inbox(I).Comment
+                CheckDate.Text = Inbox(I).Time
+                CheckName.Text = Inbox(I).FromName
+                CheckFrom.Text = Inbox(I).FromBank
                 CheckTo.Text = VibeMainScreen.NameLabel.Text
                 ActionBTN.Text = "Cash this check"
             Case 1
-                UpdateGraphic(CheckbookMain.MessageItem(I).Type, CheckbookMain.MessageItem(I).Subtype)
-                BillAmount.Text = CheckbookMain.MessageItem(I).Amount.ToString("N0") & "p"
-                BillComment.Text = CheckbookMain.MessageItem(I).Comment
-                BillDate.Text = CheckbookMain.MessageItem(I).Time
-                BillFrom.Text = CheckbookMain.MessageItem(I).FromBank
-                BillName.Text = CheckbookMain.MessageItem(I).FromName
+                UpdateGraphic(Inbox(I).Type, Inbox(I).Subtype)
+                BillAmount.Text = Inbox(I).Amount.ToString("N0") & "p"
+                BillComment.Text = Inbox(I).Comment
+                BillDate.Text = Inbox(I).Time
+                BillFrom.Text = Inbox(I).FromBank
+                BillName.Text = Inbox(I).FromName
                 ActionBTN.Text = "Pay this bill"
             Case Else
                 'uh do nothing
                 Exit Sub
         End Select
+
         ActionBTN.Enabled = True
         DELETTHIS.Enabled = True
 
 
     End Sub
 
-    Private Sub ChangeCheckLabelBGTo(ByVal NewColor As Color)
+    Private Sub RemoveItem() Handles DELETTHIS.Click
+        Dim servermsg = RemoCheck(MyUser.ID, ListView1.SelectedIndices(0))
+        Select Case servermsg
+            Case "E"
+                MsgBox("A server side error has occurred. Contact CHOPO!", vbExclamation)
 
+            Case "N"
+                MsgBox("There's No Check File.", vbInformation)
+                Close()
+            Case "S"
+                If Inbox.Count = 1 Then
+                    Inbox = Nothing
+                    Close()
+                End If
+                RefreshNotice.Show()
+                BackgroundWorker1.RunWorkerAsync()
+        End Select
+    End Sub
+
+    Private Sub ActionBTN_Click(sender As Object, e As EventArgs) Handles ActionBTN.Click
+        Dim I As Integer
+        I = ListView1.SelectedIndices(0)
+        Dim TheUser As String
+        If UMSNBRButton.Checked Then
+            TheUser = MyUser.ID & "\UMSNB"
+        ElseIf GBANKRbutton.Checked Then
+            TheUser = MyUser.ID & "\GBANK"
+        ElseIf RIVERRButton.Checked Then
+            TheUser = MyUser.ID & "\RIVER"
+        Else
+            MsgBox("Please Select a Bank to apply the check to, or to pay the bill from", MsgBoxStyle.Critical)
+            Exit Sub
+        End If
+
+        Dim TheSender As String
+        Dim Amount As Long
+        Dim ServerMSG As String
+
+
+        Amount = Inbox(I).Amount
+        TheSender = Inbox(I).FromBank
+
+        Select Case Inbox(I).Type
+            Case 0
+                ServerMSG = SM(TheSender, TheUser, Amount)
+                Select Case ServerMSG
+                    Case "1"
+                        MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")
+                    Case "E"
+                        MsgBox("The transaction could not be completed. The check may have bounced", vbInformation, "Transfer unsuccessful")
+                    Case "S"
+                        MsgBox("Successfully cashed the check through ViBE.", vbInformation, "Transfer Successful")
+                        RemoveItem()
+                End Select
+            Case 1
+                ServerMSG = SM(TheUser, TheSender, Amount)
+                Select Case ServerMSG
+                    Case "1"
+                        MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")
+                    Case "E"
+                        MsgBox("The transaction could not be completed. Do you have enough funds?", vbInformation, "Transfer unsuccessful")
+                    Case "S"
+                        MsgBox("The bill was successfully paid using ViBE.", vbInformation, "Transfer Successful")
+                        RemoveItem()
+                End Select
+            Case Else
+                MsgBox("Unknown transaction type", vbInformation, "Transfer unsuccessful")
+        End Select
+
+
+
+
+
+    End Sub
+
+    '--------------------------------[Background Worker]--------------------------------
+
+    Private Sub UpdateInbox() Handles BackgroundWorker1.DoWork
+        BWError = "ono"
+        Dim Servermsg = ReadChecks(MyUser.ID)
+        If Servermsg = "N" Or Servermsg = "E" Or Servermsg = "F" Then
+            BWError = Servermsg
+            Exit Sub
+        End If
+
+        Dim Doot() As String = Servermsg.Split("`")
+
+        Dim I As Integer = -1
+        Dim N As Integer = 0
+
+        Do
+            ReDim Preserve Inbox(N)
+            I += 1
+            Inbox(N).Type = Doot(I)
+            I += 1
+            Inbox(N).Time = Doot(I)
+            I += 1
+            Inbox(N).FromName = Doot(I)
+            I += 1
+            Inbox(N).FromBank = Doot(I)
+            I += 1
+            Inbox(N).Amount = Doot(I)
+            I += 1
+            Inbox(N).Comment = Doot(I)
+            N += 1
+            If I = Doot.Count - 1 Then Exit Do
+        Loop
+
+
+    End Sub
+
+    Private Sub DoneUpdatingInbox() Handles BackgroundWorker1.RunWorkerCompleted
+        If BWError = "N" Then
+            Exit Sub
+        ElseIf BWError = "F" Then
+            Close()
+            Exit Sub
+        ElseIf BWError = "E" Then
+            MsgBox("A server side error has occurred. Contact CHOPO!", vbExclamation)
+            Exit Sub
+        End If
+
+        Populatelistview()
+
+        RefreshNotice.Close()
+
+    End Sub
+
+    '--------------------------------[Other Functions]--------------------------------
+
+    Private Function NumberToText(ByVal n As Integer) As String
+
+        Select Case n
+            Case 0
+                Return ""
+
+            Case 1 To 19
+                Dim arr() As String = {"One", "Two", "Three", "Four", "Five", "Six", "Seven",
+                  "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen",
+                    "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"}
+                Return arr(n - 1) & " "
+
+            Case 20 To 99
+                Dim arr() As String = {"Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"}
+                Return arr(n \ 10 - 2) & " " & NumberToText(n Mod 10)
+
+            Case 100 To 199
+                Return "One Hundred " & NumberToText(n Mod 100)
+
+            Case 200 To 999
+                Return NumberToText(n \ 100) & "Hundred " & NumberToText(n Mod 100)
+
+            Case 1000 To 1999
+                Return "One Thousand " & NumberToText(n Mod 1000)
+
+            Case 2000 To 999999
+                Return NumberToText(n \ 1000) & "Thousand " & NumberToText(n Mod 1000)
+
+            Case 1000000 To 1999999
+                Return "One Million " & NumberToText(n Mod 1000000)
+
+            Case 1000000 To 999999999
+                Return NumberToText(n \ 1000000) & "Millions " & NumberToText(n Mod 1000000)
+
+            Case 1000000000 To 1999999999
+                Return "One Billion " & NumberToText(n Mod 1000000000)
+
+            Case Else
+                Return NumberToText(n \ 1000000000) & "Billion " _
+                  & NumberToText(n Mod 1000000000)
+        End Select
+    End Function
+
+    Private Sub ChangeCheckLabelBGTo(ByVal NewColor As Color)
         CheckComment.BackColor = NewColor
         CheckDate.BackColor = NewColor
         CheckName.BackColor = NewColor
@@ -127,8 +300,7 @@ Public Class CheckbookInbox
         CheckWordAmount.ForeColor = NewColor
     End Sub
 
-
-    Sub UpdateGraphic(type As Integer, Optional Subtype As Integer = 0)
+    Private Sub UpdateGraphic(type As Integer, Optional Subtype As Integer = 0)
         Dim status As Boolean = True
         Select Case type
             Case 0
@@ -251,174 +423,4 @@ Public Class CheckbookInbox
     End Sub
 
 
-
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        CheckbookMain.bwerror = "ono"
-        Dim Servermsg = ReadChecks(ID)
-        If Servermsg = "N" Or Servermsg = "E" Or Servermsg = "F" Then
-            CheckbookMain.bwerror = Servermsg
-            Exit Sub
-        End If
-
-        Dim Doot() As String = Servermsg.Split("`")
-
-        Dim I As Integer = -1
-        Dim N As Integer = 0
-
-        Do
-            ReDim Preserve CheckbookMain.MessageItem(N)
-            I += 1
-            CheckbookMain.MessageItem(N).Type = Doot(I)
-            I += 1
-            CheckbookMain.MessageItem(N).Time = Doot(I)
-            I += 1
-            CheckbookMain.MessageItem(N).FromName = Doot(I)
-            I += 1
-            CheckbookMain.MessageItem(N).FromBank = Doot(I)
-            I += 1
-            CheckbookMain.MessageItem(N).Amount = Doot(I)
-            I += 1
-            CheckbookMain.MessageItem(N).Comment = Doot(I)
-            N += 1
-            If I = Doot.Count - 1 Then Exit Do
-        Loop
-
-
-    End Sub
-
-    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
-        If CheckbookMain.bwerror = "N" Then
-            Exit Sub
-        ElseIf CheckbookMain.bwerror = "F" Then
-            Close()
-            Exit Sub
-        ElseIf CheckbookMain.bwerror = "E" Then
-            MsgBox("A server side error has occurred. Contact CHOPO!", vbExclamation)
-            Exit Sub
-        End If
-
-        Populatelistview()
-
-        RefreshNotice.Close()
-
-
-
-    End Sub
-
-    Private Sub RemoveItem() Handles DELETTHIS.Click
-        Dim servermsg = RemoCheck(ID, ListView1.SelectedIndices(0))
-        Select Case servermsg
-            Case "E"
-                MsgBox("A server side error has occurred. Contact CHOPO!", vbExclamation)
-
-            Case "N"
-                MsgBox("There's No Check File.", vbInformation)
-                Close()
-            Case "S"
-                If CheckbookMain.MessageItem.Count = 1 Then
-                    CheckbookMain.InboxButton.Enabled = False
-                    Close()
-                End If
-                RefreshNotice.Show()
-                BackgroundWorker1.RunWorkerAsync()
-        End Select
-    End Sub
-
-    Private Sub ActionBTN_Click(sender As Object, e As EventArgs) Handles ActionBTN.Click
-        Dim I As Integer
-        I = ListView1.SelectedIndices(0)
-        Dim TheUser As String
-        If UMSNBRButton.Checked Then
-            TheUser = ID & "\UMSNB"
-        ElseIf GBANKRbutton.Checked Then
-            TheUser = ID & "\GBANK"
-        ElseIf RIVERRButton.Checked Then
-            TheUser = ID & "\RIVER"
-        Else
-            MsgBox("Please Select a Bank to apply the check to, or to pay the bill from", MsgBoxStyle.Critical)
-            Exit Sub
-        End If
-
-        Dim TheSender As String
-        Dim Amount As Long
-        Dim ServerMSG As String
-
-
-        Amount = CheckbookMain.MessageItem(I).Amount
-        TheSender = CheckbookMain.MessageItem(I).FromBank
-
-        Select Case CheckbookMain.MessageItem(I).Type
-            Case 0
-                ServerMSG = SM(TheSender, TheUser, Amount)
-                Select Case ServerMSG
-                    Case "1"
-                        MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")
-                    Case "E"
-                        MsgBox("The transaction could not be completed. The check may have bounced", vbInformation, "Transfer unsuccessful")
-                    Case "S"
-                        MsgBox("Successfully cashed the check through ViBE.", vbInformation, "Transfer Successful")
-                        RemoveItem()
-                End Select
-            Case 1
-                ServerMSG = SM(TheUser, TheSender, Amount)
-                Select Case ServerMSG
-                    Case "1"
-                        MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")
-                    Case "E"
-                        MsgBox("The transaction could not be completed. Do you have enough funds?", vbInformation, "Transfer unsuccessful")
-                    Case "S"
-                        MsgBox("The bill was successfully paid using ViBE.", vbInformation, "Transfer Successful")
-                        RemoveItem()
-                End Select
-            Case Else
-                MsgBox("Unknown transaction type", vbInformation, "Transfer unsuccessful")
-        End Select
-
-
-
-
-
-    End Sub
-    Function NumberToText(ByVal n As Integer) As String
-
-        Select Case n
-            Case 0
-                Return ""
-
-            Case 1 To 19
-                Dim arr() As String = {"One", "Two", "Three", "Four", "Five", "Six", "Seven",
-                  "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen",
-                    "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"}
-                Return arr(n - 1) & " "
-
-            Case 20 To 99
-                Dim arr() As String = {"Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"}
-                Return arr(n \ 10 - 2) & " " & NumberToText(n Mod 10)
-
-            Case 100 To 199
-                Return "One Hundred " & NumberToText(n Mod 100)
-
-            Case 200 To 999
-                Return NumberToText(n \ 100) & "Hundred " & NumberToText(n Mod 100)
-
-            Case 1000 To 1999
-                Return "One Thousand " & NumberToText(n Mod 1000)
-
-            Case 2000 To 999999
-                Return NumberToText(n \ 1000) & "Thousand " & NumberToText(n Mod 1000)
-
-            Case 1000000 To 1999999
-                Return "One Million " & NumberToText(n Mod 1000000)
-
-            Case 1000000 To 999999999
-                Return NumberToText(n \ 1000000) & "Millions " & NumberToText(n Mod 1000000)
-
-            Case 1000000000 To 1999999999
-                Return "One Billion " & NumberToText(n Mod 1000000000)
-
-            Case Else
-                Return NumberToText(n \ 1000000000) & "Billion " _
-                  & NumberToText(n Mod 1000000000)
-        End Select
-    End Function
 End Class

@@ -1,12 +1,23 @@
-﻿Public Class LBLSender
+﻿
+''' <summary>Uses the LBL protocal to send a file to the server</summary>
+Public Class LBLSender
 
-    Public FileToSend As String
+    '--------------------------------[Variables]--------------------------------
+
+    Private ReadOnly FileToSend As String
     Private CurrentPercentage As Double = 0
     Private CurrentHeader As String = "Initializing File Transfer"
     Private CurrentFooter As String = "Reading File "
     Private WebLocation As String = ""
 
-    Private Sub LBLSender_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    '--------------------------------[Initialization]--------------------------------
+
+    Public Sub New(File As String)
+        InitializeComponent()
+        FileToSend = File
+    End Sub
+
+    Private Sub LBLSender_Load() Handles MyBase.Load
         setprogress(0)
         Quit.Enabled = False
         Text = "Sending file " & FileToSend
@@ -14,6 +25,8 @@
         Footer.Text = "Reading File " & FileToSend
         LBLBackgroundSender.RunWorkerAsync()
     End Sub
+
+    '--------------------------------[Main Background Worker]--------------------------------
 
     Private Sub LBLActualSender() Handles LBLBackgroundSender.DoWork
 
@@ -76,9 +89,13 @@
         ProgressBar.Width = 500 * progress
     End Sub
 
+    '--------------------------------[The one button]--------------------------------
+
     Private Sub Quit_Click(sender As Object, e As EventArgs) Handles Quit.Click
         Close()
     End Sub
+
+    '--------------------------------[Window Moving Functions]--------------------------------
 
     ''' <summary>
     ''' This has to do with moving the window

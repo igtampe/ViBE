@@ -23,28 +23,28 @@ Partial Class CertificationWindow
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(CertificationWindow))
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.BankPictureBox = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.AnimatedPictureBox = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ClickOKtoOK = New System.Windows.Forms.Button()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.WaitForRender = New System.ComponentModel.BackgroundWorker()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BankPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.AnimatedPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'PictureBox1
+        'BankPictureBox
         '
-        Me.PictureBox1.ErrorImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.LemonInvest1
-        Me.PictureBox1.Image = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.LemonInvest1
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(254, 54)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PictureBox1.TabIndex = 1
-        Me.PictureBox1.TabStop = False
+        Me.BankPictureBox.ErrorImage = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.LemonInvest1
+        Me.BankPictureBox.Image = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.LemonInvest1
+        Me.BankPictureBox.Location = New System.Drawing.Point(12, 12)
+        Me.BankPictureBox.Name = "BankPictureBox"
+        Me.BankPictureBox.Size = New System.Drawing.Size(254, 54)
+        Me.BankPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.BankPictureBox.TabIndex = 1
+        Me.BankPictureBox.TabStop = False
         '
         'Label1
         '
@@ -56,15 +56,15 @@ Partial Class CertificationWindow
         Me.Label1.Text = "Certifying..."
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'PictureBox2
+        'AnimatedPictureBox
         '
-        Me.PictureBox2.Image = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.VibeLoad
-        Me.PictureBox2.Location = New System.Drawing.Point(12, 101)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(254, 71)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PictureBox2.TabIndex = 3
-        Me.PictureBox2.TabStop = False
+        Me.AnimatedPictureBox.Image = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.VibeLoad
+        Me.AnimatedPictureBox.Location = New System.Drawing.Point(12, 101)
+        Me.AnimatedPictureBox.Name = "AnimatedPictureBox"
+        Me.AnimatedPictureBox.Size = New System.Drawing.Size(254, 71)
+        Me.AnimatedPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.AnimatedPictureBox.TabIndex = 3
+        Me.AnimatedPictureBox.TabStop = False
         '
         'Label2
         '
@@ -109,22 +109,22 @@ Partial Class CertificationWindow
         Me.Controls.Add(Me.ClickOKtoOK)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.PictureBox2)
+        Me.Controls.Add(Me.AnimatedPictureBox)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.BankPictureBox)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "CertificationWindow"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BankPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.AnimatedPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents BankPictureBox As PictureBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents AnimatedPictureBox As PictureBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents ClickOKtoOK As Button

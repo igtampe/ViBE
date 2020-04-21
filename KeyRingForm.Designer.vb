@@ -32,7 +32,7 @@ Partial Class KeyringForm
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.DeleteButton = New System.Windows.Forms.Button()
         Me.ActionButton = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.QuitBTN = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.AccountNumberLabel = New System.Windows.Forms.Label()
@@ -44,8 +44,10 @@ Partial Class KeyringForm
         'ListView1
         '
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
+        Me.ListView1.FullRowSelect = True
         Me.ListView1.HideSelection = False
         Me.ListView1.Location = New System.Drawing.Point(12, 65)
+        Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(297, 200)
         Me.ListView1.TabIndex = 0
@@ -122,14 +124,14 @@ Partial Class KeyringForm
         Me.ActionButton.Text = "Log in"
         Me.ActionButton.UseVisualStyleBackColor = True
         '
-        'Button4
+        'QuitBTN
         '
-        Me.Button4.Location = New System.Drawing.Point(256, 351)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(75, 23)
-        Me.Button4.TabIndex = 2
-        Me.Button4.Text = "Quit"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.QuitBTN.Location = New System.Drawing.Point(256, 351)
+        Me.QuitBTN.Name = "QuitBTN"
+        Me.QuitBTN.Size = New System.Drawing.Size(75, 23)
+        Me.QuitBTN.TabIndex = 2
+        Me.QuitBTN.Text = "Quit"
+        Me.QuitBTN.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -189,7 +191,7 @@ Partial Class KeyringForm
         Me.Controls.Add(Me.AccountNumberLabel)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button4)
+        Me.Controls.Add(Me.QuitBTN)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.ListView1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -210,7 +212,7 @@ Partial Class KeyringForm
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents ActionButton As Button
     Friend WithEvents DeleteButton As Button
-    Friend WithEvents Button4 As Button
+    Friend WithEvents QuitBTN As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents AccountNumberLabel As Label

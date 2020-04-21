@@ -1,54 +1,56 @@
 ﻿Imports VIBE__But_on_Visual_Studio_.CheckbookCommands
+
+''' <summary>Handles the creation of checks and bills</summary>
 Public Class CheckbookOutbox
-    Private Sub DirectoryButton_Click(sender As Object, e As EventArgs) Handles DirectoryButton.Click
-        DirWindow.ShowDialog()
-    End Sub
 
-    Private Sub CheckbookInbox_Load(sender As Object, e As EventArgs) Handles Me.Load
+    '--------------------------------[Variables]--------------------------------
+
+    Private ReadOnly MyUser As User
+
+    '--------------------------------[Initialization]--------------------------------
+
+    Public Sub New(User As User, Optional ContractusMode As Boolean = False, Optional ToID As String = "", Optional Value As Long = 0, Optional Description As String = "")
+        InitializeComponent()
+        MyUser = User
+
+        CheckName.Text = User.ToString
+        BillName.Text = User.ToString
+
         BillGraphic(False)
-        CheckGraphic(False)
 
-        CheckName.Text = VibeMainScreen.NameLabel.Text
-        BillName.Text = VibeMainScreen.NameLabel.Text
+        UMSNBRButton.Enabled = User.UMSNB
+        GBANKRbutton.Enabled = User.GBANK
+        RIVERRButton.Enabled = User.RIVER
 
-        CheckDate.Text = DateTime.Now
-        BillDate.Text = DateTime.Now
-
-
-
-        UMSNBRButton.Enabled = VibeMainScreen.UMSNBCheck.Checked
-        GBANKRbutton.Enabled = VibeMainScreen.GBANKCheck.Checked
-        RIVERRButton.Enabled = VibeMainScreen.RIVERCheck.Checked
-
-        UMSNBRButton.Checked = False
-        GBANKRbutton.Checked = False
-        RIVERRButton.Checked = False
         ToBank.Text = ""
-        NumericUpDown1.Value = 0
-        TextBox1.Text = ""
+        ItemValueUD.Value = 0
+        ItemCommentTXB.Text = ""
         CheckWordAmount.Text = ""
-        ComboBox1.SelectedIndex = 0
+        ItemTypeCMB.SelectedIndex = 0
         CheckVariantCombobox.SelectedIndex = 0
         CheckGraphic(True)
 
-
-        If Application.OpenForms().OfType(Of ConMain).Any Then
-
+        If ContractusMode Then
             CheckGraphic(False)
             BillGraphic(True)
-            ComboBox1.SelectedIndex = 1
-            ToBank.Text = ConMain.UserContracts(ConMain.SelectedActiveContract).FromID
-            NumericUpDown1.Value = ConMain.UserContracts(ConMain.SelectedActiveContract).TopBid
-            TextBox1.Text = "Payment for '" & ConMain.UserContracts(ConMain.SelectedActiveContract).Name & "'"
+            ItemTypeCMB.SelectedIndex = 1
 
+            ToBank.Text = ToID
+            ItemValueUD.Value = Value
+            ItemCommentTXB.Text = "Payment for '" & Description & "'"
         End If
-
-
 
     End Sub
 
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
-        Select Case ComboBox1.SelectedIndex
+    Private Sub LoadingTime() Handles Me.Load
+        CheckDate.Text = DateTime.Now
+        BillDate.Text = DateTime.Now
+    End Sub
+
+    '--------------------------------[Buttons]--------------------------------
+
+    Private Sub ItemTypeChange() Handles ItemTypeCMB.SelectedIndexChanged
+        Select Case ItemTypeCMB.SelectedIndex
             Case 0
                 BillGraphic(False)
                 CheckGraphic(True)
@@ -62,90 +64,63 @@ Public Class CheckbookOutbox
 
     End Sub
 
-    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
+    Private Sub ItemValueChanged() Handles ItemValueUD.ValueChanged
         Try
-            CheckAmount.Text = NumericUpDown1.Value.ToString("N0") & "p"
-            CheckWordAmount.Text = NumberToText(NumericUpDown1.Value) & " Pecunia"
-            BillAmount.Text = NumericUpDown1.Value.ToString("N0") & "p"
+            CheckAmount.Text = ItemValueUD.Value.ToString("N0") & "p"
+            CheckWordAmount.Text = NumberToText(ItemValueUD.Value) & " Pecunia"
+            BillAmount.Text = ItemValueUD.Value.ToString("N0") & "p"
         Catch
         End Try
-
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+    Private Sub CommentChanged() Handles ItemCommentTXB.TextChanged
         Try
-            CheckComment.Text = TextBox1.Text
-            BillComment.Text = TextBox1.Text
-        Catch ex As Exception
-
+            CheckComment.Text = ItemCommentTXB.Text
+            BillComment.Text = ItemCommentTXB.Text
+        Catch
         End Try
     End Sub
 
-    Sub BillGraphic(Status As Boolean)
-        BillAmount.Visible = Status
-        BillComment.Visible = Status
-        BillDate.Visible = Status
-        BillFrom.Visible = Status
-        BillName.Visible = Status
-
-        Select Case Status
-            Case True
-                PictureBox1.Image = My.Resources.Bill
-            Case False
-                PictureBox1.Image = Nothing
-        End Select
-
-
-    End Sub
-
-    Sub CheckGraphic(Status As Boolean)
-        CheckAmount.Visible = Status
-        CheckComment.Visible = Status
-        CheckDate.Visible = Status
-        CheckName.Visible = Status
-        CheckTo.Visible = Status
-        CheckFrom.Visible = Status
-        CheckWordAmount.Visible = Status
-        CheckVariantCombobox.Enabled = Status
-
-
-        Select Case Status
-            Case True
-                CheckVariantCombobox_SelectedIndexChanged()
-            Case False
-                PictureBox1.Image = Nothing
-        End Select
-
-    End Sub
-
-    Private Sub UMSNBRButton_CheckedChanged(sender As Object, e As EventArgs) Handles UMSNBRButton.CheckedChanged
+    Private Sub UMSNBSelected() Handles UMSNBRButton.CheckedChanged
         If UMSNBRButton.Checked Then
-            CheckFrom.Text = CheckbookMain.ID & "\UMSNB"
-            BillFrom.Text = CheckbookMain.ID & "\UMSNB"
+            CheckFrom.Text = MyUser.ID & "\UMSNB"
+            BillFrom.Text = MyUser.ID & "\UMSNB"
             BalanceLabel.Text = VibeMainScreen.UMSNBBLabel.Text
         End If
     End Sub
 
-    Private Sub GBANKRbutton_CheckedChanged(sender As Object, e As EventArgs) Handles GBANKRbutton.CheckedChanged
+    Private Sub GBANKSelected() Handles GBANKRbutton.CheckedChanged
         If GBANKRbutton.Checked Then
-            CheckFrom.Text = CheckbookMain.ID & "\GBANK"
-            BillFrom.Text = CheckbookMain.ID & "\GBANK"
+            CheckFrom.Text = MyUser.ID & "\GBANK"
+            BillFrom.Text = MyUser.ID & "\GBANK"
             BalanceLabel.Text = VibeMainScreen.GBANKBLabel.Text
         End If
     End Sub
 
-    Private Sub RIVERRButton_CheckedChanged(sender As Object, e As EventArgs) Handles RIVERRButton.CheckedChanged
+    Private Sub RIVERRSelected() Handles RIVERRButton.CheckedChanged
         If RIVERRButton.Checked Then
-            CheckFrom.Text = CheckbookMain.ID & "\RIVER"
-            BillFrom.Text = CheckbookMain.ID & "\RIVER"
+            CheckFrom.Text = MyUser.ID & "\RIVER"
+            BillFrom.Text = MyUser.ID & "\RIVER"
             BalanceLabel.Text = VibeMainScreen.RIVERBLabel.Text
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub DirectoryButton_Click(sender As Object, e As EventArgs) Handles DirectoryButton.Click
+        Dim CheckbookDirectory As DirWindow = New DirWindow(DirWindow.DirectoryMode.Checkbook)
+
+        CheckbookDirectory.ShowDialog()
+
+        If CheckbookDirectory.Commit Then
+            ToBank.Text = CheckbookDirectory.MyReturn.Split(":")(0)
+            CheckTo.Text = CheckbookDirectory.MyReturn.Split(":")(1) & " (" & CheckbookDirectory.MyReturn.Split(":")(0) & ")"
+        End If
+
+    End Sub
+
+    Private Sub SendIt() Handles SendBTN.Click
         'send\
         '0`12/4/2018 7:42:42 PM`A Test Account`57174\UMSNB`100`This is a Check
-        Dim Type As Integer = ComboBox1.SelectedIndex
+        Dim Type As Integer = ItemTypeCMB.SelectedIndex
         Dim Time As String = DateTime.Now.ToString
         Dim Name As String = VibeMainScreen.NameLabel.Text
         Dim bank As String = VibeLogin.LogonID.Text
@@ -159,9 +134,9 @@ Public Class CheckbookOutbox
             bank &= "\RIVER"
         End If
 
-        Dim amount As Long = NumericUpDown1.Value
+        Dim amount As Long = ItemValueUD.Value
         Dim destination As String = ToBank.Text
-        Dim Comment As String = TextBox1.Text
+        Dim Comment As String = ItemCommentTXB.Text
         'OLD: 0`12/4/2018 7:42:42 PM`A Test Account`57174\UMSNB`100`This is a Check
         'NEW: 0`12/4/2018 7:42:42 PM`A Test Account`57174\UMSNB`100`VariantID~This is a Check
         'Split the comment again with the ~ character, the second one will then be the actual comment, the first will be the color
@@ -185,13 +160,47 @@ Public Class CheckbookOutbox
 
         End Select
 
+    End Sub
 
+    Private Sub Nevermind() Handles CancelBTN.Click
+        Close()
+    End Sub
 
+    '--------------------------------[Other Functions]--------------------------------
+
+    Sub BillGraphic(Status As Boolean)
+        BillAmount.Visible = Status
+        BillComment.Visible = Status
+        BillDate.Visible = Status
+        BillFrom.Visible = Status
+        BillName.Visible = Status
+
+        Select Case Status
+            Case True
+                PictureBox1.Image = My.Resources.Bill
+            Case False
+                PictureBox1.Image = Nothing
+        End Select
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Close()
+    Sub CheckGraphic(Status As Boolean)
+        CheckAmount.Visible = Status
+        CheckComment.Visible = Status
+        CheckDate.Visible = Status
+        CheckName.Visible = Status
+        CheckTo.Visible = Status
+        CheckFrom.Visible = Status
+        CheckWordAmount.Visible = Status
+        CheckVariantCombobox.Enabled = Status
+
+        Select Case Status
+            Case True
+                CheckVariantCombobox_SelectedIndexChanged()
+            Case False
+                PictureBox1.Image = Nothing
+        End Select
+
     End Sub
 
     Function NumberToText(ByVal n As Long) As String

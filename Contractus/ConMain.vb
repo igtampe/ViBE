@@ -30,8 +30,8 @@ Public Class ConMain
 
 
     Sub OKTimeToBootUp() Handles Me.Load
-        UserID = VibeLogin.LogonID.Text
-        UserName = VibeMainScreen.Username
+        UserID = VibeMainScreen.CurrentUser.ID
+        UserName = VibeMainScreen.CurrentUser.Username
         AllButtons(False)
         AllContracts = Nothing
         ActiveContractsExist = Nothing
@@ -39,7 +39,7 @@ Public Class ConMain
         ActiveContractsExist = True
         AcConLVIEW.Visible = True
         AvConLVIEW.Visible = True
-        NameLabel.Text = VibeMainScreen.NameLabel.Text
+        NameLabel.Text = VibeMainScreen.CurrentUser.ToString
         AmountLabel.Text = ""
 
 
@@ -99,7 +99,8 @@ Public Class ConMain
     Private Sub SendBillBTN_Click(sender As Object, e As EventArgs) Handles SendBillBTN.Click
         Select Case MsgBox("Are you sure you want to send a bill? This will mark your contract as complete!", MsgBoxStyle.YesNo)
             Case DialogResult.Yes
-                CheckbookOutbox.ShowDialog()
+                Dim BillMaker As CheckbookOutbox = New CheckbookOutbox(VibeMainScreen.CurrentUser, True, UserContracts(SelectedActiveContract).FromID, UserContracts(SelectedActiveContract).TopBid, UserContracts(SelectedActiveContract).Name)
+                BillMaker.ShowDialog()
                 If MsgBox("Are you sure you want to mark this contract as complete?", MsgBoxStyle.YesNo) = DialogResult.Yes Then
                     Select Case RemoveContract(UserContracts(SelectedActiveContract).ID, UserID)
                         Case "E"

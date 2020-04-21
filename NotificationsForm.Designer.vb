@@ -28,10 +28,10 @@ Partial Class NotificationsForm
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.RemoveNotifBTN = New System.Windows.Forms.Button()
+        Me.OKBTN = New System.Windows.Forms.Button()
         Me.GetNotificationsBW = New System.ComponentModel.BackgroundWorker()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.ClearNotifsBTN = New System.Windows.Forms.Button()
         Me.RemoveNotificationBW = New System.ComponentModel.BackgroundWorker()
         Me.ClearAllNotificationsBW = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
@@ -39,9 +39,11 @@ Partial Class NotificationsForm
         'ListView1
         '
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
+        Me.ListView1.FullRowSelect = True
         Me.ListView1.HideSelection = False
         Me.ListView1.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1})
         Me.ListView1.Location = New System.Drawing.Point(12, 37)
+        Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(454, 254)
         Me.ListView1.TabIndex = 0
@@ -68,35 +70,35 @@ Partial Class NotificationsForm
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Notifications:"
         '
-        'Button1
+        'RemoveNotifBTN
         '
-        Me.Button1.Location = New System.Drawing.Point(310, 297)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Remove"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.RemoveNotifBTN.Location = New System.Drawing.Point(310, 297)
+        Me.RemoveNotifBTN.Name = "RemoveNotifBTN"
+        Me.RemoveNotifBTN.Size = New System.Drawing.Size(75, 23)
+        Me.RemoveNotifBTN.TabIndex = 2
+        Me.RemoveNotifBTN.Text = "Remove"
+        Me.RemoveNotifBTN.UseVisualStyleBackColor = True
         '
-        'Button2
+        'OKBTN
         '
-        Me.Button2.Location = New System.Drawing.Point(391, 297)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 3
-        Me.Button2.Text = "OK"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.OKBTN.Location = New System.Drawing.Point(391, 297)
+        Me.OKBTN.Name = "OKBTN"
+        Me.OKBTN.Size = New System.Drawing.Size(75, 23)
+        Me.OKBTN.TabIndex = 3
+        Me.OKBTN.Text = "OK"
+        Me.OKBTN.UseVisualStyleBackColor = True
         '
         'GetNotificationsBW
         '
         '
-        'Button3
+        'ClearNotifsBTN
         '
-        Me.Button3.Location = New System.Drawing.Point(12, 297)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(147, 23)
-        Me.Button3.TabIndex = 4
-        Me.Button3.Text = "Clear All Notifications"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.ClearNotifsBTN.Location = New System.Drawing.Point(12, 297)
+        Me.ClearNotifsBTN.Name = "ClearNotifsBTN"
+        Me.ClearNotifsBTN.Size = New System.Drawing.Size(147, 23)
+        Me.ClearNotifsBTN.TabIndex = 4
+        Me.ClearNotifsBTN.Text = "Clear All Notifications"
+        Me.ClearNotifsBTN.UseVisualStyleBackColor = True
         '
         'RemoveNotificationBW
         '
@@ -109,9 +111,9 @@ Partial Class NotificationsForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(478, 329)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.ClearNotifsBTN)
+        Me.Controls.Add(Me.OKBTN)
+        Me.Controls.Add(Me.RemoveNotifBTN)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ListView1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -126,12 +128,12 @@ Partial Class NotificationsForm
 
     Friend WithEvents ListView1 As ListView
     Friend WithEvents Label1 As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents RemoveNotifBTN As Button
+    Friend WithEvents OKBTN As Button
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents GetNotificationsBW As System.ComponentModel.BackgroundWorker
-    Friend WithEvents Button3 As Button
+    Friend WithEvents ClearNotifsBTN As Button
     Friend WithEvents RemoveNotificationBW As System.ComponentModel.BackgroundWorker
     Friend WithEvents ClearAllNotificationsBW As System.ComponentModel.BackgroundWorker
 End Class

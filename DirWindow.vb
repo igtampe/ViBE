@@ -1,10 +1,28 @@
 ﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
+
+''' <summary>Shows the UMSWEB Directory</summary>
 Public Class DirWindow
 
-    Public sortcolumn
-    Public DirectoryArray() As String
-    Public ServerMSG As String
-    Public Structure DirectoryTable
+    '--------------------------------[Variables]--------------------------------
+
+    ''' <summary>Mode of this directory window</summary>
+    Private ReadOnly mode As DirectoryMode
+
+    ''' <summary>Different modes for the directory window</summary>
+    Public Enum DirectoryMode As Integer
+        Login
+        SendMoney
+        Checkbook
+    End Enum
+
+    Private DirectoryArray() As String
+    Private ServerMSG As String
+
+    Public Commit As Boolean = False
+    Public MyReturn As String = ""
+
+    ''' <summary>Structure to hold directory items</summary>
+    Public Structure DirectoryItem
 
         Public ID As String
         Public Name As String
@@ -12,34 +30,40 @@ Public Class DirWindow
 
     End Structure
 
-    Public DirectoryUser() As DirectoryTable
+    Public DirectoryUsers() As DirectoryItem
 
-    Private Sub DootDootDootDootDoot(Sender As Object, e As EventArgs) Handles Me.Load
-        If Application.OpenForms().OfType(Of SendMonet).Any Then
+    '--------------------------------[Initialization]--------------------------------
 
-            BankGroupBox.Enabled = True
-            SelectButton.Visible = True
+    Public Sub New(Mode As DirectoryMode)
+        InitializeComponent()
+        Me.mode = Mode
+    End Sub
 
-            OKButton.Visible = False
-            CheckbookOK.Visible = False
+    Private Sub LoadingTime() Handles Me.Load
 
-        ElseIf Application.OpenForms().OfType(Of CheckbookOutbox).Any Then
-            BankGroupBox.Enabled = False
-            SelectButton.Visible = False
+        Select Case mode
+            Case DirectoryMode.Login
+                BankGroupBox.Enabled = False
+                SelectButton.Visible = False
 
-            OKButton.Visible = False
-            CheckbookOK.Visible = True
+                OKButton.Visible = True
+                CheckbookOK.Visible = False
 
+            Case DirectoryMode.SendMoney
+                BankGroupBox.Enabled = True
+                SelectButton.Visible = True
 
-        Else
-            'From VibeLOGIN
-            BankGroupBox.Enabled = False
-            SelectButton.Visible = False
+                OKButton.Visible = False
+                CheckbookOK.Visible = False
 
-            OKButton.Visible = True
-            CheckbookOK.Visible = False
+            Case DirectoryMode.Checkbook
+                BankGroupBox.Enabled = False
+                SelectButton.Visible = False
 
-        End If
+                OKButton.Visible = False
+                CheckbookOK.Visible = True
+
+        End Select
 
         LoadingLabel.Text = "Loading..."
         DirectoryView.Items.Clear()
@@ -47,78 +71,69 @@ Public Class DirWindow
 
     End Sub
 
-    Private Sub LoadAllTheCosos(Sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub Showtime() Handles Me.Shown
         RefreshNotice.Show()
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
+    '--------------------------------[Buttons]--------------------------------
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles OKButton.Click
+    ''' <summary>Handles the OK action during Login Mode</summary>
+    Private Sub ViBELoginOK() Handles OKButton.Click
 
-        Dim Selectedindex As Integer
-        Try
-            Selectedindex = DirectoryView.SelectedIndices(0)
-        Catch
-            Exit Sub
-        End Try
+        If HasUserSelected() Then
+            Commit = True
+            MyReturn = DirectoryView.SelectedItems(0).Text
 
-
-        If Selectedindex = -1 Then
-
-            MsgBox("Please select a User", vbCritical, "ViBE")
-            Exit Sub
-
+            Close()
         End If
-
-        VibeLogin.LogonID.Text = DirectoryView.SelectedItems(0).Text
-        VibeLogin.LogonPIN.Text = ""
-
-
-        Close()
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SelectButton.Click
-        'Send Info to the requested field
+    ''' <summary>Handles the OK action during SendMoney Mode</summary>
+    Private Sub SendMonetOK() Handles SelectButton.Click
 
-        Dim Bank As String
-        Dim Selectedindex As Integer
-        Try
-            Selectedindex = DirectoryView.SelectedIndices(0)
-        Catch
-            Exit Sub
-        End Try
+        If HasUserSelected() Then
 
-        Bank = "NO"
-        If UMSNBRButton.Checked Then Bank = "UMSNB"
-        If GBANKRButton.Checked Then Bank = "GBANK"
-        If RIVERRButton.Checked Then Bank = "RIVER"
+            Dim Bank As String = "NO"
+            If UMSNBRButton.Checked Then Bank = "UMSNB"
+            If GBANKRButton.Checked Then Bank = "GBANK"
+            If RIVERRButton.Checked Then Bank = "RIVER"
 
-        If Selectedindex = -1 Then
+            If Bank = "NO" Then
+                MsgBox("Please select a destination bank", vbCritical, "ViBE")
+                Exit Sub
+            End If
 
-            MsgBox("Please select who you will ~ViBE~ money to", vbCritical, "ViBE")
-            Exit Sub
+            Commit = True
+            MyReturn = DirectoryView.SelectedItems(0).Text & "\" & Bank
+            Close()
 
         End If
 
-        If Bank = "NO" Then
+    End Sub
 
-            MsgBox("Please select a destination bank", vbCritical, "ViBE")
-            Exit Sub
+    ''' <summary>Handles the OK action during Checkbook Mode</summary>
+    Private Sub CheckbookOK_Click() Handles CheckbookOK.Click
+
+        If HasUserSelected() Then
+
+            Commit = True
+
+            ''57174: Igtampe
+            MyReturn = DirectoryView.SelectedItems(0).Text & ":" & DirectoryView.SelectedItems(0).SubItems(1).Text
+
+            Close()
 
         End If
 
-
-        SendMonet.DestinationBox.Text = DirectoryView.SelectedItems(0).Text & "\" & Bank
-        Close()
-
-
     End Sub
 
-    Private Sub CancelButton_Click(sender As Object, e As EventArgs) Handles NoNoButton.Click
+    Private Sub Nevermind() Handles NoNoButton.Click
         Close()
     End Sub
 
+    ''' <summary>If we're in sendmoney mode, this directory window will grab the info of the selected user</summary>
     Private Sub HeDidAClick() Handles DirectoryView.SelectedIndexChanged
         Dim Selectedindex As Integer
 
@@ -129,7 +144,7 @@ Public Class DirWindow
         End Try
 
 
-        If Application.OpenForms().OfType(Of SendMonet).Any Then
+        If mode = DirectoryMode.SendMoney Then
 
             UMSNBRButton.Enabled = False
             GBANKRButton.Enabled = False
@@ -139,8 +154,6 @@ Public Class DirWindow
             NoNoButton.Enabled = False
             DirectoryView.Enabled = False
             SearchBox.Enabled = False
-
-
 
             Dim INFO() As String
 
@@ -159,7 +172,10 @@ Public Class DirWindow
 
     End Sub
 
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+    '--------------------------------[Background Worker]--------------------------------
+
+    ''' <summary>Gets the directory from the server</summary>
+    Private Sub GetDirBW() Handles BackgroundWorker1.DoWork
 
         ServerMSG = GetDirectory()
 
@@ -167,26 +183,27 @@ Public Class DirWindow
         Dim N As Integer
         Dim StringProcessor() As String
 
-        ReDim DirectoryUser(DirectoryArray.Count - 1)
+        ReDim DirectoryUsers(DirectoryArray.Count - 1)
 
         For N = 0 To DirectoryArray.Count - 1
             StringProcessor = DirectoryArray(N).Split(":")
-            DirectoryUser(N).ID = StringProcessor(0)
-            DirectoryUser(N).Name = StringProcessor(1)
-            If DirectoryUser(N).Name.EndsWith(" (Corp.)") Then
-                DirectoryUser(N).Name = DirectoryUser(N).Name.Replace(" (Corp.)", "")
-                DirectoryUser(N).Category = 1
-            ElseIf DirectoryUser(N).Name.EndsWith(" (Gov.)") Then
-                DirectoryUser(N).Name = DirectoryUser(N).Name.Replace(" (Gov.)", "")
-                DirectoryUser(N).Category = 2
+            DirectoryUsers(N).ID = StringProcessor(0)
+            DirectoryUsers(N).Name = StringProcessor(1)
+            If DirectoryUsers(N).Name.EndsWith(" (Corp.)") Then
+                DirectoryUsers(N).Name = DirectoryUsers(N).Name.Replace(" (Corp.)", "")
+                DirectoryUsers(N).Category = 1
+            ElseIf DirectoryUsers(N).Name.EndsWith(" (Gov.)") Then
+                DirectoryUsers(N).Name = DirectoryUsers(N).Name.Replace(" (Gov.)", "")
+                DirectoryUsers(N).Category = 2
             Else
-                DirectoryUser(N).Category = 0
+                DirectoryUsers(N).Category = 0
             End If
         Next
 
     End Sub
 
-    Private Sub BackgroundWorker1_Done() Handles BackgroundWorker1.RunWorkerCompleted
+    ''' <summary>Populates the listview and prepares the form for presentation</summary>
+    Private Sub DoneGettingDir() Handles BackgroundWorker1.RunWorkerCompleted
 
         RefreshNotice.Close()
 
@@ -198,13 +215,14 @@ Public Class DirWindow
 
     End Sub
 
-    ''' <summary>
-    ''' Populate the listview
-    ''' </summary>
+    '--------------------------------[Other Functions]--------------------------------
+
+    ''' <summary>Populate the listview</summary>
     ''' <param name="SearchItem"> find this item or items containing this </param>
     Sub PopulateListview(Optional ByVal SearchItem As String = "")
 
 
+        'Clears and sets up the directory listview
         Dim I As Integer
         DirectoryView.Clear()
         DirectoryView.View = View.Details
@@ -220,61 +238,35 @@ Public Class DirWindow
         DirectoryView.Groups.Add(New ListViewGroup("Government and Non-Taxed Accoutns", HorizontalAlignment.Left))
 
 
-
-        For I = 0 To DirectoryUser.Count - 1
+        'Adds the users
+        For I = 0 To DirectoryUsers.Count - 1
 
             Dim CLVI As ListViewItem
-            If Not String.IsNullOrEmpty(SearchItem) Then
-                If DirectoryUser(I).Name.ToLower.Contains(SearchItem.ToLower) Then
-                    CLVI = New ListViewItem With {
-                .Text = DirectoryUser(I).ID
-            }
-                    CLVI.SubItems.Add(DirectoryUser(I).Name)
-                    CLVI.Group = DirectoryView.Groups(DirectoryUser(I).Category)
-                    DirectoryView.Items.Add(CLVI)
+            If Not String.IsNullOrWhiteSpace(SearchItem) Then
 
+                'Search Mode
+                If DirectoryUsers(I).Name.ToLower.Contains(SearchItem.ToLower) Or DirectoryUsers(I).ID.Contains(SearchItem) Then
+                    CLVI = New ListViewItem With {.Text = DirectoryUsers(I).ID}
+                    CLVI.SubItems.Add(DirectoryUsers(I).Name)
+                    CLVI.Group = DirectoryView.Groups(DirectoryUsers(I).Category)
+                    DirectoryView.Items.Add(CLVI)
                 End If
+
+
             Else
-                CLVI = New ListViewItem With {
-                .Text = DirectoryUser(I).ID
-            }
-                CLVI.SubItems.Add(DirectoryUser(I).Name)
-                CLVI.Group = DirectoryView.Groups(DirectoryUser(I).Category)
+
+                'Non-Search Mode
+                CLVI = New ListViewItem With {.Text = DirectoryUsers(I).ID}
+                CLVI.SubItems.Add(DirectoryUsers(I).Name)
+                CLVI.Group = DirectoryView.Groups(DirectoryUsers(I).Category)
                 DirectoryView.Items.Add(CLVI)
             End If
 
-
-
         Next
 
-
     End Sub
 
-
-    Private Sub CheckbookOK_Click(sender As Object, e As EventArgs) Handles CheckbookOK.Click
-        Dim Selectedindex As Integer
-        Try
-            Selectedindex = DirectoryView.SelectedIndices(0)
-        Catch
-            Exit Sub
-        End Try
-
-        If Selectedindex = -1 Then
-
-            MsgBox("Please select a User", vbCritical, "ViBE")
-            Exit Sub
-
-        End If
-
-        CheckbookOutbox.ToBank.Text = DirectoryView.SelectedItems(0).Text
-        ''57174: Igtampe
-        CheckbookOutbox.CheckTo.Text = DirectoryView.SelectedItems(0).SubItems(1).Text & " (" & DirectoryView.SelectedItems(0).Text & ")"
-
-        Close()
-
-    End Sub
-
-    'Me.Name = "DirWindow"
+    ''' <summary>Repopulates the listview when the searchbox is changed</summary>
     Sub RePopulateListView() Handles SearchBox.TextChanged
 
         If Not String.IsNullOrEmpty(SearchBox.Text) Then
@@ -283,6 +275,25 @@ Public Class DirWindow
             PopulateListview()
         End If
     End Sub
+
+    ''' <summary>Verifies if a user from the directory is selected</summary>
+    Private Function HasUserSelected()
+        Dim Selectedindex As Integer
+
+        Try
+            Selectedindex = DirectoryView.SelectedIndices(0)
+        Catch
+            Return False
+        End Try
+
+        If Selectedindex = -1 Then
+            MsgBox("Please select a User", vbCritical, "ViBE")
+            Return False
+        End If
+
+        Return True
+
+    End Function
 
 
 End Class

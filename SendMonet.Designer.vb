@@ -34,11 +34,11 @@ Partial Class SendMonet
         Me.BalanceLabel = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.DestinationBox = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.CancelBTN = New System.Windows.Forms.Button()
+        Me.SendWOCertBTN = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.DirectoryButton = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.SendWCertBTN = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.AmountBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -138,23 +138,23 @@ Partial Class SendMonet
         Me.DestinationBox.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.DestinationBox, "Remember the format is ID\BANK" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "For instance: 57174\UMSNB")
         '
-        'Button1
+        'CancelBTN
         '
-        Me.Button1.Location = New System.Drawing.Point(120, 198)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(102, 23)
-        Me.Button1.TabIndex = 6
-        Me.Button1.Text = "Cancel"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.CancelBTN.Location = New System.Drawing.Point(120, 198)
+        Me.CancelBTN.Name = "CancelBTN"
+        Me.CancelBTN.Size = New System.Drawing.Size(102, 23)
+        Me.CancelBTN.TabIndex = 6
+        Me.CancelBTN.Text = "Cancel"
+        Me.CancelBTN.UseVisualStyleBackColor = True
         '
-        'Button2
+        'SendWOCertBTN
         '
-        Me.Button2.Location = New System.Drawing.Point(12, 198)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(102, 23)
-        Me.Button2.TabIndex = 6
-        Me.Button2.Text = "Send"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.SendWOCertBTN.Location = New System.Drawing.Point(12, 198)
+        Me.SendWOCertBTN.Name = "SendWOCertBTN"
+        Me.SendWOCertBTN.Size = New System.Drawing.Size(102, 23)
+        Me.SendWOCertBTN.TabIndex = 6
+        Me.SendWOCertBTN.Text = "Send"
+        Me.SendWOCertBTN.UseVisualStyleBackColor = True
         '
         'DirectoryButton
         '
@@ -167,14 +167,14 @@ Partial Class SendMonet
         Me.DirectoryButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         Me.DirectoryButton.UseVisualStyleBackColor = True
         '
-        'Button3
+        'SendWCertBTN
         '
-        Me.Button3.Location = New System.Drawing.Point(12, 169)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(210, 23)
-        Me.Button3.TabIndex = 6
-        Me.Button3.Text = "Send with certification"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.SendWCertBTN.Location = New System.Drawing.Point(12, 169)
+        Me.SendWCertBTN.Name = "SendWCertBTN"
+        Me.SendWCertBTN.Size = New System.Drawing.Size(210, 23)
+        Me.SendWCertBTN.TabIndex = 6
+        Me.SendWCertBTN.Text = "Send with certification"
+        Me.SendWCertBTN.UseVisualStyleBackColor = True
         '
         'SendMonet
         '
@@ -182,9 +182,9 @@ Partial Class SendMonet
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(234, 233)
         Me.Controls.Add(Me.DirectoryButton)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.SendWCertBTN)
+        Me.Controls.Add(Me.SendWOCertBTN)
+        Me.Controls.Add(Me.CancelBTN)
         Me.Controls.Add(Me.DestinationBox)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.BalanceLabel)
@@ -216,9 +216,9 @@ Partial Class SendMonet
     Friend WithEvents BalanceLabel As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents DestinationBox As TextBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents CancelBTN As Button
+    Friend WithEvents SendWOCertBTN As Button
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents DirectoryButton As Button
-    Friend WithEvents Button3 As Button
+    Friend WithEvents SendWCertBTN As Button
 End Class

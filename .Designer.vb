@@ -24,8 +24,8 @@ Partial Class VibeChangePin
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.NewPinTextBox = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.OKBTN = New System.Windows.Forms.Button()
+        Me.CancelBTN = New System.Windows.Forms.Button()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SuspendLayout()
         '
@@ -47,23 +47,23 @@ Partial Class VibeChangePin
         Me.NewPinTextBox.Size = New System.Drawing.Size(153, 20)
         Me.NewPinTextBox.TabIndex = 1
         '
-        'Button1
+        'OKBTN
         '
-        Me.Button1.Location = New System.Drawing.Point(15, 51)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(66, 22)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "OK"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.OKBTN.Location = New System.Drawing.Point(15, 51)
+        Me.OKBTN.Name = "OKBTN"
+        Me.OKBTN.Size = New System.Drawing.Size(66, 22)
+        Me.OKBTN.TabIndex = 2
+        Me.OKBTN.Text = "OK"
+        Me.OKBTN.UseVisualStyleBackColor = True
         '
-        'Button2
+        'CancelBTN
         '
-        Me.Button2.Location = New System.Drawing.Point(102, 51)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(66, 22)
-        Me.Button2.TabIndex = 3
-        Me.Button2.Text = "Cancel"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.CancelBTN.Location = New System.Drawing.Point(102, 51)
+        Me.CancelBTN.Name = "CancelBTN"
+        Me.CancelBTN.Size = New System.Drawing.Size(66, 22)
+        Me.CancelBTN.TabIndex = 3
+        Me.CancelBTN.Text = "Cancel"
+        Me.CancelBTN.UseVisualStyleBackColor = True
         '
         'BackgroundWorker1
         '
@@ -73,8 +73,8 @@ Partial Class VibeChangePin
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(189, 85)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.CancelBTN)
+        Me.Controls.Add(Me.OKBTN)
         Me.Controls.Add(Me.NewPinTextBox)
         Me.Controls.Add(Me.Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -89,7 +89,7 @@ Partial Class VibeChangePin
 
     Friend WithEvents Label1 As Label
     Friend WithEvents NewPinTextBox As TextBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents OKBTN As Button
+    Friend WithEvents CancelBTN As Button
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
 End Class

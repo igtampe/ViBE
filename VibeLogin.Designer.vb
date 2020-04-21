@@ -29,17 +29,17 @@ Partial Class VibeLogin
         Me.IDLabel = New System.Windows.Forms.Label()
         Me.PinLabel = New System.Windows.Forms.Label()
         Me.DirectoryButton = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.RegisterButton = New System.Windows.Forms.Button()
+        Me.ViBELogoPictureBox = New System.Windows.Forms.PictureBox()
+        Me.LoginButton = New System.Windows.Forms.Button()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.RememberMeCheckbox = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.QuitButton = New System.Windows.Forms.Button()
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
         Me.KeyringButton = New System.Windows.Forms.Button()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ViBELogoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LogonPIN
@@ -95,34 +95,34 @@ Partial Class VibeLogin
         Me.ToolTip1.SetToolTip(Me.DirectoryButton, "Open the UMSWEB Directory")
         Me.DirectoryButton.UseVisualStyleBackColor = True
         '
-        'Button2
+        'RegisterButton
         '
-        Me.Button2.Location = New System.Drawing.Point(298, 41)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 4
-        Me.Button2.Text = "Register"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.RegisterButton.Location = New System.Drawing.Point(298, 41)
+        Me.RegisterButton.Name = "RegisterButton"
+        Me.RegisterButton.Size = New System.Drawing.Size(75, 23)
+        Me.RegisterButton.TabIndex = 4
+        Me.RegisterButton.Text = "Register"
+        Me.RegisterButton.UseVisualStyleBackColor = True
         '
-        'PictureBox1
+        'ViBELogoPictureBox
         '
-        Me.PictureBox1.Image = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.VIBE1
-        Me.PictureBox1.Location = New System.Drawing.Point(-12, 0)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(151, 105)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PictureBox1, "About ViBE")
+        Me.ViBELogoPictureBox.Image = Global.VIBE__But_on_Visual_Studio_.My.Resources.Resources.VIBE1
+        Me.ViBELogoPictureBox.Location = New System.Drawing.Point(-12, 0)
+        Me.ViBELogoPictureBox.Name = "ViBELogoPictureBox"
+        Me.ViBELogoPictureBox.Size = New System.Drawing.Size(151, 105)
+        Me.ViBELogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.ViBELogoPictureBox.TabIndex = 0
+        Me.ViBELogoPictureBox.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.ViBELogoPictureBox, "About ViBE")
         '
-        'Button1
+        'LoginButton
         '
-        Me.Button1.Location = New System.Drawing.Point(298, 12)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 3
-        Me.Button1.Text = "Log In"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.LoginButton.Location = New System.Drawing.Point(298, 12)
+        Me.LoginButton.Name = "LoginButton"
+        Me.LoginButton.Size = New System.Drawing.Size(75, 23)
+        Me.LoginButton.TabIndex = 3
+        Me.LoginButton.Text = "Log In"
+        Me.LoginButton.UseVisualStyleBackColor = True
         '
         'BackgroundWorker1
         '
@@ -151,14 +151,14 @@ Partial Class VibeLogin
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Remember Me"
         '
-        'Button3
+        'QuitButton
         '
-        Me.Button3.Location = New System.Drawing.Point(298, 70)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(75, 23)
-        Me.Button3.TabIndex = 4
-        Me.Button3.Text = "Quit"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.QuitButton.Location = New System.Drawing.Point(298, 70)
+        Me.QuitButton.Name = "QuitButton"
+        Me.QuitButton.Size = New System.Drawing.Size(75, 23)
+        Me.QuitButton.TabIndex = 4
+        Me.QuitButton.Text = "Quit"
+        Me.QuitButton.UseVisualStyleBackColor = True
         '
         'KeyringButton
         '
@@ -176,9 +176,9 @@ Partial Class VibeLogin
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(388, 101)
         Me.Controls.Add(Me.RememberMeCheckbox)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.QuitButton)
+        Me.Controls.Add(Me.RegisterButton)
+        Me.Controls.Add(Me.LoginButton)
         Me.Controls.Add(Me.KeyringButton)
         Me.Controls.Add(Me.DirectoryButton)
         Me.Controls.Add(Me.Label1)
@@ -186,7 +186,7 @@ Partial Class VibeLogin
         Me.Controls.Add(Me.IDLabel)
         Me.Controls.Add(Me.LogonID)
         Me.Controls.Add(Me.LogonPIN)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.ViBELogoPictureBox)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -196,25 +196,25 @@ Partial Class VibeLogin
         Me.Name = "VibeLogin"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Visual Basic Economy Login"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ViBELogoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents ViBELogoPictureBox As PictureBox
     Friend WithEvents LogonPIN As TextBox
     Friend WithEvents LogonID As TextBox
     Friend WithEvents IDLabel As Label
     Friend WithEvents PinLabel As Label
     Friend WithEvents DirectoryButton As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents RegisterButton As Button
+    Friend WithEvents LoginButton As Button
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents RememberMeCheckbox As CheckBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents Button3 As Button
+    Friend WithEvents QuitButton As Button
     Friend WithEvents HelpProvider1 As HelpProvider
     Friend WithEvents KeyringButton As Button
 End Class

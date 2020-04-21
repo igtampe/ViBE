@@ -32,7 +32,7 @@ Partial Class VibeRegister
         Me.IDLabel = New System.Windows.Forms.Label()
         Me.NameTXB = New System.Windows.Forms.TextBox()
         Me.PINTXB = New System.Windows.Forms.TextBox()
-        Me.OKButton = New System.Windows.Forms.Button()
+        Me.RegisterButton = New System.Windows.Forms.Button()
         Me.CancelButtonReg = New System.Windows.Forms.Button()
         Me.TC2 = New System.Windows.Forms.TextBox()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
@@ -133,14 +133,14 @@ Partial Class VibeRegister
         Me.PINTXB.Size = New System.Drawing.Size(73, 20)
         Me.PINTXB.TabIndex = 11
         '
-        'OKButton
+        'RegisterButton
         '
-        Me.OKButton.Location = New System.Drawing.Point(101, 379)
-        Me.OKButton.Name = "OKButton"
-        Me.OKButton.Size = New System.Drawing.Size(75, 23)
-        Me.OKButton.TabIndex = 12
-        Me.OKButton.Text = "Register"
-        Me.OKButton.UseVisualStyleBackColor = True
+        Me.RegisterButton.Location = New System.Drawing.Point(101, 379)
+        Me.RegisterButton.Name = "RegisterButton"
+        Me.RegisterButton.Size = New System.Drawing.Size(75, 23)
+        Me.RegisterButton.TabIndex = 12
+        Me.RegisterButton.Text = "Register"
+        Me.RegisterButton.UseVisualStyleBackColor = True
         '
         'CancelButtonReg
         '
@@ -242,7 +242,7 @@ Partial Class VibeRegister
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(366, 416)
+        Me.ClientSize = New System.Drawing.Size(366, 415)
         Me.Controls.Add(Me.OKBTN)
         Me.Controls.Add(Me.CongratsLBL4)
         Me.Controls.Add(Me.CongratsLBL3)
@@ -251,7 +251,7 @@ Partial Class VibeRegister
         Me.Controls.Add(Me.CongratsLBL1)
         Me.Controls.Add(Me.TC2)
         Me.Controls.Add(Me.CancelButtonReg)
-        Me.Controls.Add(Me.OKButton)
+        Me.Controls.Add(Me.RegisterButton)
         Me.Controls.Add(Me.PinLabel)
         Me.Controls.Add(Me.IDLabel)
         Me.Controls.Add(Me.NameTXB)
@@ -284,7 +284,7 @@ Partial Class VibeRegister
     Friend WithEvents IDLabel As Label
     Friend WithEvents NameTXB As TextBox
     Friend WithEvents PINTXB As TextBox
-    Friend WithEvents OKButton As Button
+    Friend WithEvents RegisterButton As Button
     Friend WithEvents CancelButtonReg As Button
     Friend WithEvents TC2 As TextBox
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker

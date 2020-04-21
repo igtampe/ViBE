@@ -1,97 +1,109 @@
 ﻿Imports System.IO
 Imports VIBE__But_on_Visual_Studio_.BankCommands
+
+''' <summary>Shows logs of a bank account, and allows users to open/close their accounts</summary>
 Public Class BankWindow
 
-    Public Bank As String
-    Public BankName As String
-    Public BankBalance As Long
-    Public ID As String
-    Public ServerMSG As String
-    Public LWorkerREsult As String
+    '--------------------------------[Variables]--------------------------------
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If Not BankBalance = 0 Then
-            MsgBox("Please empty your account. The Lemon may steal your funds if they're left without anywhere to go.", MsgBoxStyle.Critical, "No can do Chief")
-            Exit Sub
-        End If
+    Private ReadOnly MyUser As User
+    Private ReadOnly Bank As String
+    Private ReadOnly BankName As String
+    Private ReadOnly BankBalance As Long
 
-        Dim Result As Integer = MsgBox("Are you sure you want to close your " & BankName & " account?", 32 + 4, "Question")
-        If Result = 6 Then CloseAccountBW.RunWorkerAsync()
-    End Sub
+    Private ServerMSG As String
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Close()
-    End Sub
+    '--------------------------------[Initialization]--------------------------------
 
-    Private Sub BankWindow_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Button3.Enabled = False
-        ID = VibeLogin.LogonID.Text
+    ''' <summary>
+    ''' Creates a new bank window
+    ''' </summary>
+    ''' <param name="User">User whose bank account this bank window will show</param>
+    ''' <param name="Bank">Bank you want to manage ("UMSNB","GBANK", or "RIVER")</param>
+    Public Sub New(User As User, Bank As String)
+        InitializeComponent()
+
+        myUser = User
+        Me.Bank = Bank
         Icon = VibeMainScreen.Icon
-        Bank = "LEMON"
-        Try
-            Bank = VibeMainScreen.BANKTXB.Text
-        Catch
-        End Try
 
         Select Case Bank
             Case "UMSNB"
                 BankName = "The UMS National Bank"
-                PictureBox1.Image = My.Resources.UMSNB
-                BankBalance = VibeMainScreen.UMSNBBLabel.Text.TrimEnd("p")
+                BankPictureBox.Image = My.Resources.UMSNB
+                BankBalance = User.UMSNBBalance
             Case "GBANK"
                 BankName = "G-Bank"
-                PictureBox1.Image = My.Resources.GBANK
-                BankBalance = VibeMainScreen.GBANKBLabel.Text.TrimEnd("p")
+                BankPictureBox.Image = My.Resources.GBANK
+                BankBalance = User.GBANKBalance
             Case "RIVER"
                 BankName = "Riverside Bank"
-                PictureBox1.Image = My.Resources.Riverside
-                BankBalance = VibeMainScreen.RIVERBLabel.Text.TrimEnd("p")
+                BankPictureBox.Image = My.Resources.Riverside
+                BankBalance = User.RIVERBalance
             Case Else
                 BankName = "Lemon Investments"
+                BankBalance = 0
         End Select
+
+        Text = BankName & " [Of user: " & myUser.ToString & "]"
+
+        CloseAccountBTN.Enabled = (BankBalance = 0)
+
         Logbox.Items.Clear()
-
-
 
     End Sub
 
     Private Sub HeyImHere() Handles Me.Shown
         If BankExists(Bank) = False Then
-            Dim Result As Integer = MsgBox("It appears you don't have a bank account with " & BankName & " open." & vbNewLine & "Would You like to open one now?", 32 + 4, "Question")
-            Select Case Result
-                Case 6
-                    RefreshNotice.Show()
-                    OpenAccountBW.RunWorkerAsync()
-                    Exit Sub
-                Case 7
-                    Close()
-                    Exit Sub
-            End Select
+            Dim Result As MsgBoxResult = MsgBox("It appears you don't have a bank account with " & BankName & " open." & vbNewLine & "Would You like to open one now?", 32 + 4, "Question")
+            If Result = MsgBoxResult.Yes Then
+                RefreshNotice.Show()
+                OpenAccountBW.RunWorkerAsync()
+            Else
+                Close()
+                Exit Sub
+            End If
         End If
+
         RefreshNotice.Show()
         LogBW.RunWorkerAsync()
 
     End Sub
 
-    Function BankExists(Bank As String) As Boolean
+    '--------------------------------[Buttons]--------------------------------
 
-        Select Case Bank
-            Case "UMSNB"
-                BankExists = VibeMainScreen.UMSNBCheck.Checked
-            Case "GBANK"
-                BankExists = VibeMainScreen.GBANKCheck.Checked
-            Case "RIVER"
-                BankExists = VibeMainScreen.RIVERCheck.Checked
-            Case Else
-                BankExists = False
-        End Select
-
-    End Function
-
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles OpenAccountBW.DoWork
-        ServerMSG = OpenBank(Bank)
+    ''' <summary>Attempts to close the account</summary>
+    Private Sub CloseAccount() Handles CloseAccountBTN.Click
+        If Not BankBalance = 0 Then
+            'Make sure the bank's balance is 0
+            MsgBox("Please empty your account. The Lemon may steal your funds if they're left without anywhere to go.", MsgBoxStyle.Critical, "No can do Chief")
+        Else
+            Dim Result As MsgBoxResult = MsgBox("Are you sure you want to close your " & BankName & " account?", 32 + 4, "Question")
+            If Result = MsgBoxResult.Yes Then CloseAccountBW.RunWorkerAsync()
+        End If
     End Sub
 
+    Private Sub CloseUp() Handles OKBTN.Click
+        Close()
+    End Sub
+
+    Private Sub EnableCertifyButton() Handles Logbox.SelectedIndexChanged
+        CertifyButton.Enabled = True
+    End Sub
+
+    Private Sub CertifyButtonPress() Handles CertifyButton.Click
+        Dim NewCertWindow As CertificationWindow = New CertificationWindow(BankPictureBox.Image, Logbox.SelectedItem)
+        NewCertWindow.Show()
+    End Sub
+
+    '--------------------------------[Background Workers]--------------------------------
+
+    ''' <summary>Asks the server to open the account</summary>
+    Private Sub OpenAccount() Handles OpenAccountBW.DoWork
+        ServerMSG = OpenBank(Bank, myUser.ID)
+    End Sub
+
+    ''' <summary>Parse the server response</summary>
     Private Sub DoneOpen() Handles OpenAccountBW.RunWorkerCompleted
         RefreshNotice.Close()
         Select Case ServerMSG
@@ -104,10 +116,12 @@ Public Class BankWindow
         End Select
     End Sub
 
-    Private Sub CloseAccountBW_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles CloseAccountBW.DoWork
-        ServerMSG = CloseBank(Bank)
+    ''' <summary>Asks the server to close the account</summary>
+    Private Sub CloseAccountBW_DoWork() Handles CloseAccountBW.DoWork
+        ServerMSG = CloseBank(Bank, myUser.ID)
     End Sub
 
+    ''' <summary>Parses response after closing an account</summary>
     Private Sub DoneClose() Handles CloseAccountBW.RunWorkerCompleted
         RefreshNotice.Close()
         Select Case ServerMSG
@@ -119,13 +133,14 @@ Public Class BankWindow
         End Select
     End Sub
 
-    Private Sub LogBW_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles LogBW.DoWork
+    ''' <summary>Asks server to move the bank log to the web directory, and then downloads the log</summary>
+    Private Sub LogBW_DoWork() Handles LogBW.DoWork
         'BNKL57174GBANK
-        ServerMSG = BankLog(Bank)
+        ServerMSG = BankLog(Bank, myUser.ID)
         Select Case ServerMSG
             Case "S"
                 Try
-                    My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/logs/" & ID & Bank & ".log", "Templog.log")
+                    My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/logs/" & myUser.ID & Bank & ".log", "Templog.log")
                 Catch
                     ServerMSG = "E"
                 End Try
@@ -133,40 +148,50 @@ Public Class BankWindow
         End Select
     End Sub
 
+    ''' <summary>Parses the response from the server, and loads the log into the logbox</summary>
     Private Sub Logdone() Handles LogBW.RunWorkerCompleted
+
         If ServerMSG = "E" Then
             MsgBox("An error occurred while retrieving your log", vbCritical, "Error")
             Exit Sub
         End If
 
+        'Open the file
         FileOpen(2, "Templog.log", OpenMode.Input)
 
+        'Read it, add it to the logbox
         While Not EOF(2)
-
             Logbox.Items.Add(LineInput(2))
-
         End While
 
+        'Close it and delete it
         FileClose(2)
         File.Delete("Templog.log")
 
-        Try
-            RefreshNotice.Close()
-        Catch ex As Exception
-
-        End Try
-
-
+        RefreshNotice.Close()
 
     End Sub
 
-    Private Sub Logbox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Logbox.SelectedIndexChanged
-        Button3.Enabled = True
-        Selected.Text = Logbox.SelectedItem
+    '--------------------------------[Other Stuff]--------------------------------
 
+    Private Sub TimeToClose() Handles Me.Closing
+        VibeMainScreen.RefreshMe()
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        CertificationWindow.ShowDialog()
-    End Sub
+    Private Function BankExists(Bank As String) As Boolean
+
+        Select Case Bank
+            Case "UMSNB"
+                Return myUser.UMSNB
+            Case "GBANK"
+                Return myUser.GBANK
+            Case "RIVER"
+                Return myUser.RIVER
+            Case Else
+                BankExists = False
+        End Select
+
+    End Function
+
+
 End Class

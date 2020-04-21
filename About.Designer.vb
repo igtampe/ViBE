@@ -24,7 +24,7 @@ Partial Class About
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(About))
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.VerLabel = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -45,14 +45,14 @@ Partial Class About
         Me.Label1.TabIndex = 10
         Me.Label1.Text = "ViBE: Visual Basic Economy"
         '
-        'Label2
+        'VerLabel
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(160, 41)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(246, 13)
-        Me.Label2.TabIndex = 23
-        Me.Label2.Text = "Version 4.1, (C)2020 Igtampe, No Rights Reserved"
+        Me.VerLabel.AutoSize = True
+        Me.VerLabel.Location = New System.Drawing.Point(160, 41)
+        Me.VerLabel.Name = "VerLabel"
+        Me.VerLabel.Size = New System.Drawing.Size(246, 13)
+        Me.VerLabel.TabIndex = 23
+        Me.VerLabel.Text = "Version 4.1, (C)2020 Igtampe, No Rights Reserved"
         '
         'Label3
         '
@@ -132,7 +132,7 @@ Partial Class About
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.VerLabel)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PictureBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -147,7 +147,7 @@ Partial Class About
 
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents VerLabel As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents TextBox1 As TextBox

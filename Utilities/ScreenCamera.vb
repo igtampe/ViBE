@@ -1,9 +1,7 @@
 ﻿Imports System.Drawing.Imaging
 Imports System.IO
 
-''' <summary>
-''' A screen camera
-''' </summary>
+''' <summary>A screen camera</summary>
 Public Class ScreenCamera
 
     ''' <summary>
@@ -29,7 +27,9 @@ Public Class ScreenCamera
         Coso = Image.FromFile(My.Computer.FileSystem.SpecialDirectories.Temp & "\ViBEScrSHT.png")
         My.Computer.Clipboard.SetImage(Coso)
         Coso.Dispose()
-        ClipboardNotice.Show()
+
+        Dim Notif As QuickNotif = New QuickNotif("Copied to Clipboard!")
+        Notif.Show()
     End Sub
 
 End Class

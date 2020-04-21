@@ -24,9 +24,9 @@ Partial Class LandView
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LandView))
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.RegionComboBox = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.PlotComboBox = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -46,7 +46,7 @@ Partial Class LandView
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.OKBTN = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,15 +64,15 @@ Partial Class LandView
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
-        'ComboBox1
+        'RegionComboBox
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"INDUSTRIAL SECTOR", "NEWPOND", "SUBURBIA", "URBIA", "PARADISUS", "DOMUM", "LAETRES", "SYNERGIA"})
-        Me.ComboBox1.Location = New System.Drawing.Point(56, 13)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(168, 21)
-        Me.ComboBox1.TabIndex = 1
-        Me.ComboBox1.Text = "Select a Region"
+        Me.RegionComboBox.FormattingEnabled = True
+        Me.RegionComboBox.Items.AddRange(New Object() {"INDUSTRIAL SECTOR", "NEWPOND", "SUBURBIA", "URBIA", "PARADISUS", "DOMUM", "LAETRES", "SYNERGIA"})
+        Me.RegionComboBox.Location = New System.Drawing.Point(56, 13)
+        Me.RegionComboBox.Name = "RegionComboBox"
+        Me.RegionComboBox.Size = New System.Drawing.Size(168, 21)
+        Me.RegionComboBox.TabIndex = 1
+        Me.RegionComboBox.Text = "Select a Region"
         '
         'Label1
         '
@@ -83,13 +83,13 @@ Partial Class LandView
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Region:"
         '
-        'ComboBox2
+        'PlotComboBox
         '
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(56, 40)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(168, 21)
-        Me.ComboBox2.TabIndex = 1
+        Me.PlotComboBox.FormattingEnabled = True
+        Me.PlotComboBox.Location = New System.Drawing.Point(56, 40)
+        Me.PlotComboBox.Name = "PlotComboBox"
+        Me.PlotComboBox.Size = New System.Drawing.Size(168, 21)
+        Me.PlotComboBox.TabIndex = 1
         '
         'Label2
         '
@@ -104,8 +104,8 @@ Partial Class LandView
         '
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Controls.Add(Me.ComboBox1)
-        Me.GroupBox1.Controls.Add(Me.ComboBox2)
+        Me.GroupBox1.Controls.Add(Me.RegionComboBox)
+        Me.GroupBox1.Controls.Add(Me.PlotComboBox)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 519)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(236, 87)
@@ -282,14 +282,14 @@ Partial Class LandView
         Me.Label4.TabIndex = 2
         Me.Label4.Text = "Status:"
         '
-        'Button1
+        'OKBTN
         '
-        Me.Button1.Location = New System.Drawing.Point(730, 613)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 4
-        Me.Button1.Text = "OK"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.OKBTN.Location = New System.Drawing.Point(730, 613)
+        Me.OKBTN.Name = "OKBTN"
+        Me.OKBTN.Size = New System.Drawing.Size(75, 23)
+        Me.OKBTN.TabIndex = 4
+        Me.OKBTN.Text = "OK"
+        Me.OKBTN.UseVisualStyleBackColor = True
         '
         'Label5
         '
@@ -309,7 +309,7 @@ Partial Class LandView
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(817, 648)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.OKBTN)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.PictureBox1)
@@ -330,9 +330,9 @@ Partial Class LandView
     End Sub
 
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents RegionComboBox As ComboBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents PlotComboBox As ComboBox
     Friend WithEvents Label2 As Label
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
@@ -348,7 +348,7 @@ Partial Class LandView
     Friend WithEvents Label9 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label4 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents OKBTN As Button
     Friend WithEvents Label13 As Label
     Friend WithEvents CommentLBL As Label
     Friend WithEvents Label5 As Label

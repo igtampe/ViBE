@@ -1,15 +1,51 @@
 ﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
+
+''' <summary>The ViBE Registration Window</summary>
 Public Class VibeRegister
+
+    '--------------------------------[Variables]--------------------------------
+
     Public ServerMSG As String
-    Private Sub CancelButtonReg_Click(sender As Object, e As EventArgs) Handles CancelButtonReg.Click, OKBTN.Click
+
+    '--------------------------------[Initialization]--------------------------------
+
+    ''' <summary>Sets the form up to be presented</summary>
+    Private Sub Boing() Handles Me.Load
+
+        'These should be the default values, but I have to set them here since I like seeing them while designing.
+
+        TC1.Visible = True
+        TC2.Visible = True
+        CheckBox1.Visible = True
+        IDLabel.Visible = True
+        PinLabel.Visible = True
+        NameTXB.Visible = True
+        PINTXB.Visible = True
+
+        CongratsLBL1.Visible = False
+        CongratsLBL2.Visible = False
+        CongratsLBL3.Visible = False
+        CongratsLBL4.Visible = False
+        CongratsIDLBL.Visible = False
+        OKBTN.Visible = False
+
+        Size = New Size(382, 454)
+
+    End Sub
+
+    '--------------------------------[Buttons]--------------------------------
+
+    Private Sub ClosingTime() Handles CancelButtonReg.Click, OKBTN.Click
         Close()
     End Sub
 
-    Private Sub OKButton_Click(sender As Object, e As EventArgs) Handles OKButton.Click
-        If CheckForInput() = False Then
+    Private Sub PreRegisterTime() Handles RegisterButton.Click
+
+        If Not CheckForInput() Then
             MsgBox("Please specify appropriate inputs", MsgBoxStyle.Exclamation, "Registration Error")
             Exit Sub
         End If
+
         If CheckBox1.Checked = False Then
             MsgBox("Please accept the terms and conditions.", MsgBoxStyle.Exclamation, "Registration Errror")
             Exit Sub
@@ -19,26 +55,28 @@ Public Class VibeRegister
         BackgroundWorker1.RunWorkerAsync()
     End Sub
 
-    Function CheckForInput() As Boolean
-        CheckForInput = True
-        If String.IsNullOrEmpty(NameTXB.Text.Trim) Then
-            CheckForInput = False
+    ''' <summary>Shows a warning to people attempting to start a corporate UMSWEB account</summary>
+    Private Sub ShowCorporateWarning() Handles CheckBox2.CheckedChanged
+        If CheckBox2.Checked Then
+            MsgBox("WARNING: If this is later found out this isn't actually used for corporate dealings, you will be liable for FRAUD and you will be charged backtaxes for any income registered to this account. By ticking this box you acknowledge that you have been notified about this.", MsgBoxStyle.Exclamation, "Warning!")
         End If
-        If String.IsNullOrEmpty(PINTXB.Text.Trim) Then
-            CheckForInput = False
-        End If
-    End Function
+    End Sub
 
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+    '--------------------------------[Background Workers]--------------------------------
+
+    ''' <summary>Asks server to register the user</summary>
+    Private Sub RegisterTime() Handles BackgroundWorker1.DoWork
         ServerMSG = RegisterUser(PINTXB.Text, NameTXB.Text, CheckBox2.Checked)
     End Sub
 
-    Private Sub Donedoingthething() Handles BackgroundWorker1.RunWorkerCompleted
+    ''' <summary>Parses the response, and displays the post-registratoin message</summary>
+    Private Sub PostRegisterTime() Handles BackgroundWorker1.RunWorkerCompleted
         If ServerMSG = "E" Then
             MsgBox("The server couldn't register you. Please try again later.")
             Exit Sub
         End If
 
+        'Sets things to be visible
         TC1.Visible = False
         TC2.Visible = False
         CheckBox1.Visible = False
@@ -62,31 +100,24 @@ Public Class VibeRegister
 
     End Sub
 
-    Private Sub Boing() Handles Me.Load
+    '--------------------------------[Other Functions]--------------------------------
 
-        TC1.Visible = True
-        TC2.Visible = True
-        CheckBox1.Visible = True
-        IDLabel.Visible = True
-        PinLabel.Visible = True
-        NameTXB.Visible = True
-        PINTXB.Visible = True
+    ''' <summary>Check user's inputted data</summary>
+    ''' <returns>True if its acceptable, False if otherwise</returns>
+    Private Function CheckForInput() As Boolean
 
-        CongratsLBL1.Visible = False
-        CongratsLBL2.Visible = False
-        CongratsLBL3.Visible = False
-        CongratsLBL4.Visible = False
-        CongratsIDLBL.Visible = False
-        OKBTN.Visible = False
-
-        Size = New Size(382, 454)
-
-    End Sub
-
-    Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
-        If CheckBox2.Checked Then
-            MsgBox("WARNING: If this is later found out this isn't actually used for corporate dealings, you will be liable for FRAUD and you will be charged backtaxes for any income registered to this account. By ticking this box you acknowledge that you have been notified about this.", MsgBoxStyle.Exclamation, "Warning!")
+        'Name checks
+        If String.IsNullOrWhiteSpace(NameTXB.Text) Then
+            Return False
         End If
 
-    End Sub
+        'Pin Checks
+        If String.IsNullOrWhiteSpace(PINTXB.Text) Or Not PINTXB.Text.Count = 4 Then
+            CheckForInput = False
+        End If
+
+        Return True
+    End Function
+
+
 End Class

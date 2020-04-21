@@ -1,4 +1,6 @@
 ﻿Imports VIBE__But_on_Visual_Studio_.ServerCommand
+
+''' <summary>Manages the actual transfer of a file by LBL</summary>
 Public Class LBLClientTransfer
     Private ID As Integer
 
@@ -44,7 +46,7 @@ Public Class LBLClientTransfer
         Return response
     End Function
 
-
+    '--------------------------------[Internal Excepctions]--------------------------------
 
     'Internal exceptions:
     Public Class LBLNotSupportedException
