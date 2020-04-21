@@ -54,7 +54,7 @@ Partial Class EZTaxMain
         Me.EzTaxLogo = New System.Windows.Forms.PictureBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.EzTaxTopLabel = New System.Windows.Forms.Label()
-        Me.MainMenuStrip = New System.Windows.Forms.MenuStrip()
+        Me.TheMainMenuStrip = New System.Windows.Forms.MenuStrip()
         Me.ItemsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewDetailsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -71,7 +71,7 @@ Partial Class EZTaxMain
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         CType(Me.EzTaxLogo, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MainMenuStrip.SuspendLayout()
+        Me.TheMainMenuStrip.SuspendLayout()
         Me.SuspendLayout()
         '
         'IncomeColumn
@@ -349,18 +349,18 @@ Partial Class EZTaxMain
         Me.EzTaxTopLabel.Text = "EzTax"
         Me.EzTaxTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'MainMenuStrip
+        'TheMainMenuStrip
         '
-        Me.MainMenuStrip.BackColor = System.Drawing.Color.DarkGray
-        Me.MainMenuStrip.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.MainMenuStrip.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MainMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ItemsToolStripMenuItem, Me.SyncronyzationToolStripMenuItem, Me.QuitToolStripMenuItem})
-        Me.MainMenuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow
-        Me.MainMenuStrip.Location = New System.Drawing.Point(0, 462)
-        Me.MainMenuStrip.Name = "MainMenuStrip"
-        Me.MainMenuStrip.Size = New System.Drawing.Size(525, 21)
-        Me.MainMenuStrip.TabIndex = 11
-        Me.MainMenuStrip.Text = "MainMenuStrip"
+        Me.TheMainMenuStrip.BackColor = System.Drawing.Color.DarkGray
+        Me.TheMainMenuStrip.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.TheMainMenuStrip.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TheMainMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ItemsToolStripMenuItem, Me.SyncronyzationToolStripMenuItem, Me.QuitToolStripMenuItem})
+        Me.TheMainMenuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow
+        Me.TheMainMenuStrip.Location = New System.Drawing.Point(0, 460)
+        Me.TheMainMenuStrip.Name = "TheMainMenuStrip"
+        Me.TheMainMenuStrip.Size = New System.Drawing.Size(525, 23)
+        Me.TheMainMenuStrip.TabIndex = 11
+        Me.TheMainMenuStrip.Text = "MainMenuStrip"
         '
         'ItemsToolStripMenuItem
         '
@@ -461,7 +461,7 @@ Partial Class EZTaxMain
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.MainMenuStrip)
+        Me.Controls.Add(Me.TheMainMenuStrip)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "EZTaxMain"
@@ -474,8 +474,8 @@ Partial Class EZTaxMain
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.EzTaxLogo, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.MainMenuStrip.ResumeLayout(False)
-        Me.MainMenuStrip.PerformLayout()
+        Me.TheMainMenuStrip.ResumeLayout(False)
+        Me.TheMainMenuStrip.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -509,7 +509,7 @@ Partial Class EZTaxMain
     Friend WithEvents HitLabel As Label
     Friend WithEvents EzTaxTopLabel As Label
     Friend WithEvents TaxBreakdownLink As LinkLabel
-    Friend WithEvents MainMenuStrip As MenuStrip
+    Friend WithEvents TheMainMenuStrip As MenuStrip
     Friend WithEvents ItemsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AddToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ViewDetailsToolStripMenuItem As ToolStripMenuItem

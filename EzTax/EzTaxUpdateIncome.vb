@@ -36,7 +36,7 @@ Public Class EzTaxUpdateIncome
 
         If IsNothing(AllIncomeItems) Then
             ServerMSG = "You have no income items"
-            Exit Sub
+            Return
         End If
 
         For Each Current As IncomeRegistryItem In AllIncomeItems
@@ -57,8 +57,7 @@ Public Class EzTaxUpdateIncome
                     SOIncome += Current.TotalIncome
                 Case Else
                     ServerMSG = Current.Name & " does not have a valid location (" & Current.Location.ToUpper & ")"
-                    Send = False
-                    Exit Sub
+                    Return
             End Select
         Next
 

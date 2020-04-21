@@ -1,5 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
-Imports System.Drawing.Imaging
+﻿Imports System.Drawing.Imaging
 Imports System.IO
 
 ''' <summary>Form used to send and display an EzTax certification request</summary>

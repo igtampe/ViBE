@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
-
-''' <summary>Form that handles a transfer money request</summary>
+﻿''' <summary>Form that handles a transfer money request</summary>
 Public Class TransferMonet
 
     '--------------------------------[Variables]--------------------------------
@@ -18,6 +16,8 @@ Public Class TransferMonet
         UMSNBRButtonTO.Enabled = MyUser.UMSNB
         GBANKRButtonTO.Enabled = MyUser.GBANK
         RIVERRButtonTO.Enabled = MyUser.RIVER
+
+        Text &= " [" & MyUser.ToString & "]"
 
     End Sub
 

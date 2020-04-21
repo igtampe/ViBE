@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
-
-''' <summary>Form to handle a SendMoney request</summary>
+﻿''' <summary>Form to handle a SendMoney request</summary>
 Public Class SendMonet
 
     '--------------------------------[Variables]--------------------------------

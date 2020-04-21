@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.ContractusCommands
-
-''' <summary>Form to create and add a contract</summary>
+﻿''' <summary>Form to create and add a contract</summary>
 Public Class ConAdd
 
     '--------------------------------[Variables]--------------------------------

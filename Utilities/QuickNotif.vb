@@ -26,7 +26,7 @@ Public Class QuickNotif
         Label1.Text = Message
     End Sub
 
-    Sub slowfade() Handles Me.Shown
+    Sub SlowFade() Handles Me.Shown
         Opacity = InitialOpacity
         BackgroundWorker1.RunWorkerAsync()
     End Sub
@@ -40,7 +40,8 @@ Public Class QuickNotif
     Private Sub BackgroundWorker1_DoWork() Handles BackgroundWorker1.DoWork
         Threading.Thread.Sleep(InitialWait)
 
-        For Fadeout = InitialOpacity To 0.01 Step -0.01
+        For X = InitialOpacity To 0.01 Step -0.01
+            Fadeout = X
             BackgroundWorker1.ReportProgress(Fadeout * 100)
             Threading.Thread.Sleep(FadeOutStep)
         Next

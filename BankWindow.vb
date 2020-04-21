@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports VIBE__But_on_Visual_Studio_.BankCommands
 
 ''' <summary>Shows logs of a bank account, and allows users to open/close their accounts</summary>
 Public Class BankWindow
@@ -45,7 +44,7 @@ Public Class BankWindow
                 BankBalance = 0
         End Select
 
-        Text = BankName & " [Of user: " & myUser.ToString & "]"
+        Text = BankName & " [" & MyUser.ToString & "]"
 
         CloseAccountBTN.Enabled = (BankBalance = 0)
 

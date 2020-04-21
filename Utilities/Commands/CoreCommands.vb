@@ -1,40 +1,38 @@
-﻿Imports VIBE__But_on_Visual_Studio_.ServerCommand
-
-''' <summary>Handles the Core Functions of the ViBE Server</summary>
-Public Class CoreCommands
+﻿''' <summary>Handles the Core Functions of the ViBE Server</summary>
+Public Module CoreCommands
 
     ''' <summary>Checks A User's Credentials</summary>
-    Public Shared Function CU(ID As String, PIN As String) As String
+    Public Function CU(ID As String, PIN As String) As String
         Return RawCommand("CU" + ID + PIN)
     End Function
 
     ''' <summary>Sends Money Between Accounts</summary>
-    Public Shared Function SM(Origin As String, Destination As String, Amount As Long) As String
+    Public Function SM(Origin As String, Destination As String, Amount As Long) As String
         Return RawCommand("SM" & Origin & Destination & Amount)
     End Function
 
     ''' <summary>Transfers money between owned bank accounts</summary>
-    Public Shared Function TM(ID As String, OriginBank As String, DestinationBank As String, Amount As Long) As String
+    Public Function TM(ID As String, OriginBank As String, DestinationBank As String, Amount As Long) As String
         Return RawCommand("TM" & ID & OriginBank & DestinationBank & Amount)
     End Function
 
     ''' <summary>Change Pin Request</summary>
-    Public Shared Function ChangePin(ID As String, NEWPIN As String) As String
+    Public Function ChangePin(ID As String, NEWPIN As String) As String
         Return RawCommand("CP" + ID + NEWPIN)
     End Function
 
     ''' <summary>Returns Information on a Specific User</summary>
-    Public Shared Function INFO(UserID As String)
+    Public Function UserInfo(UserID As String)
         Return RawCommand("INFO" + UserID)
     End Function
 
     ''' <summary>Returns a joined array with the directory</summary>
-    Public Shared Function GetDirectory() As String
+    Public Function GetDirectory() As String
         Return RawCommand("DIR")
     End Function
 
     ''' <summary>Registers a User</summary>
-    Public Shared Function RegisterUser(Pin As String, Username As String, Corporate As Boolean) As String
+    Public Function RegisterUser(Pin As String, Username As String, Corporate As Boolean) As String
         If Corporate Then
             Return RawCommand("REG" + Pin + "," + Username + " (Corp.)")
         End If
@@ -42,8 +40,8 @@ Public Class CoreCommands
     End Function
 
     ''' <summary>Certifies a Transaction</summary>
-    Public Shared Function Certify(Transaction As String) As String
+    Public Function Certify(Transaction As String) As String
         Return RawCommand("CERT" + Transaction)
     End Function
 
-End Class
+End Module

@@ -1,5 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.EzTaxCommands
-Imports VIBE__But_on_Visual_Studio_.TaxCalc
+﻿Imports VIBE__But_on_Visual_Studio_.TaxCalc
 Imports VIBE__But_on_Visual_Studio_.IncomeRegistryItem
 Imports System.IO
 
@@ -32,7 +31,8 @@ Public Class EZTaxMain
     Public Sub New(User As User)
         InitializeComponent()
         MyUser = User
-
+        EzTaxTopLabel.Text &= " [" & MyUser.ToString & "]"
+        Text &= " [" & MyUser.ToString & "]"
     End Sub
 
     Private Sub Showtime() Handles Me.Shown
@@ -354,7 +354,7 @@ LabelNoDownload:
         InitialBW.ReportProgress(I)
 
         'Get the legacy info just for EI.
-        Servermsg = Info(MyUser.ID)
+        Servermsg = EzTaxCommands.TaxInfo(MyUser.ID)
         If Servermsg = "E" Then
             MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
             EI = 0

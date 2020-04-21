@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
-
-Public Class User
+﻿Public Class User
     Public Enum UserCategory As Integer
         Normal = 0
         Corporate = 1
@@ -59,6 +57,7 @@ Public Class User
     Public Sub New(ID As String, Username As String, Category As UserCategory, UMSNB As Boolean, GBANK As Boolean, RIVER As Boolean, UMSNBBalance As Long, GBANKBalance As Long, RIVERBalance As Long, Notifs As Integer)
         Me.ID = ID
         Me.Username = Username
+        Me.Category = Category
 
         Me.UMSNB = UMSNB
         Me.GBANK = GBANK
@@ -74,7 +73,7 @@ Public Class User
 
     ''' <summary>Builds the user with information from the server. WILL PING THE SERVER!</summary>
     Public Sub New(ID As String)
-        Me.New(ID, INFO(ID).split(","))
+        Me.New(ID, CoreCommands.UserInfo(ID).split(","))
     End Sub
 
     Public Overrides Function Equals(obj As Object) As Boolean

@@ -9,7 +9,7 @@ Public Class EZTaxWizard
 
     Private ItemName As String
     Private ItemIncome As Long
-    Private NameClicked As Boolean
+    Private ReadOnly NameClicked As Boolean
     Private ItemCompleteDetails As String
 
     Public Enum Mode

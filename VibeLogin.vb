@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports VIBE__But_on_Visual_Studio_.CoreCommands
 
 ''' <summary>ViBE's main form</summary>
 Public Class VibeLogin

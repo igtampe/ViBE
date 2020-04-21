@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.CheckbookCommands
-
-''' <summary>Main form of Checkbook 2000</summary>
+﻿''' <summary>Main form of Checkbook 2000</summary>
 Public Class CheckbookMain
 
     '--------------------------------[Variables]--------------------------------
@@ -32,13 +30,14 @@ Public Class CheckbookMain
         Public Subtype As Integer
     End Structure
 
-    Private Coso As New Random
+    Private ReadOnly Coso As New Random
 
     '--------------------------------[Initialization]--------------------------------
 
     Public Sub New(User As User)
         InitializeComponent()
         MyUser = User
+        Text &= " [" & MyUser.ToString & "]"
     End Sub
 
     Private Sub LoadingTime() Handles Me.Load
@@ -151,7 +150,7 @@ Public Class CheckbookMain
 
     '--------------------------------[Other Functions]--------------------------------
 
-    Public Sub TimeToClose() Handles Me.Closing
+    Private Shared Sub TimeToClose() Handles Me.Closing
         VibeMainScreen.RefreshMe()
     End Sub
 

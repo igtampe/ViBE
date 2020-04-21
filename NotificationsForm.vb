@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.NotifCommands
-
-''' <summary>Shows notifications of a User</summary>
+﻿''' <summary>Shows notifications of a User</summary>
 Public Class NotificationsForm
 
     '--------------------------------[Variables]--------------------------------

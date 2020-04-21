@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
-
-''' <summary>Shows the UMSWEB Directory</summary>
+﻿''' <summary>Shows the UMSWEB Directory</summary>
 Public Class DirWindow
 
     '--------------------------------[Variables]--------------------------------
@@ -157,7 +155,7 @@ Public Class DirWindow
 
             Dim INFO() As String
 
-            INFO = CoreCommands.INFO(DirectoryView.SelectedItems(0).Text).Split(",")
+            INFO = CoreCommands.UserInfo(DirectoryView.SelectedItems(0).Text).Split(",")
 
             If INFO(0) = 1 Then UMSNBRButton.Enabled = True Else UMSNBRButton.Enabled = False
             If INFO(2) = 1 Then GBANKRButton.Enabled = True Else GBANKRButton.Enabled = False

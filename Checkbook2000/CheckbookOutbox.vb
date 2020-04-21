@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.CheckbookCommands
-
-''' <summary>Handles the creation of checks and bills</summary>
+﻿''' <summary>Handles the creation of checks and bills</summary>
 Public Class CheckbookOutbox
 
     '--------------------------------[Variables]--------------------------------

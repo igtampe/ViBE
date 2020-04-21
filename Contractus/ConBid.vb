@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.ContractusCommands
-
-''' <summary>Form to file a contractus bid</summary>
+﻿''' <summary>Form to file a contractus bid</summary>
 Public Class ConBid
 
     '--------------------------------[Variables]--------------------------------

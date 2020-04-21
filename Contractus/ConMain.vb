@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.ContractusCommands
-
-''' <summary>Main Contractus Form</summary>
+﻿''' <summary>Main Contractus Form</summary>
 Public Class ConMain
 
     '--------------------------------[Variables]--------------------------------
@@ -20,7 +18,7 @@ Public Class ConMain
     Private SelectedAvailableContract As Integer
     Private SelectedActiveContract As Integer
 
-    Private MySplash As ConSplash
+    Private ReadOnly MySplash As ConSplash
 
     '--------------------------------[Initialization]--------------------------------
 
@@ -39,6 +37,7 @@ Public Class ConMain
         AmountLabel.Text = ""
 
         MySplash = New ConSplash
+        Text &= " [" & MyUser.ToString & "]"
 
     End Sub
 

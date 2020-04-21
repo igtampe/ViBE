@@ -18,7 +18,7 @@ Public Class LBLSender
     End Sub
 
     Private Sub LBLSender_Load() Handles MyBase.Load
-        setprogress(0)
+        Setprogress(0)
         Quit.Enabled = False
         Text = "Sending file " & FileToSend
         Header.Text = "Initializing File Transfer"
@@ -45,7 +45,6 @@ Public Class LBLSender
         Dim X As Double = 0
         Dim MeasuringTimeCoso As Stopwatch = New Stopwatch()
         Dim TimeLeft As String = ""
-        Dim SendMSG As String = ""
 
         'Send the coito
         CurrentHeader = "Uploading File"
@@ -56,7 +55,7 @@ Public Class LBLSender
             LBLBackgroundSender.ReportProgress(X)
 
             MeasuringTimeCoso.Start()
-            SendMSG = Sender.SendLine(Line)
+            Dim SendMSG As String = Sender.SendLine(Line)
             MeasuringTimeCoso.Stop()
             If SendMSG = "CLOSED" Then Close()
             TimeLeft = ", about " & CInt((MeasuringTimeCoso.ElapsedMilliseconds / 1000.0) * (AllLines.Count - X - 1)) & "s to go."
@@ -75,7 +74,7 @@ Public Class LBLSender
     Private Sub LBLReportProgress() Handles LBLBackgroundSender.ProgressChanged
         Header.Text = CurrentHeader
         Footer.Text = CurrentFooter
-        setprogress(CurrentPercentage)
+        Setprogress(CurrentPercentage)
     End Sub
 
     Private Sub LBLDone() Handles LBLBackgroundSender.RunWorkerCompleted
@@ -85,7 +84,7 @@ Public Class LBLSender
         Quit.Enabled = True
     End Sub
 
-    Private Sub setprogress(progress As Double)
+    Private Sub SetProgress(progress As Double)
         ProgressBar.Width = 500 * progress
     End Sub
 

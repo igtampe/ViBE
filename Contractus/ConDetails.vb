@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.ContractusCommands
-
-''' <summary>Shows details for a Contractus Contract</summary>
+﻿''' <summary>Shows details for a Contractus Contract</summary>
 Public Class ConDetails
 
     '--------------------------------[Variables]--------------------------------

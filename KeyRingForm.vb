@@ -26,21 +26,21 @@ Public Class KeyringForm
         Private ReadOnly ID As String
         Private ReadOnly Pin As String
         Private ReadOnly Name As String
-        Sub New(NewID As String, NewPIN As String, NewName As String)
+        Public Sub New(NewID As String, NewPIN As String, NewName As String)
             ID = NewID
             Pin = NewPIN
             Name = NewName
         End Sub
 
-        Function GetID() As String
+        Public Function GetID() As String
             Return ID
         End Function
 
-        Function GetPIN() As String
+        Public Function GetPIN() As String
             Return Pin
         End Function
 
-        Function GetName() As String
+        Public Function GetName() As String
             Return Name
         End Function
 
@@ -49,7 +49,7 @@ Public Class KeyringForm
     ''' <summary>Structure that holds the entire keyring</summary>
     Public Structure KeyRing
 
-        Private Users As ArrayList
+        Private ReadOnly Users As ArrayList
         Private NumberofUsers As Integer
         Private NumberofHeaders As Integer
         Private ReadOnly Filename As String
@@ -322,7 +322,7 @@ Public Class KeyringForm
     ''' </summary>
     ''' <param name="Prompt">The prompt of the InputBox</param>
     ''' <returns></returns>
-    Function FancyInputBox(ByVal Prompt As String, Optional ByVal maxstringlength As Integer = 999999) As String
+    Private Shared Function FancyInputBox(ByVal Prompt As String, Optional ByVal maxstringlength As Integer = 999999) As String
 
         InputForm.PromptLBL.Text = Prompt
         InputForm.Answer.Text = ""

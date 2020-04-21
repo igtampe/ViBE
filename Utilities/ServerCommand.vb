@@ -4,12 +4,12 @@ Imports System.Net.Sockets
 ''' <summary>
 ''' ServerCommand is a utility that sends a command to the ViBE Server or an Equivalent to the ViBE Server
 ''' </summary>
-Public Class ServerCommand
+Public Module ServerCommand
 
     Const IP As String = “Igtnet-w.ddns.net”
     Public SessionID As String = ""
 
-    Public Shared Function RawCommand(ByVal ClientMSG As String, Optional IPOverride As String = "") As String
+    Public Function RawCommand(ByVal ClientMSG As String, Optional IPOverride As String = "") As String
 
         Dim tc As TcpClient = New TcpClient()
         Dim ns As NetworkStream
@@ -55,4 +55,4 @@ Public Class ServerCommand
         End If
         Return ServerMSG
     End Function
-End Class
+End Module

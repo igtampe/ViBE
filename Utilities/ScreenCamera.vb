@@ -2,7 +2,7 @@
 Imports System.IO
 
 ''' <summary>A screen camera</summary>
-Public Class ScreenCamera
+Public Module ScreenCamera
 
     ''' <summary>
     ''' Takes a screenshot of the screen
@@ -12,7 +12,7 @@ Public Class ScreenCamera
     ''' <param name="Xdim">The left X Coordinate</param>
     ''' <param name="YDim">The Top y Coordinate</param>
     ''' <param name="ScreenshotSize">Size of the window</param>
-    Public Shared Sub TakeScreenshot(Width As Integer, Height As Integer, Xdim As Integer, YDim As Integer, ScreenshotSize As Size)
+    Public Sub TakeScreenshot(Width As Integer, Height As Integer, Xdim As Integer, YDim As Integer, ScreenshotSize As Size)
         Dim bmpScreenShot As Bitmap
         Dim gfxScreenshot As Graphics
 
@@ -32,4 +32,4 @@ Public Class ScreenCamera
         Notif.Show()
     End Sub
 
-End Class
+End Module

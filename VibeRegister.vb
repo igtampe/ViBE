@@ -1,6 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
-
-''' <summary>The ViBE Registration Window</summary>
+﻿''' <summary>The ViBE Registration Window</summary>
 Public Class VibeRegister
 
     '--------------------------------[Variables]--------------------------------

@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports VIBE__But_on_Visual_Studio_.CoreCommands
 
 ''' <summary>The ViBE Main Screen</summary>
 Public Class VibeMainScreen
@@ -263,9 +262,9 @@ Public Class VibeMainScreen
     '--------------------------------[Closing Up]--------------------------------
 
     ''' <summary>Handles the actual closing of the form (Like from the X)</summary>
-    Public Sub CloseUpShop() Handles Me.Closing
+    Public Shared Sub CloseUpShop() Handles Me.Closing
         'If the vibelogin window hasn't been reset, then its time to close up for good.
-        If Not VibeLogin.LogonID.Text = "" Then VibeLogin.Close()
+        If Not String.IsNullOrWhiteSpace(VibeLogin.LogonID.Text) Then VibeLogin.Close()
     End Sub
 
     ''' <summary>Overloads close for a little more precision</summary>

@@ -1,5 +1,4 @@
-﻿Imports VIBE__But_on_Visual_Studio_.CoreCommands
-Public Class VibeChangePin
+﻿Public Class VibeChangePin
 
     '--------------------------------[Variables]--------------------------------
 
