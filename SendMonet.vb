@@ -111,7 +111,7 @@ Public Class SendMonet
                 If PlsCertify Then
 
                     'Certify
-                    Dim CertWindow As CertificationWindow = New CertificationWindow(fromBankImage, "[" & DateTime.Now & "] " & VibeLogin.LogonID.Text & " ~vibed~ " & AmountBox.Value.ToString("N0") & "p to " & DestinationBox.Text)
+                    Dim CertWindow As CertificationWindow = New CertificationWindow(fromBankImage, "[" & DateTime.Now & "] " & MyUser.ID & " ~vibed~ " & AmountBox.Value.ToString("N0") & "p to " & DestinationBox.Text)
                     CertWindow.ShowDialog()
 
                 Else

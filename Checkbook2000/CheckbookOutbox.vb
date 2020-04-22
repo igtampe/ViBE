@@ -120,8 +120,8 @@ Public Class CheckbookOutbox
         '0`12/4/2018 7:42:42 PM`A Test Account`57174\UMSNB`100`This is a Check
         Dim Type As Integer = ItemTypeCMB.SelectedIndex
         Dim Time As String = DateTime.Now.ToString
-        Dim Name As String = VibeMainScreen.NameLabel.Text
-        Dim bank As String = VibeLogin.LogonID.Text
+        Dim Name As String = MyUser.ToString
+        Dim bank As String = MyUser.ID
         Dim Subtype As Integer = CheckVariantCombobox.SelectedIndex
 
         If UMSNBRButton.Checked = True Then
