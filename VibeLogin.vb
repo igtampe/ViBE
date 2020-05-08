@@ -31,7 +31,7 @@ Public Class VibeLogin
     '================================================================================================'
 
     ''' <summary>This copy of ViBE's version ID</summary>
-    Public Shared VVer As Integer = 500
+    Public Shared VVer As Integer = 501
 
     '--------------------------------[Initialization]--------------------------------
 

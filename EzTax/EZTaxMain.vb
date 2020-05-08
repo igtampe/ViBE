@@ -337,16 +337,18 @@ LabelNoDownload:
             'Download Tax File.
             IWStatus = "Out of date! Downloading Tax Database..."
             InitialBW.ReportProgress(I)
+
+            If File.Exists(Application.UserAppDataPath & "\ViBE\TaxInfo.txt") Then File.Delete(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
             My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/TaxInfo.Txt", Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
 
-            IWStatus = "Regenerating Tax Calculator"
-            InitialBW.ReportProgress(I)
-            Calculator = New TaxCalc(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
+                IWStatus = "Regenerating Tax Calculator"
+                InitialBW.ReportProgress(I)
+                Calculator = New TaxCalc(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
 
-        End If
+            End If
 
-        'Retrieve Income
-        Dim Servermsg As String
+            'Retrieve Income
+            Dim Servermsg As String
         Dim Incomes() As String
         Dim EI As Long
 
