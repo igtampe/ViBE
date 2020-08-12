@@ -1,6 +1,4 @@
-<p align="center">
-  <img src=https://raw.githubusercontent.com/igtampe/ViBE/master/Resources/VIBESplash.png width="400"/><br>
-</p>
+<img src=https://raw.githubusercontent.com/igtampe/ViBE/master/Resources/VIBESplash.png width="300"/><br>
 
 ViBE or the Visual Basic Economy program is a client designed to aid the transactions of the Pecunia, NEXUS's Model Nation's (The UMS's) virtual currency. <br> <br> 
 
