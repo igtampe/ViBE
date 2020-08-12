@@ -1,6 +1,12 @@
-# ViBE (Visual Basic Economy)
+<p align="center">
+  <img src=https://raw.githubusercontent.com/igtampe/ViBE/master/Resources/VIBESplash.png width="400"/><br>
+</p>
 
 ViBE or the Visual Basic Economy program is a client designed to aid the transactions of the Pecunia, NEXUS's Model Nation's (The UMS's) virtual currency. <br> <br> 
+
+<p align="center">
+  <img src=https://lh5.googleusercontent.com/Qg-TVDWy1DhuO-5l8dKnhcNstueZKQL24OwXquBbDfKETXNMdrDY2G2vy0CdT00RftWAeNz74tk08n0vCSlIWfJdWphY7IK-R3CRKhWyeuEzM05n94s=w1280 /><br>
+</p>
 
 ViBE relies entirely on the SmokeSignal framework, which was originally created specifically for ViBE. It communicates with the ViBE Server, which is viewable here (https://github.com/igtampe/VibeServer). <br><br> 
 
