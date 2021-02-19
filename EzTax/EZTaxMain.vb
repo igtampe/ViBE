@@ -146,7 +146,7 @@ Public Class EZTaxMain
     End Sub
 
     Private Sub UpdateIncome() Handles UpdateIncomeToolStripMenuItem.Click
-        Dim UpdateWindow As EzTaxUpdateIncome = New EzTaxUpdateIncome(IncomeregistryArray, MyUser.ID)
+        Dim UpdateWindow As EzTaxUpdateIncome = New EzTaxUpdateIncome(IncomeregistryArray, MyUser)
         UpdateWindow.ShowDialog()
     End Sub
 
@@ -341,14 +341,14 @@ LabelNoDownload:
             If File.Exists(Application.UserAppDataPath & "\ViBE\TaxInfo.txt") Then File.Delete(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
             My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/TaxInfo.Txt", Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
 
-                IWStatus = "Regenerating Tax Calculator"
-                InitialBW.ReportProgress(I)
-                Calculator = New TaxCalc(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
+            IWStatus = "Regenerating Tax Calculator"
+            InitialBW.ReportProgress(I)
+            Calculator = New TaxCalc(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
 
-            End If
+        End If
 
-            'Retrieve Income
-            Dim Servermsg As String
+        'Retrieve Income
+        Dim Servermsg As String
         Dim Incomes() As String
         Dim EI As Long
 
@@ -356,7 +356,7 @@ LabelNoDownload:
         InitialBW.ReportProgress(I)
 
         'Get the legacy info just for EI.
-        Servermsg = EzTaxCommands.TaxInfo(MyUser.ID)
+        Servermsg = EzTaxCommands.TaxInfo(MyUser)
         If Servermsg = "E" Then
             MsgBox("There has been a serverside error. Please Contact CHOPO.", vbCritical, "EzTax cannot continue")
             EI = 0
@@ -367,7 +367,7 @@ LabelNoDownload:
         'Get Income Breakdown
         IWStatus = "Retrieving Income Breakdown"
         InitialBW.ReportProgress(I)
-        Servermsg = Breakdown(MyUser.ID)
+        Servermsg = Breakdown(MyUser)
 
         'Parse it
         If Servermsg = "E" Then

@@ -13,6 +13,7 @@ Public Class VibeMainScreen
 
     ''' <summary>ID of the current user</summary>
     Private ID As String
+    Private Pin As String
 
     'Even though currentuser holds ID, this is neccessary for the backgroundworker, which doesn't have access to the vibe login window
 
@@ -44,6 +45,7 @@ Public Class VibeMainScreen
 
         'Save the ID for the backgroundworker
         ID = VibeLogin.LogonID.Text
+        Pin = VibeLogin.LogonPIN.Text
 
         'Show the refreshnotice and get us this user's information
         RefreshNotice.Show()
@@ -61,7 +63,7 @@ Public Class VibeMainScreen
     End Sub
 
     Private Sub ShowChangePin() Handles ChangePinButton.Click
-        Dim ChangePinWindow As VibeChangePin = New VibeChangePin()
+        Dim ChangePinWindow As VibeChangePin = New VibeChangePin(CurrentUser)
         ChangePinWindow.ShowDialog()
     End Sub
 
@@ -112,7 +114,7 @@ Public Class VibeMainScreen
     End Sub
 
     Private Sub ShowNotifs() Handles NotifButton.Click
-        Dim MyNotifForm As NotificationsForm = New NotificationsForm(ID)
+        Dim MyNotifForm As NotificationsForm = New NotificationsForm(CurrentUser)
         MyNotifForm.ShowDialog()
     End Sub
 
@@ -161,7 +163,7 @@ Public Class VibeMainScreen
         CurrentUser = Nothing
 
         Try
-            CurrentUser = New User(ID)
+            CurrentUser = New User(ID, Pin)
         Catch ex As Exception
             Debug.Print(ex.StackTrace)
             MsgBox("Could not get user " & VibeLogin.LogonID.Text, MsgBoxStyle.Critical)

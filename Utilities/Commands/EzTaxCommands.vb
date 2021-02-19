@@ -1,22 +1,24 @@
 ﻿''' <summary>ServerCommands for EzTax</summary>
 Public Module EzTaxCommands
 
+    'READY FOR AUTHVIBE
+
     ''' <summary>Get breakdown of the specified user</summary>
-    Public Function Breakdown(ID As String) As String
+    Public Function Breakdown(User As User) As String
         'EZTBRK57174
-        Return RawCommand("EZTBRK" + ID)
+        Return AuthenticatedCommand(User, "EZTBRK")
     End Function
 
     ''' <summary>Gets Income Info from the specified User</summary>
-    Public Function TaxInfo(ID As String) As String
+    Public Function TaxInfo(User As User) As String
         'EZTINF57174
-        Return RawCommand("EZTINF" + ID)
+        Return AuthenticatedCommand(User, "EZTINF")
     End Function
 
     ''' <summary>Update Income of someone </summary>
-    Public Function UpdateIncome(ID As String, TotalIncome As Long, NewpondIncome As Long, Urbiaincome As Long, ParadisusIncome As Long, LaertesIncome As Long, NOIncome As Long, SOincome As Long) As String
+    Public Function UpdateIncome(User As User, TotalIncome As Long, NewpondIncome As Long, Urbiaincome As Long, ParadisusIncome As Long, LaertesIncome As Long, NOIncome As Long, SOincome As Long) As String
         'EZTUPD57174,0,0,0,0,0,0
-        Return RawCommand("EZTUPD" & ID & "," & TotalIncome & "," & NewpondIncome & "," & Urbiaincome & "," & ParadisusIncome & "," & LaertesIncome & "," & NOIncome & "," & SOincome)
+        Return AuthenticatedCommand(User, "EZTUPD" & TotalIncome & "," & NewpondIncome & "," & Urbiaincome & "," & ParadisusIncome & "," & LaertesIncome & "," & NOIncome & "," & SOincome)
     End Function
 
     ''' <summary>Checks if the local tax file that holds tax definitions is out of date.</summary>

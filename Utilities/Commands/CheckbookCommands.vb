@@ -1,23 +1,29 @@
 ﻿''' <summary> Handles ServerCommands for Checkbook 2000</summary>
 Public Module CheckbookCommands
 
+    'READY FOR AUTHVIBE
+
     ''' <summary>Read All Checks from the specified user</summary>
-    Public Function ReadChecks(ID As String) As String
-        'CHCKBKREAD57174
-        Return RawCommand("CHCKBKREAD" + ID)
+    Public Function ReadChecks(User As User) As String
+        'CHCKBKREAD
+        Return AuthenticatedCommand(User, "CHCKBKREAD")
     End Function
 
     ''' <summary>Removes a Check</summary>
-    ''' <param name="ID">ID of the user</param>
-    ''' <param name="Index">Check you want to remove</param>
-    Public Function RemoCheck(ID As String, Index As Integer) As String
-        'CHKBKREMO5717410
-        Return RawCommand("CHCKBKREMO" & ID & Index)
+    Public Function RemoCheck(User As User, Index As Integer) As String
+        'CHKBKREMO10
+        Return AuthenticatedCommand(User, "CHCKBKREMO" & Index)
+    End Function
+
+    ''' <summary>Removes a Check</summary>
+    Public Function ExecuteCheck(User As User, Index As Integer, bank As String) As String
+        'CHKBKREMO10
+        Return AuthenticatedCommand(User, "CHCKBKEXECUTE" & Index & "," & bank)
     End Function
 
     ''' <summary>Adds a Check</summary>
-    Public Function AddCheck(Destination As String, Type As Integer, Time As String, Name As String, Bank As String, Amount As Long, Subtype As Integer, Comment As String) As String
-        Return RawCommand("CHCKBKADD" & Destination & Type & "`" & Time & "`" & Name & "`" & Bank & "`" & Amount & "`::" & Subtype & "::" & Comment)
+    Public Function AddCheck(USER As User, Destination As String, Type As Integer, Time As String, Name As String, Bank As String, Amount As Long, Subtype As Integer, Comment As String) As String
+        Return AuthenticatedCommand(USER, "CHCKBKADD" & Destination & "~" & Type & "`" & Time & "`" & Name & "`" & Bank & "`" & Amount & "`::" & Subtype & "::" & Comment)
     End Function
 
 End Module

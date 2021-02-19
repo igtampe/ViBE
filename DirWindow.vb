@@ -157,9 +157,9 @@ Public Class DirWindow
 
             INFO = CoreCommands.UserInfo(DirectoryView.SelectedItems(0).Text).Split(",")
 
-            If INFO(0) = 1 Then UMSNBRButton.Enabled = True Else UMSNBRButton.Enabled = False
-            If INFO(2) = 1 Then GBANKRButton.Enabled = True Else GBANKRButton.Enabled = False
-            If INFO(4) = 1 Then RIVERRButton.Enabled = True Else RIVERRButton.Enabled = False
+            UMSNBRButton.Enabled = INFO(0)
+            GBANKRButton.Enabled = INFO(2)
+            RIVERRButton.Enabled = INFO(4)
 
             SelectButton.Enabled = True
             NoNoButton.Enabled = True

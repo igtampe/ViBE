@@ -20,7 +20,7 @@ Public Class ConAdd
     '--------------------------------[Buttons]--------------------------------
 
     Private Sub AddContract() Handles SendBTN.Click
-        Select Case AddContractToAll(NameTXB.Text, MyUser.ID, MyUser.Username, DetailsTXB.Text)
+        Select Case AddContractToAll(MyUser, NameTXB.Text, DetailsTXB.Text)
             Case "S"
                 MsgBox("Successfully added the contract", vbInformation)
                 Close()

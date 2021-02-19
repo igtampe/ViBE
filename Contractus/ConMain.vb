@@ -90,7 +90,7 @@ Public Class ConMain
 
             If MsgBox("Are you sure you want to mark this contract as complete?", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes Then
 
-                Select Case RemoveContract(ActiveContracts(SelectedActiveContract).ID, MyUser.ID)
+                Select Case RemoveContract(MyUser, ActiveContracts(SelectedActiveContract).ID)
                     Case "E"
                         MsgBox("A serverside error occurred", MsgBoxStyle.Information)
                     Case "S"
@@ -160,7 +160,7 @@ Public Class ConMain
         InitialBW.ReportProgress(0)
 
         'Get all Contracts
-        Dim AVCMSG() = ReadAllContracts().Split(";")
+        Dim AVCMSG() = ReadAllContracts(MyUser).Split(";")
 
         'Check input
         If AVCMSG(0) = "N" Then
@@ -195,7 +195,7 @@ Public Class ConMain
         InitialBW.ReportProgress(50)
 
         'Get User contracts
-        Dim ACCMSG() = ReadUserContracts(MyUser.ID).Split(";")
+        Dim ACCMSG() = ReadUserContracts(MyUser).Split(";")
 
         'Check input
         If ACCMSG(0) = "N" Then

@@ -7,8 +7,10 @@
 
     'ID info
     Public ReadOnly ID As String
+    Public ReadOnly PIN As String
     Public ReadOnly Username As String
     Public ReadOnly Category As UserCategory
+
 
     'User has banks
     Public ReadOnly UMSNB As Boolean
@@ -26,9 +28,10 @@
 
     ''' <summary>Parser used for ViBE's Main Screen</summary>
     '''<param name="SplitValues">The result of an INFO request from the server</param>
-    Public Sub New(ID As String, SplitValues As String())
+    Public Sub New(ID As String, Pin As String, SplitValues As String())
 
         Me.ID = ID
+        Me.PIN = Pin
 
         UMSNB = SplitValues(0)
         GBANK = SplitValues(2)
@@ -54,8 +57,9 @@
     End Sub
 
     ''' <summary>Creates a new user with the specified information</summary>
-    Public Sub New(ID As String, Username As String, Category As UserCategory, UMSNB As Boolean, GBANK As Boolean, RIVER As Boolean, UMSNBBalance As Long, GBANKBalance As Long, RIVERBalance As Long, Notifs As Integer)
+    Public Sub New(ID As String, Pin As String, Username As String, Category As UserCategory, UMSNB As Boolean, GBANK As Boolean, RIVER As Boolean, UMSNBBalance As Long, GBANKBalance As Long, RIVERBalance As Long, Notifs As Integer)
         Me.ID = ID
+        Me.PIN = Pin
         Me.Username = Username
         Me.Category = Category
 
@@ -72,8 +76,8 @@
     End Sub
 
     ''' <summary>Builds the user with information from the server. WILL PING THE SERVER!</summary>
-    Public Sub New(ID As String)
-        Me.New(ID, CoreCommands.UserInfo(ID).split(","))
+    Public Sub New(ID As String, Pin As String)
+        Me.New(ID, Pin, CoreCommands.UserInfo(ID).split(","))
     End Sub
 
     Public Overrides Function Equals(obj As Object) As Boolean

@@ -1,22 +1,24 @@
 ﻿''' <summary> Notifications Expansion</summary>
 Public Module NotifCommands
 
+    'READY FOR AUTHVIBE
+
     ''' <summary>Read All Notifications</summary>
-    Public Function ReadNotifs(ID As String) As String
+    Public Function ReadNotifs(User As User) As String
         'NOTIFREAD57174
-        Return RawCommand("NOTIFREAD" & ID)
+        Return AuthenticatedCommand(User, "NOTIFREAD")
     End Function
 
     ''' <summary>Clear All Notifications of the given ID</summary>
-    Public Function ClearNotifs(ID As String) As String
+    Public Function ClearNotifs(User As User) As String
         'NOTIFCLEAR57174
-        Return RawCommand("NOTIFCLEAR" + ID)
+        Return AuthenticatedCommand(User, "NOTIFCLEAR")
     End Function
 
     ''' <summary>Remove a specified notification</summary>
-    Public Function RemoveNotif(ID As String, Index As Integer) As String
+    Public Function RemoveNotif(User As User, Index As Integer) As String
         'NOTIFREMO5717410
-        Return RawCommand("NOTIFREMO" & ID & Index)
+        Return AuthenticatedCommand(User, "NOTIFREMO" & Index)
     End Function
 
 

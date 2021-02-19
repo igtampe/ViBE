@@ -99,7 +99,7 @@ Public Class BankWindow
 
     ''' <summary>Asks the server to open the account</summary>
     Private Sub OpenAccount() Handles OpenAccountBW.DoWork
-        ServerMSG = OpenBank(Bank, myUser.ID)
+        ServerMSG = OpenBank(MyUser, Bank)
     End Sub
 
     ''' <summary>Parse the server response</summary>
@@ -117,7 +117,7 @@ Public Class BankWindow
 
     ''' <summary>Asks the server to close the account</summary>
     Private Sub CloseAccountBW_DoWork() Handles CloseAccountBW.DoWork
-        ServerMSG = CloseBank(Bank, myUser.ID)
+        ServerMSG = CloseBank(MyUser, Bank)
     End Sub
 
     ''' <summary>Parses response after closing an account</summary>
@@ -135,7 +135,7 @@ Public Class BankWindow
     ''' <summary>Asks server to move the bank log to the web directory, and then downloads the log</summary>
     Private Sub LogBW_DoWork() Handles LogBW.DoWork
         'BNKL57174GBANK
-        ServerMSG = BankLog(Bank, myUser.ID)
+        ServerMSG = BankLog(MyUser, Bank)
         Select Case ServerMSG
             Case "S"
                 Try

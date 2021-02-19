@@ -74,7 +74,6 @@ Public Class SendMonet
         Dim Amount As Long = AmountBox.Value
         Dim fromBank As String = "NO"
         Dim fromBankImage As Image = My.Resources.LemonInvest1
-        Dim ServerMSG As String
 
         'Get Bank
         If UMSNBRButton.Checked Then
@@ -100,9 +99,8 @@ Public Class SendMonet
 
 
         'Ask the server to send it
-        'SM57174\UMSNB33118\UMSNB5000
-        ServerMSG = SM(MyUser.ID + "\" + fromBank, Destination, Amount)
-        Select Case ServerMSG
+        'SMUMSNB,33118\UMSNB5000
+        Select Case SM(MyUser, fromBank, Destination, Amount)
             Case "1"
                 MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")
             Case "E"

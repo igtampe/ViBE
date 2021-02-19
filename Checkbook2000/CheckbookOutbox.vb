@@ -139,7 +139,7 @@ Public Class CheckbookOutbox
         'NEW: 0`12/4/2018 7:42:42 PM`A Test Account`57174\UMSNB`100`VariantID~This is a Check
         'Split the comment again with the ~ character, the second one will then be the actual comment, the first will be the color
         'check to make sure the count is of two elements because otherwise its an older check/bill so `azul`
-        Dim servermsg = AddCheck(destination, Type, Time, Name, bank, amount, Subtype, Comment)
+        Dim servermsg = AddCheck(MyUser, destination, Type, Time, Name, bank, amount, Subtype, Comment)
         Select Case servermsg
             Case "E"
                 MsgBox("A server side error has occurred. Contact CHOPO!", vbExclamation)

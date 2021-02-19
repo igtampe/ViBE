@@ -31,14 +31,14 @@ Public Class VibeLogin
     '================================================================================================'
 
     ''' <summary>This copy of ViBE's version ID</summary>
-    Public Shared VVer As Integer = 501
+    Public Shared VVer As Integer = 600
 
     '--------------------------------[Initialization]--------------------------------
 
     ''' <summary>Attempts to check for updates by downloading the CV (CurrentVersion) file from the IGTNET Server</summary>
     Private Sub TimeToLoad() Handles Me.Load
 
-        'Grab the 
+        'Grab the current income
         Try
             If File.Exists(Application.UserAppDataPath & "\cv.txt") Then File.Delete(Application.UserAppDataPath & "\cv.txt")
             My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/ViBE.CV.txt", Application.UserAppDataPath & "\cv.txt")
@@ -54,7 +54,11 @@ Public Class VibeLogin
     Private Sub TimeToShow() Handles Me.Shown
 
         'Compares Server's current version to this copy of ViBE's version.
-        If CV > VVer Then DownloadForm.Show()
+        If CV > VVer Then
+            DownloadForm.Show()
+            Hide()
+            Return
+        End If
         If CV = -1 Then MsgBox("An error has occured while checking for updates. The server may be down. If it isn't, contact CHOPO.", MsgBoxStyle.Critical)
 
         AutoLogin = False

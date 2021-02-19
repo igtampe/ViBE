@@ -34,7 +34,7 @@ Public Class ConBid
             Close()
         End If
 
-        Select Case AddBid(MyContract.ID, BidValue.Value, MyUser.ID, MyUser.Username)
+        Select Case AddBid(MyUser, MyContract.ID, BidValue.Value)
             Case "S"
                 MsgBox("Successfully placed a bid", vbInformation)
                 Close()

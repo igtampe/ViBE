@@ -6,7 +6,8 @@ Imports System.Net.Sockets
 ''' </summary>
 Public Module ServerCommand
 
-    Const IP As String = “Igtnet-w.ddns.net”
+    'Const IP As String = “Igtnet-w.ddns.net”
+    Const IP As String = “127.0.0.1”
     Public SessionID As String = ""
 
     Public Function RawCommand(ByVal ClientMSG As String, Optional IPOverride As String = "") As String
@@ -54,5 +55,9 @@ Public Module ServerCommand
             Return ServerMSG
         End If
         Return ServerMSG
+    End Function
+
+    Public Function AuthenticatedCommand(ByRef User As User, Command As String) As String
+        Return RawCommand(String.Join("|", {User.ID, User.PIN, Command}))
     End Function
 End Module

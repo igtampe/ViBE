@@ -73,7 +73,7 @@ Public Class ConDetails
     Private Sub EndAuction() Handles EndAuctionBTN.Click
 
         If MsgBox("Are you sure you wish to end the auction?", MsgBoxStyle.Question + MsgBoxStyle.YesNo) = MsgBoxResult.Yes And FormMode = DetailsFormMode.Available Then
-            Select Case MoveToUser(MyContract.ID, MyContract.TopBidID)
+            Select Case MoveToUser(MyUser, MyContract.ID, MyContract.TopBidID)
                 Case "E"
                     MsgBox("A serverside error occurred", vbInformation)
                 Case "S"
@@ -89,7 +89,7 @@ Public Class ConDetails
     '--------------------------------[Background Worker]--------------------------------
 
     Private Sub GetDetails() Handles LoadDetails.DoWork
-        ContractDetails = ContractusCommands.ConDetails(MyContract.ID)
+        ContractDetails = ContractusCommands.ConDetails(MyUser, MyContract.ID)
     End Sub
 
     Sub GotDetails() Handles LoadDetails.RunWorkerCompleted

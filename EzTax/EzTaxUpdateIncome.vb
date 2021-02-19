@@ -1,15 +1,15 @@
 ﻿''' <summary>Verifies, and then updates the income of a user</summary>
 Public Class EzTaxUpdateIncome
     Private ReadOnly AllIncomeItems() As IncomeRegistryItem
-    Private ReadOnly UserID As String
+    Private ReadOnly MyUser As User
 
     Private TotalIncome As Long
     Private ServerMSG As String
 
-    Public Sub New(AllItems As IncomeRegistryItem(), UserID As String)
+    Public Sub New(AllItems As IncomeRegistryItem(), User As User)
         InitializeComponent()
         AllIncomeItems = AllItems
-        Me.UserID = UserID
+        MyUser = User
     End Sub
 
     Private Sub ThePreShow() Handles Me.Shown
@@ -61,7 +61,7 @@ Public Class EzTaxUpdateIncome
             End Select
         Next
 
-        If Send Then ServerMSG = EzTaxCommands.UpdateIncome(UserID, TotalIncome, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome)
+        If Send Then ServerMSG = EzTaxCommands.UpdateIncome(myuser, TotalIncome, NewpondIncome, UrbiaIncome, ParadisusIncome, LaertesIncome, NOIncome, SOIncome)
 
     End Sub
 
@@ -92,7 +92,7 @@ Public Class EzTaxUpdateIncome
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BackupButton.Click
-        Dim LBLBackupWindow As LBLSender = New LBLSender(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & UserID & ".IncomeRegistry.csv")
+        Dim LBLBackupWindow As LBLSender = New LBLSender(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry.csv")
         LBLBackupWindow.Show()
         Close()
     End Sub

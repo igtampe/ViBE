@@ -1,24 +1,26 @@
 ﻿''' <summary>Handles the Core Functions of the ViBE Server</summary>
 Public Module CoreCommands
 
+    'AUTHViBE READY
+
     ''' <summary>Checks A User's Credentials</summary>
     Public Function CU(ID As String, PIN As String) As String
         Return RawCommand("CU" + ID + PIN)
     End Function
 
     ''' <summary>Sends Money Between Accounts</summary>
-    Public Function SM(Origin As String, Destination As String, Amount As Long) As String
-        Return RawCommand("SM" & Origin & Destination & Amount)
+    Public Function SM(User As User, OriginBank As String, Destination As String, Amount As Long) As String
+        Return AuthenticatedCommand(User, "SM" & String.Join(",", {OriginBank, Destination, Amount}))
     End Function
 
     ''' <summary>Transfers money between owned bank accounts</summary>
-    Public Function TM(ID As String, OriginBank As String, DestinationBank As String, Amount As Long) As String
-        Return RawCommand("TM" & ID & OriginBank & DestinationBank & Amount)
+    Public Function TM(User As User, OriginBank As String, DestinationBank As String, Amount As Long) As String
+        Return AuthenticatedCommand(User, "SM" & String.Join(",", {OriginBank, User.ID & "\" & DestinationBank, Amount}))
     End Function
 
     ''' <summary>Change Pin Request</summary>
-    Public Function ChangePin(ID As String, NEWPIN As String) As String
-        Return RawCommand("CP" + ID + NEWPIN)
+    Public Function ChangePin(User As User, NEWPIN As String) As String
+        Return AuthenticatedCommand(User, "CP" & NEWPIN)
     End Function
 
     ''' <summary>Returns Information on a Specific User</summary>

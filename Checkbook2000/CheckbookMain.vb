@@ -83,7 +83,7 @@ Public Class CheckbookMain
     Private Sub GetInboxItems() Handles BackgroundWorker1.DoWork
         bwerror = "ono"
 
-        Dim Servermsg = ReadChecks(MyUser.ID)
+        Dim Servermsg = ReadChecks(MyUser)
         If Servermsg = "N" Or Servermsg = "E" Or Servermsg = "F" Then
             bwerror = Servermsg
             Exit Sub

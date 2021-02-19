@@ -70,7 +70,7 @@ Public Class TransferMonet
 
 
         'Transfer the money
-        ServerMSG = TM(MyUser.ID, frombank, Tobank, transferamount)
+        ServerMSG = TM(MyUser, frombank, Tobank, transferamount)
         Select Case ServerMSG
             Case "1"
                 MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")

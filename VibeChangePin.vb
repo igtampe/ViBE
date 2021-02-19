@@ -5,8 +5,14 @@
     Private ServerMSG As String
     Private ID As String
     Private Pin As String
+    Private MyUser As User
 
     '--------------------------------[Buttons]--------------------------------
+
+    Public Sub New(User As User)
+        InitializeComponent()
+        MyUser = User
+    End Sub
 
     Private Sub TimeForANewPin() Handles OKBTN.Click
         Pin = NewPinTextBox.Text
@@ -30,7 +36,7 @@
     '--------------------------------[Background Worker]--------------------------------
 
     Private Sub SendNewPin(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        ServerMSG = ChangePin(ID, Pin)
+        ServerMSG = ChangePin(MyUser, Pin)
     End Sub
 
     Private Sub TheResults() Handles BackgroundWorker1.RunWorkerCompleted

@@ -105,7 +105,7 @@ Public Class CheckbookInbox
     End Sub
 
     Private Sub RemoveItem() Handles DELETTHIS.Click
-        Dim servermsg = RemoCheck(MyUser.ID, ListView1.SelectedIndices(0))
+        Dim servermsg = RemoCheck(MyUser, ListView1.SelectedIndices(0))
         Select Case servermsg
             Case "E"
                 MsgBox("A server side error has occurred. Contact CHOPO!", vbExclamation)
@@ -126,56 +126,27 @@ Public Class CheckbookInbox
     Private Sub ActionBTN_Click(sender As Object, e As EventArgs) Handles ActionBTN.Click
         Dim I As Integer
         I = ListView1.SelectedIndices(0)
-        Dim TheUser As String
+        Dim TheBank As String
         If UMSNBRButton.Checked Then
-            TheUser = MyUser.ID & "\UMSNB"
+            TheBank = "UMSNB"
         ElseIf GBANKRbutton.Checked Then
-            TheUser = MyUser.ID & "\GBANK"
+            TheBank = "GBANK"
         ElseIf RIVERRButton.Checked Then
-            TheUser = MyUser.ID & "\RIVER"
+            TheBank = "RIVER"
         Else
             MsgBox("Please Select a Bank to apply the check to, or to pay the bill from", MsgBoxStyle.Critical)
             Exit Sub
         End If
 
-        Dim TheSender As String
-        Dim Amount As Long
-        Dim ServerMSG As String
-
-
-        Amount = Inbox(I).Amount
-        TheSender = Inbox(I).FromBank
-
-        Select Case Inbox(I).Type
-            Case 0
-                ServerMSG = SM(TheSender, TheUser, Amount)
-                Select Case ServerMSG
-                    Case "1"
-                        MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")
-                    Case "E"
-                        MsgBox("The transaction could not be completed. The check may have bounced", vbInformation, "Transfer unsuccessful")
-                    Case "S"
-                        MsgBox("Successfully cashed the check through ViBE.", vbInformation, "Transfer Successful")
-                        RemoveItem()
-                End Select
-            Case 1
-                ServerMSG = SM(TheUser, TheSender, Amount)
-                Select Case ServerMSG
-                    Case "1"
-                        MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")
-                    Case "E"
-                        MsgBox("The transaction could not be completed. Do you have enough funds?", vbInformation, "Transfer unsuccessful")
-                    Case "S"
-                        MsgBox("The bill was successfully paid using ViBE.", vbInformation, "Transfer Successful")
-                        RemoveItem()
-                End Select
-            Case Else
-                MsgBox("Unknown transaction type", vbInformation, "Transfer unsuccessful")
+        Select Case ExecuteCheck(MyUser, I, TheBank)
+            Case "1"
+                MsgBox("Improperly Coded Vibing Request", vbInformation, "Transfer unsuccessful")
+            Case "E"
+                MsgBox("The transaction could not be completed. The check may have bounced", vbInformation, "Transfer unsuccessful")
+            Case "S"
+                MsgBox("Successfully executed the item through ViBE.", vbInformation, "Transfer Successful")
+                RemoveItem()
         End Select
-
-
-
-
 
     End Sub
 
@@ -183,7 +154,7 @@ Public Class CheckbookInbox
 
     Private Sub UpdateInbox() Handles BackgroundWorker1.DoWork
         BWError = "ono"
-        Dim Servermsg = ReadChecks(MyUser.ID)
+        Dim Servermsg = ReadChecks(MyUser)
         If Servermsg = "N" Or Servermsg = "E" Or Servermsg = "F" Then
             BWError = Servermsg
             Exit Sub

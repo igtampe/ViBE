@@ -8,7 +8,7 @@ Public Class NotificationsForm
         Public Notif As String
     End Structure
 
-    Private ReadOnly ID As String
+    Private ReadOnly MyUser As User
 
     Private BWError As String = "ono"
     Private notifs() As NotificationStructure
@@ -19,10 +19,10 @@ Public Class NotificationsForm
 
     ''' <summary>Creates a new Notification Form</summary>
     ''' <param name="ID">ID of the user whos notifs u want this window to display</param>
-    Public Sub New(ID As String)
+    Public Sub New(User As User)
         InitializeComponent()
-        Me.ID = ID
-        Text = "Notifications for " & ID
+        MyUser = User
+        Text = "Notifications for " & MyUser.ID
     End Sub
 
     Private Sub Begining() Handles Me.Shown
@@ -63,7 +63,7 @@ Public Class NotificationsForm
         BWError = "ono"
 
         'Get the notificaitons
-        Dim servermsg = ReadNotifs(ID)
+        Dim servermsg = ReadNotifs(myuser)
         If servermsg = "N" Or servermsg = "E" Then
             BWError = servermsg
             Exit Sub
@@ -112,7 +112,7 @@ Public Class NotificationsForm
 
     ''' <summary>Asks the server to remove the specified notification</summary>
     Private Sub RemoveNotificationBW_GET() Handles RemoveNotificationBW.DoWork
-        ServerMSG = RemoveNotif(ID, ReferencedObject)
+        ServerMSG = RemoveNotif(MyUser, ReferencedObject)
     End Sub
 
     ''' <summary>Parses server response, ensuring we did the do</summary>
@@ -135,7 +135,7 @@ Public Class NotificationsForm
 
     ''' <summary>Asks the server to clear notifications</summary>
     Private Sub ClearNotification_GET() Handles ClearAllNotificationsBW.DoWork
-        ServerMSG = ClearNotifs(ID)
+        ServerMSG = ClearNotifs(MyUser)
     End Sub
 
     ''' <summary>Parses server response, making sure the action was complated</summary>
