@@ -31,7 +31,7 @@ Public Class DownloadForm
         AddHandler client.DownloadFileCompleted, AddressOf Client_DownloadCompleted
 
         'Download the update, ~ asynchronously ~
-        client.DownloadFileAsync(New Uri("http://igtnet-w.ddns.net:100/vibe.exe"), "NewVibe.exe")
+        client.DownloadFileAsync(New Uri("http://" + IGTNET_IP + ":100/vibe.exe"), "NewVibe.exe")
 
     End Sub
 

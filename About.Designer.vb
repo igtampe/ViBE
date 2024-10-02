@@ -61,7 +61,7 @@ Partial Class About
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(267, 13)
         Me.Label3.TabIndex = 22
-        Me.Label3.Text = "Connected to The UMSWEB (IGTNET-W.DDNS.NET)"
+        Me.Label3.Text = "Connected to The UMSWEB (" + IGTNET_IP + ")"
         '
         'Label4
         '

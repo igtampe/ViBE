@@ -177,7 +177,7 @@ Public Class EZTaxMain
             'Try to download the file.
             Try
                 If File.Exists(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry2.csv") Then File.Delete(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry2.csv")
-                My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/uploadedreports/" & MyUser.ID & ".IncomeRegistry.csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry2.csv")
+                My.Computer.Network.DownloadFile("http://" + IGTNET_IP + ":100/uploadedreports/" & MyUser.ID & ".IncomeRegistry.csv", My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\EzTAX\" & MyUser.ID & ".IncomeRegistry2.csv")
             Catch ex As Exception
                 'Catch it just in case
                 MsgBox("EzTax could not download your IRF. You probably haven't uploaded it!", MsgBoxStyle.OkOnly + MsgBoxStyle.Critical, "EzTax IRF Downloader")
@@ -339,9 +339,9 @@ LabelNoDownload:
             InitialBW.ReportProgress(I)
 
             If File.Exists(Application.UserAppDataPath & "\ViBE\TaxInfo.txt") Then File.Delete(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
-            My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/TaxInfo.Txt", Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
+            My.Computer.Network.DownloadFile("http://" + IGTNET_IP + ":100/TaxInfo.Txt", Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
 
-                IWStatus = "Regenerating Tax Calculator"
+            IWStatus = "Regenerating Tax Calculator"
                 InitialBW.ReportProgress(I)
                 Calculator = New TaxCalc(Application.UserAppDataPath & "\ViBE\TaxInfo.txt")
 

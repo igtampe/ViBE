@@ -31,7 +31,7 @@ Public Class VibeLogin
     '================================================================================================'
 
     ''' <summary>This copy of ViBE's version ID</summary>
-    Public Shared VVer As Integer = 501
+    Public Shared VVer As Integer = 502
 
     '--------------------------------[Initialization]--------------------------------
 
@@ -39,15 +39,15 @@ Public Class VibeLogin
     Private Sub TimeToLoad() Handles Me.Load
 
         'Grab the 
-        Try
-            If File.Exists(Application.UserAppDataPath & "\cv.txt") Then File.Delete(Application.UserAppDataPath & "\cv.txt")
-            My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/ViBE.CV.txt", Application.UserAppDataPath & "\cv.txt")
-            FileOpen(1, Application.UserAppDataPath & "\cv.txt", OpenMode.Input)
-            CV = LineInput(1)
-            FileClose(1)
-        Catch
-            CV = -1
-        End Try
+        'Try
+        '    If File.Exists(Application.UserAppDataPath & "\cv.txt") Then File.Delete(Application.UserAppDataPath & "\cv.txt")
+        '    My.Computer.Network.DownloadFile("http://" + IGTNET_IP + ":100/ViBE.CV.txt", Application.UserAppDataPath & "\cv.txt")
+        '    FileOpen(1, Application.UserAppDataPath & "\cv.txt", OpenMode.Input)
+        '    CV = LineInput(1)
+        '    FileClose(1)
+        'Catch
+        '    CV = -1
+        'End Try
     End Sub
 
     ''' <summary>Handles the showtime operations</summary>

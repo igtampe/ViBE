@@ -78,7 +78,7 @@ Partial Class EzTaxAbout
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(330, 39)
         Me.Label4.TabIndex = 12
-        Me.Label4.Text = "Interfacing with ViBE Server on UMSWEB (Igtnet-w.ddns.net)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "This program isn't ac" &
+        Me.Label4.Text = "Interfacing with ViBE Server on UMSWEB (" + IGTNET_IP + ")" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "This program isn't ac" &
     "tually copyrighted, even if it says so on the front." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "It just looks cool" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'Quit

@@ -190,7 +190,7 @@ Public Class LandView
     ''' <summary>Downloads the specified file from the plotview directory in the igtnet to the temporary directory</summary>
     Public Shared Sub DownloadToTemp(filetodownload As String)
         If File.Exists(My.Computer.FileSystem.SpecialDirectories.Temp & "\" & filetodownload) Then File.Delete(My.Computer.FileSystem.SpecialDirectories.Temp & "\" & filetodownload)
-        My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/PlotView/" & filetodownload, My.Computer.FileSystem.SpecialDirectories.Temp & "\" & filetodownload)
+        My.Computer.Network.DownloadFile("http://" + IGTNET_IP + ":100/PlotView/" & filetodownload, My.Computer.FileSystem.SpecialDirectories.Temp & "\" & filetodownload)
     End Sub
 
     ''' <summary>SafeImageFromFile loads an image safely, rather than wrecklessly</summary>

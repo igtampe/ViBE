@@ -6,7 +6,7 @@ Imports System.Net.Sockets
 ''' </summary>
 Public Module ServerCommand
 
-    Const IP As String = “Igtnet-w.ddns.net”
+    Public Const IGTNET_IP As String = “ddns.igtampe.com”
     Public SessionID As String = ""
 
     Public Function RawCommand(ByVal ClientMSG As String, Optional IPOverride As String = "") As String
@@ -29,7 +29,7 @@ Public Module ServerCommand
             If Not String.IsNullOrEmpty(IPOverride.Trim) Then
                 tc.Connect(IPOverride, 757)
             Else
-                tc.Connect(IP, 757)
+                tc.Connect(IGTNET_IP, 757)
             End If
         Catch
             MsgBox("Unable to connect to the server.", MsgBoxStyle.Exclamation, "ViBE Error")

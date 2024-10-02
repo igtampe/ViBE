@@ -139,7 +139,7 @@ Public Class BankWindow
         Select Case ServerMSG
             Case "S"
                 Try
-                    My.Computer.Network.DownloadFile("http://igtnet-w.ddns.net:100/logs/" & myUser.ID & Bank & ".log", "Templog.log")
+                    My.Computer.Network.DownloadFile("http://" + IGTNET_IP + ":100/logs/" & MyUser.ID & Bank & ".log", "Templog.log")
                 Catch
                     ServerMSG = "E"
                 End Try
